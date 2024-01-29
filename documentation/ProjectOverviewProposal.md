@@ -22,6 +22,6 @@ The outcome should be a restaurant ordering system, where customers/waiters can 
 - Database
   - Lead: Chris
 - Server Logic
-  - Lead: Owen Kemp
+  - Lead: Owen
 - Menu Management via GUIs
   - Lead: Jehoshua
