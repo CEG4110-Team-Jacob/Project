@@ -1,7 +1,6 @@
 # Software Development Plan
 
 ## Administrivia
-* Meeting details: cadence, method, minutes, etc.
 Meetings: Agenda for the week, Evaluation of the previous week.
 
 ## Development Methodology
