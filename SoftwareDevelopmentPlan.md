@@ -15,13 +15,18 @@ Member Roles
   * Developer for User Interface
 * Owen
   * Setting up Server and Server Logic
+    * Public Facing APIs to allow the GUIs to work
+    * Authentication
+    * Server Sockets to allow for real time GUI updating
+    * Hosting the server
+    * Any kind of logic required on the server
 * Chris
   * Setting up the Database
 * Jehoshua
   * Developer for Menu Stuff
 
 Who makes the decisions?
-* Majority (in a tie choose a random one)
+* Vote by Majority within 6 hours in Discord (in a tie choose a random one)
 
 ## Milestones
 * Important Milestones that some combine the development methodology with constraints you cannot change (e.g., how long the course is).
