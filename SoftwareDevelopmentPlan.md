@@ -6,16 +6,18 @@ Meetings: Agenda for the week, Evaluation of the previous week.
 
 ## Development Methodology
 
-Agile: Meet at least once a week online.
+Agile: Meet at least once a week online through Discord.
 
 Each sprint will have:
 
 - Coding and Testing
 - Meeting to review and make an agenda for next.
 
+We will communicate through a Discord server to allow for fast communication.
+
 ## Responsibilities
 
-Everyone has a responsibility to make sure others are doing their work.
+Everyone has a responsibility to make sure others are doing their work and check Discord at least once a day.
 
 Anyone who gets done with their section should try to connect their section to others (Database to Server, Server to GUIs). After, they should try to help others.
 
