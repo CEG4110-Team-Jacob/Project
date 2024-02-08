@@ -57,5 +57,3 @@ Complete the Software Development Plan and Requirements over 2/10 to 2/11 and po
   - 2/22 Design Specification
   - 3/8 Minimum Viable Product
   - 4/4 Finish of Project
-
-- ## What should be done at the end of the course:
