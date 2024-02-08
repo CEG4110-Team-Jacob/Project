@@ -44,10 +44,18 @@ Who makes the decisions?
 
 - Vote by Majority within 6 hours in Discord (in a tie choose a random one)
 
+## Process to Develop
+
+Complete the Software Development Plan and Requirements over 2/10 to 2/11 and polish it until the deadline.  Work on Design specification until the 2/22.  Work on Minimum Viable Product and complete it for 3/8.  Then do alternating weeks of adding new content and testing until the finish of the project.
+
 ## Milestones
 
 - Important Milestones that some combine the development methodology with constraints you cannot change (e.g., how long the course is).
 
   - 2/14 Software Development Plan
+  - 2/15 Minimum Viable Product Requirements
+  - 2/22 Design Specification
+  - 3/8 Minimum Viable Product
+  - 4/4 Finish of Project
 
 - ## What should be done at the end of the course:
