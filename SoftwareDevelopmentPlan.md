@@ -48,6 +48,6 @@ Who makes the decisions?
 
 - Important Milestones that some combine the development methodology with constraints you cannot change (e.g., how long the course is).
 
-  - Two weeks (Software development plan and specifically what the project will be)
+  - 2/14 Software Development Plan
 
 - ## What should be done at the end of the course:
