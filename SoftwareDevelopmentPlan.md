@@ -23,6 +23,9 @@ Roles
 
 - Jacob
   - Developer for User Interface
+    - Making sure all of the options work properly
+    - Ensuring that the design stays consistent between sections
+    - Implementing features related to the host/management
 - Owen
   - Setting up Server and Server Logic
     - Public Facing APIs to allow the GUIs to work
