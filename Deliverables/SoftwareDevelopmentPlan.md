@@ -57,7 +57,7 @@ Complete the Software Development Plan and Requirements over 2/10 to 2/11 and po
 - Important Milestones that some combine the development methodology with constraints you cannot change (e.g., how long the course is).
 
   - 2/14 Software Development Plan
-  - 2/15 Minimum Viable Product Requirements
+  - 2/17 Minimum Viable Product Requirements
   - 2/22 Design Specification
   - 3/8 Minimum Viable Product
   - 4/4 Finish of Project
