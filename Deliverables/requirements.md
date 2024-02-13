@@ -1,2 +1,9 @@
+# Design Specifications
 
-MENU MANAGEMENT GUI: Tayo-Ayorinde Jehoshua
+## General
+
+## Database
+
+## Backend/Server
+
+## User Interface
