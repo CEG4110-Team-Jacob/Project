@@ -37,6 +37,10 @@ Roles
     - Any kind of logic required on the server
 - Chris
   - Setting up the Database
+      - Setting up Database logic and query specifications
+      - Establishing ER diagram
+      - Establishing views for different user types
+      - working serverside to establish changes to data values in real time
 - Jehoshua
   - Developer for Menu Stuff
 
