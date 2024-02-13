@@ -2,7 +2,7 @@
 
 ## Administrivia
 
-Meetings: Agenda for the week, Evaluation of the previous week.
+Meetings: Agenda for the week, Evaluation of the previous week. 20 minutes
 
 ## Development Methodology
 
