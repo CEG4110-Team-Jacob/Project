@@ -47,10 +47,7 @@ Roles
 Who makes the decisions?
 
 - Vote by Majority within 6 hours in Discord (in a tie choose a random one)
-
-## Process to Develop
-
-Complete the Software Development Plan and Requirements over 2/10 to 2/11 and polish it until the deadline.  Work on Design specification until the 2/22.  Work on Minimum Viable Product and complete it for 3/8.  Then do alternating weeks of adding new content and testing until the finish of the project.
+  - If someone posts a vote at night, the deadline would be until 10 A.M.
 
 ## Milestones
 
