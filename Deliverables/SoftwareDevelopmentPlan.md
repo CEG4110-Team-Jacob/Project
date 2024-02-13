@@ -60,4 +60,5 @@ Complete the Software Development Plan and Requirements over 2/10 to 2/11 and po
   - 2/17 Minimum Viable Product Requirements
   - 2/22 Design Specification
   - 3/8 Minimum Viable Product
+  - 4/1 Stop adding new features and get ready for final product.
   - 4/4 Finish of Project
