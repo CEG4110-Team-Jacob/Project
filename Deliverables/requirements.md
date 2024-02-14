@@ -1,4 +1,4 @@
-# Design Specifications
+# Minimum Viable Product Requirements
 
 ## General
 
