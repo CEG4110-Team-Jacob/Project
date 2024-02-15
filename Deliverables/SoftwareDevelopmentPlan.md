@@ -54,7 +54,7 @@ Who makes the decisions?
 
 ## Milestones
 
-- Important Milestones that some combine the development methodology with constraints you cannot change (e.g., how long the course is).
+- Important Milestones that some combine the development methodology with constraints you cannot change (e.g., how long the course is).  They all should be done by 11:59 P.M. of the day.
 
   - 2/14 Software Development Plan
   - 2/18 Minimum Viable Product Requirements
