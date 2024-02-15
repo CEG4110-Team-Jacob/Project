@@ -43,6 +43,9 @@ Roles
       - working serverside to establish changes to data values in real time
 - Jehoshua
   - Developer for Menu Stuff
+      - Making sure all buttons are working
+      - Ensuring that GUI is correlated to its proper functions
+      - Ensuring GUI is readable and user friendly 
 
 Who makes the decisions?
 
