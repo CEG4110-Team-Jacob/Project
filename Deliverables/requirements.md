@@ -45,6 +45,8 @@ One group of people that will use this product are restaurant owners. They would
 
 ## Assumptions and Dependencies
 
+We will assume that the server that is hosting the software will be running Linux (specifically Ubuntu) or Windows. The software will depend on some external tools/libraries that will be determined in the design specifications.
+
 # System Features and Requirements
 
 ## Functional Requirements
