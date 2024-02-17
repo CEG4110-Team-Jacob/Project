@@ -33,6 +33,12 @@ The purpose of this software is to increase the efficiciency and smooth operatio
 
 ## Definitions and Acronyms
 
+Application Programming Interface (API): "a set of rules or protocols that let software applications communicate with each other to exchange data, features and functionality" ([IBM](https://www.ibm.com/topics/api)).
+
+Database: "organized collection of structured information, or data, typically stored electronically in a computer system" ([Oracle](https://www.oracle.com/database/what-is-database/)).
+
+User Interface (UI): "the point of human-computer interaction and communication in a device. This can include display screens, keyboards, a mouse and the appearance of a desktop. It is also the way through which a user interacts with an application or a website" ([TechTarget](https://www.techtarget.com/searchapparchitecture/definition/user-interface-UI)).
+
 # Overall Description
 
 ## User Needs
@@ -70,5 +76,11 @@ We will assume that the server that is hosting the software will be running Linu
 6. Server shall allow real time updating data of the UIs.
 7. Server shall be able to connect to the database
    1. Shall be able to switch databases without a rewrite of the entire server.
+8. Server shall have good documentation on:
+   1. The initial dependencies to setup the server.
+   2. How to setup the server.
+   3. The configuration file.
+   4. Where the APIs are located via URL.
+   5. How to use each API.
 
 ## User Interface
