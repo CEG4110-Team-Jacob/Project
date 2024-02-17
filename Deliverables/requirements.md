@@ -1,4 +1,4 @@
-<h1 style="font-size:xxx-large"> Minimum Viable Product Requirements </h1>
+# Minimum Viable Product Requirements
 
 Design from [Perforce](https://www.perforce.com/blog/alm/how-write-software-requirements-specification-srs-document)
 
@@ -22,7 +22,8 @@ Design from [Perforce](https://www.perforce.com/blog/alm/how-write-software-requ
 # Introduction
 
 ## Purpose
-The purpose of this software is to increase the efficiciency and smooth operation of the end user. The software will ensure proper monitoring of inventory and financial resources. The product will improve waiter and table efficiency and improvement of customer experience. The product will ensure the restaurant's top priority of customer satisfaction. 
+
+The purpose of this software is to increase the efficiciency and smooth operation of the end user. The software will ensure proper monitoring of inventory and financial resources. The product will improve waiter and table efficiency and improvement of customer experience. The product will ensure the restaurant's top priority of customer satisfaction.
 
 ## Intended Audience
 
@@ -35,6 +36,12 @@ The purpose of this software is to increase the efficiciency and smooth operatio
 # Overall Description
 
 ## User Needs
+
+One group of people that will use this product are restaurant owners. They would want the product to be setup with minimum technical expertise. They may also want it to be easily customizable to allow them to design the user interface be specific to their brand and menu.
+
+(Insert customer)
+
+(Insert staff)
 
 ## Assumptions and Dependencies
 
