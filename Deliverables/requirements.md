@@ -22,6 +22,7 @@ Design from [Perforce](https://www.perforce.com/blog/alm/how-write-software-requ
 # Introduction
 
 ## Purpose
+The purpose of this software is to increase the efficiciency and smooth operation of the end user. The software will ensure proper monitoring of inventory and financial resources. The product will improve waiter and table efficiency and improvement of customer experience. The product will ensure the restaurant's top priority of customer satisfaction. 
 
 ## Intended Audience
 
