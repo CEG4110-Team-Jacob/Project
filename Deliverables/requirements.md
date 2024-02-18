@@ -57,9 +57,11 @@ Minimum Viable Product (MVP): "a product with enough features to attract early-a
 
 One group of people that will use this product are restaurant owners. They would want the product to be setup with minimum technical expertise. They may also want it to be easily customizable to allow them to design the user interface be specific to their brand and menu.
 
-(Insert customer)
+Another group of people that the product will be of use to are the customers. They would have the ability to leave reviews on their experience in the restaurant.
 
-(Insert staff)
+The product will help the staff in things like table management. The staff especially the waiters would know what table(s) that they are assigned to. The staff both front staff and back staff would have knowledge of the inventory helping them know what things can be sold to the customers. 
+
+There would be a smoother communication between front end and back end staff. This would help with the front end staff relay what things the customers what and what time the things are available for pick up. 
 
 ## Assumptions and Dependencies
 
