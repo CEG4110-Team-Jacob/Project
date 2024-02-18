@@ -78,6 +78,10 @@ We will assume that the server that is hosting the software will be running Linu
    2. The waiters should be able to order foods/drinks that the cooks can see in real time.
    3. The cooks should be able to manage the state of the order. For example, cooking, ready.
    4. The waiters should be informed when the food is ready to serve.
+  
+2. The product should have a constantly updating inventory.
+3. The product should be able to manage staff account.
+4. The product should be able to manage the menu.
 
 ## Database
 
