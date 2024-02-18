@@ -59,9 +59,9 @@ One group of people that will use this product are restaurant owners. They would
 
 Another group of people that the product will be of use to are the customers. They would have the ability to leave reviews on their experience in the restaurant.
 
-The product will help the staff in things like table management. The staff especially the waiters would know what table(s) that they are assigned to. The staff both front staff and back staff would have knowledge of the inventory helping them know what things can be sold to the customers. 
+The product will help the staff in things like table management. The staff especially the waiters would know what table(s) that they are assigned to. The staff both front staff and back staff would have knowledge of the inventory helping them know what things can be sold to the customers.
 
-There would be a smoother communication between front end and back end staff. This would help with the front end staff relay what things the customers what and what time the things are available for pick up. 
+There would be a smoother communication between front end and back end staff. This would help with the front end staff relay what things the customers what and what time the things are available for pick up.
 
 ## Assumptions and Dependencies
 
@@ -72,9 +72,12 @@ We will assume that the server that is hosting the software will be running Linu
 ## Functional Requirements
 
 1. The software should manage orders.
-   1. The waiters should be able to order foods/drinks that the cooks can see in real time.
-   2. The cooks should be able to manage the state of the order. For example, cooking, ready.
-   3. The waiters should be informed when the food is ready to serve.
+   1. An order consists of food/drinks, dates when the order was placed and when it was completed, a state of completion, waiter who placed it, an id, and total price.
+      1. The waiter should only see the date placed, the food, completion state, and price.
+      2. The cook should only see the food, when it was placed, and state of completion.
+   2. The waiters should be able to order foods/drinks that the cooks can see in real time.
+   3. The cooks should be able to manage the state of the order. For example, cooking, ready.
+   4. The waiters should be informed when the food is ready to serve.
 
 ## Database
 
