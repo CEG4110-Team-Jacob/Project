@@ -77,6 +77,19 @@ We will assume that the server that is hosting the software will be running Linu
    3. The waiters should be informed when the food is ready to serve.
 
 ## Database
+1. Database will allow for different view configurations
+   1. Waiters will have access to food and drink data as well as data that can calculate for serving time
+   2. Cooks will have access to order based data
+   3. Owners have access to table layout data
+2. Database will communicate with server for real time data gathering and updating using server api
+   1. The database will use SQL while the server will use JDBC to communicate with the database
+3. Database will use a relational database management system model
+4. Database will have documentation on the following
+   1. How to perform queries, data insertion, item addition and deletion
+   2. How to perform initial database setup
+   3. The configuration file
+   4. How to set up seperate views
+
 
 ## Backend/Server
 
