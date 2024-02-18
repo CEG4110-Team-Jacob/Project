@@ -49,6 +49,8 @@ Database: "organized collection of structured information, or data, typically st
 
 User Interface (UI): "the point of human-computer interaction and communication in a device. This can include display screens, keyboards, a mouse and the appearance of a desktop. It is also the way through which a user interacts with an application or a website" ([TechTarget](https://www.techtarget.com/searchapparchitecture/definition/user-interface-UI)).
 
+Minimum Viable Product (MVP): "a product with enough features to attract early-adopter customers and validate a product idea early in the product development cycle. In industries such as software, the MVP can help the product team receive user feedback as quickly as possible to iterate and improve the product" ([ProductPlan](https://www.productplan.com/glossary/minimum-viable-product/)).
+
 # Overall Description
 
 ## User Needs
