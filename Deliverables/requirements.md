@@ -35,6 +35,8 @@ The host will use this software in order to increase seating efficiency and chec
 
 ## Product Scope
 
+This software is intended to improve restaurant efficiency and customer experience, which can in turn lead to more profit for the owner and shareholders. The current goal is to deliver a minimum viable product for availability.
+
 ## Definitions and Acronyms
 
 Application Programming Interface (API): "a set of rules or protocols that let software applications communicate with each other to exchange data, features and functionality" ([IBM](https://www.ibm.com/topics/api)).
