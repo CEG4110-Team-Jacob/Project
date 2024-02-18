@@ -27,9 +27,13 @@ The purpose of this software is to increase the efficiciency and smooth operatio
 
 ## Intended Audience
 
+This document is intended for the developers to help them develop a usable software. It is also intended for any stakeholders to understand what software the developers intend to build.
+
 This software is intended for use by the host and wait staff positions. The restaurant owner will also have access to the software.
 
 ## Intended Use
+
+The intended use of this document is to define some minimum features the software will have when it is delivered. This will allow the developers to focus on the features that matter and others to understand what the software features.
 
 The host will use this software in order to increase seating efficiency and checking for strain in the waiters' individual sections. The waiter's use of this software will be access to inventory data in order to see what items are available. The owner will have configuration privileges.
 
