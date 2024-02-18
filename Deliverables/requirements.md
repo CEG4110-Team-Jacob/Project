@@ -69,6 +69,11 @@ We will assume that the server that is hosting the software will be running Linu
 
 ## Functional Requirements
 
+1. The software should manage orders.
+   1. The waiters should be able to order foods/drinks that the cooks can see in real time.
+   2. The cooks should be able to manage the state of the order. For example, cooking, ready.
+   3. The waiters should be informed when the food is ready to serve.
+
 ## Database
 
 ## Backend/Server
