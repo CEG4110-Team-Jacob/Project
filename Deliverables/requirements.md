@@ -1,4 +1,4 @@
-# Minimum Viable Product Requirements
+# Restaurant Ordering System Requirements
 
 Design from [Perforce](https://www.perforce.com/blog/alm/how-write-software-requirements-specification-srs-document)
 
@@ -23,7 +23,7 @@ Design from [Perforce](https://www.perforce.com/blog/alm/how-write-software-requ
 
 ## Purpose
 
-The purpose of this software is to increase the efficiciency and smooth operation of the end user. The software will ensure proper monitoring of inventory and financial resources. The product will improve waiter and table efficiency and improvement of customer experience. The product will ensure the restaurant's top priority of customer satisfaction.
+The purpose of this software is to increase the efficiciency and smooth operation of restaurants taking food/beverage orders. This includes software that allows waiters to take orders easily on a device. The product will improve waiter, table efficiency, and customer experience. The product will ensure that the restaurant's top priority is customer satisfaction.
 
 ## Intended Audience
 
