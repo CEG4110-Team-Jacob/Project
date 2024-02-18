@@ -27,7 +27,11 @@ The purpose of this software is to increase the efficiciency and smooth operatio
 
 ## Intended Audience
 
+This software is intended for use by the host and wait staff positions. The restaurant owner will also have access to the software.
+
 ## Intended Use
+
+The host will use this software in order to increase seating efficiency and checking for strain in the waiters' individual sections. The waiter's use of this software will be access to inventory data in order to see what items are available. The owner will have configuration privileges.
 
 ## Product Scope
 
