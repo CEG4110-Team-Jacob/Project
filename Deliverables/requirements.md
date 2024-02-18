@@ -47,6 +47,12 @@ Application Programming Interface (API): "a set of rules or protocols that let s
 
 Database: "organized collection of structured information, or data, typically stored electronically in a computer system" ([Oracle](https://www.oracle.com/database/what-is-database/)).
 
+Relational Database: "a type of database that store and organize data points with defined relationships for fast access" ([Microsoft Azure](https://azure.microsoft.com/en-us/resources/cloud-computing-dictionary/what-is-a-relational-database/?ef_id=_k_CjwKCAiA8sauBhB3EiwAruTRJhWk66wnEY7wl2YO85tTu3OlnYSV0-RI5IwkS3k8PMMEYL4hNIK1UhoC99gQAvD_BwE_k_&OCID=AIDcmme9zx2qiz_SEM__k_CjwKCAiA8sauBhB3EiwAruTRJhWk66wnEY7wl2YO85tTu3OlnYSV0-RI5IwkS3k8PMMEYL4hNIK1UhoC99gQAvD_BwE_k_&gad_source=1&gclid=CjwKCAiA8sauBhB3EiwAruTRJhWk66wnEY7wl2YO85tTu3OlnYSV0-RI5IwkS3k8PMMEYL4hNIK1UhoC99gQAvD_BwE))
+
+Java Database Connectivity (JDBC): "the JavaSoft specification of a standard application programming interface (API) that allows Java programs to access database management systems." ([IBM](https://www.ibm.com/docs/en/informix-servers/12.10?topic=started-what-is-jdbc))
+
+Structured Query Language (SQL): "a programming language for storing and processing information in a relational database" ([AWS](https://aws.amazon.com/what-is/sql/#:~:text=Structured%20query%20language%20(SQL)%20is%20a%20standard%20language%20for%20database,undergoes%20continual%20upgrades%20and%20improvements.))
+
 User Interface (UI): "the point of human-computer interaction and communication in a device. This can include display screens, keyboards, a mouse and the appearance of a desktop. It is also the way through which a user interacts with an application or a website" ([TechTarget](https://www.techtarget.com/searchapparchitecture/definition/user-interface-UI)).
 
 Minimum Viable Product (MVP): "a product with enough features to attract early-adopter customers and validate a product idea early in the product development cycle. In industries such as software, the MVP can help the product team receive user feedback as quickly as possible to iterate and improve the product" ([ProductPlan](https://www.productplan.com/glossary/minimum-viable-product/)).
