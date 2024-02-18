@@ -78,7 +78,7 @@ We will assume that the server that is hosting the software will be running Linu
 ## Functional Requirements
 
 1. The software should manage orders.
-   1. An order consists of food/drinks, dates when the order was placed and when it was completed, a state of completion, waiter who placed it, an id, and total price.
+   1. An order consists of food/drinks, date and time when the order was placed and when it was completed, a state of completion, waiter who placed it, an id, and total price.
       1. The waiter should only see the date placed, the food, completion state, and price.
       2. The cook should only see the food, when it was placed, and state of completion.
    2. The waiters should be able to order foods/drinks that the cooks can see in real time.
