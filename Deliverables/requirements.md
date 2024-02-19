@@ -86,8 +86,11 @@ We will assume that the server that is hosting the software will be running Linu
    4. The waiters should be informed when the food is ready to serve.
   
 2. The product should have a constantly updating inventory.
-3. The product should be able to manage staff account.
-4. The product should be able to manage the menu.
+     1. The inventory would consist of items like food and drinks that are available in the restaurant.
+     2. The cook and the waiters should be able to see the inventory.
+        
+4. The product should be able to manage staff account.
+5. The product should be able to manage the menu.
 
 ## Database
 1. Database will allow for different view configurations
