@@ -84,13 +84,14 @@ We will assume that the server that is hosting the software will be running Linu
    2. The waiters should be able to order foods/drinks that the cooks can see in real time.
    3. The cooks should be able to manage the state of the order. For example, cooking, ready.
    4. The waiters should be informed when the food is ready to serve.
-  
-2. The product should have a constantly updating inventory.
-     1. The inventory would consist of items like food and drinks that are available in the restaurant.
-     2. The cook and the waiters should be able to see the inventory.
         
-4. The product should be able to manage staff account.
-5. The product should be able to manage the menu.
+2. The product should be able to manage staff account.
+     1. Staff account should conist of first name, last name, work ID, login time, logout time, work hours, age, sex, job ID, job title. 
+3. The product should be able to manage the menu.
+      1. The menu should consists of name, type of dish, price.
+      2. The menu should stay constantly updated.
+      3. The menu should be able to be changed depending on the restaurant.
+   
 
 ## Database
 1. Database will allow for different view configurations
