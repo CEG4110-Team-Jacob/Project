@@ -8,7 +8,7 @@
 
 Framework: [Java Spring](https://spring.io/)
 
-Tools: Maven, Java 21
+Tools: [Maven](https://maven.apache.org/), [Java 21](https://www.java.com/en/)
 
 1. The server will be tested via the test package within Spring
   1. The integration testing will be within its own separate package that tests many different practical API combinations.
