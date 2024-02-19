@@ -140,8 +140,16 @@ We will assume that the server that is hosting the software will be running Linu
      1. The user shall be able to assign groups of tables to certain waitstaff.
      2. The user shall be able to view the tables that each waitstaff are responsible for.
 3. The software shall allow the user to reconfigure the table layout.
-     1. The user shall be able to move, add, and remove tables as necessary.
-4. The software shall allow a user to swap to a different account.
+     1. Managerial staff shall be able to move, add, and remove tables as necessary.
+4. The software shall allow the user to reconfigure the menu.
+      1. Managerial staff shall be able to add and remove items from the menu.
+      2. Managerial staff shall be able to edit the price of menu items.
+5. The software shall allow a user to swap to a different account.
      1. The amount of features usable by a specific user shall be dependent on the specific type of user.
-     2. Managerial staff shall have access to all of the features.
-5. The user shall be able to change views between the restaurant layout and information about the menu and orders.
+     2. Managerial staff shall have access to all of the features that other staff members have access to.
+           1. Managerial staff shall be able to view the current status of other staff members.
+           2. Managerial staff shall be able to message all staff members.
+6. The user shall be able to change views between the restaurant layout and information about the menu and orders.
+7. The User Interface shall have proper documentation.
+      1. Documentation will be included for how to use the User Interface as each different staff position.
+            1. This includes managerial staff, waitstaff, host staff, and kitchen staff.
