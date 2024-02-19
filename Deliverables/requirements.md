@@ -129,3 +129,14 @@ We will assume that the server that is hosting the software will be running Linu
    5. How to use each API.
 
 ## User Interface
+
+1. The software shall be able to be closed using a button labeled 'exit'.
+2. The software shall allow the selection of individual tables.
+     1. The user shall be able to assign groups of tables to certain waitstaff.
+     2. The user shall be able to view the tables that each waitstaff are responsible for.
+3. The software shall allow the user to reconfigure the table layout.
+     1. The user shall be able to move, add, and remove tables as necessary.
+4. The software shall allow a user to swap to a different account.
+     1. The amount of features usable by a specific user shall be dependent on the specific type of user.
+     2. Managerial staff shall have access to all of the features.
+5. The user shall be able to change views between the restaurant layout and information about the menu and orders.
