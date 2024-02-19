@@ -151,5 +151,5 @@ We will assume that the server that is hosting the software will be running Linu
            2. Managerial staff shall be able to message all staff members.
 6. The user shall be able to change views between the restaurant layout and information about the menu and orders.
 7. The User Interface shall have proper documentation.
-      1. Documentation will be included for how to use the User Interface as each different staff position.
-            1. This includes managerial staff, waitstaff, host staff, and kitchen staff.
+      1. Documentation shall be included for how to use the User Interface as each different staff position.
+            1. This shall include managerial staff, waitstaff, host staff, and kitchen staff.
