@@ -51,7 +51,7 @@ Relational Database: "a type of database that store and organize data points wit
 
 Java Database Connectivity (JDBC): "the JavaSoft specification of a standard application programming interface (API) that allows Java programs to access database management systems." ([IBM](https://www.ibm.com/docs/en/informix-servers/12.10?topic=started-what-is-jdbc))
 
-Structured Query Language (SQL): "a programming language for storing and processing information in a relational database" ([AWS](https://aws.amazon.com/what-is/sql/#:~:text=Structured%20query%20language%20(SQL)%20is%20a%20standard%20language%20for%20database,undergoes%20continual%20upgrades%20and%20improvements.))
+Structured Query Language (SQL): "a programming language for storing and processing information in a relational database" ([AWS](<https://aws.amazon.com/what-is/sql/#:~:text=Structured%20query%20language%20(SQL)%20is%20a%20standard%20language%20for%20database,undergoes%20continual%20upgrades%20and%20improvements.>))
 
 User Interface (UI): "the point of human-computer interaction and communication in a device. This can include display screens, keyboards, a mouse and the appearance of a desktop. It is also the way through which a user interacts with an application or a website" ([TechTarget](https://www.techtarget.com/searchapparchitecture/definition/user-interface-UI)).
 
@@ -84,17 +84,17 @@ We will assume that the server that is hosting the software will be running Linu
    2. The waiters should be able to order foods/drinks that the cooks can see in real time.
    3. The cooks should be able to manage the state of the order. For example, cooking, ready.
    4. The waiters should be informed when the food is ready to serve.
-   5. The tables should be assigned to the waiters. 
-        
-2. The product should be able to manage staff account.
-     1. Staff account should conist of first name, last name, work ID, login time, logout time, work hours, age, sex, job ID, job title. 
+   5. The tables should be assigned to the waiters.
+2. The managers should be able to manage staff accounts.
+   1. Staff account should conist of first name, last name, work ID, login time, logout time, work hours, age, sex, job ID, job title.
+   2. Managers shall also be able to create accounts for employees.
 3. The product should be able to manage the menu.
-      1. The menu should consists of name, type of dish, price, description. 
-      2. The menu should stay constantly updated.
-      3. The menu should be able to be changed depending on the restaurants needs.
-   
+   1. The menu should consists of name, type of dish, price, description, and availability.
+   2. The menu should stay constantly updated.
+   3. The menu should be able to be changed depending on the restaurants needs by the manager.
 
 ## Database
+
 1. Database will allow for different view configurations
    1. Waiters will have access to food and drink data as well as data that can calculate for serving time
    2. Cooks will have access to order based data
@@ -107,7 +107,6 @@ We will assume that the server that is hosting the software will be running Linu
    2. How to perform initial database setup
    3. The configuration file
    4. How to set up seperate views
-
 
 ## Backend/Server
 
@@ -137,19 +136,19 @@ We will assume that the server that is hosting the software will be running Linu
 
 1. The software shall be able to be closed using a button labeled 'exit'.
 2. The software shall allow the selection of individual tables.
-     1. The user shall be able to assign groups of tables to certain waitstaff.
-     2. The user shall be able to view the tables that each waitstaff are responsible for.
+   1. The user shall be able to assign groups of tables to certain waitstaff.
+   2. The user shall be able to view the tables that each waitstaff are responsible for.
 3. The software shall allow the user to reconfigure the table layout.
-     1. Managerial staff shall be able to move, add, and remove tables as necessary.
+   1. Managerial staff shall be able to move, add, and remove tables as necessary.
 4. The software shall allow the user to reconfigure the menu.
-      1. Managerial staff shall be able to add and remove items from the menu.
-      2. Managerial staff shall be able to edit the price of menu items.
+   1. Managerial staff shall be able to add and remove items from the menu.
+   2. Managerial staff shall be able to edit the price of menu items.
 5. The software shall allow a user to swap to a different account.
-     1. The amount of features usable by a specific user shall be dependent on the specific type of user.
-     2. Managerial staff shall have access to all of the features that other staff members have access to.
-           1. Managerial staff shall be able to view the current status of other staff members.
-           2. Managerial staff shall be able to message all staff members.
+   1. The amount of features usable by a specific user shall be dependent on the specific type of user.
+   2. Managerial staff shall have access to all of the features that other staff members have access to.
+      1. Managerial staff shall be able to view the current status of other staff members.
+      2. Managerial staff shall be able to message all staff members.
 6. The user shall be able to change views between the restaurant layout and information about the menu and orders.
 7. The User Interface shall have proper documentation.
-      1. Documentation shall be included for how to use the User Interface as each different staff position.
-            1. This shall include managerial staff, waitstaff, host staff, and kitchen staff.
+   1. Documentation shall be included for how to use the User Interface as each different staff position.
+      1. This shall include managerial staff, waitstaff, host staff, and kitchen staff.
