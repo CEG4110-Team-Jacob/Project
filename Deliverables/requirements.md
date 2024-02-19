@@ -77,20 +77,21 @@ We will assume that the server that is hosting the software will be running Linu
 
 ## Functional Requirements
 
-1. The software should manage orders.
+1. The product should manage orders.
    1. An order consists of food/drinks, date and time when the order was placed and when it was completed, a state of completion, waiter who placed it, an id, and total price.
       1. The waiter should only see the date placed, the food, completion state, and price.
       2. The cook should only see the food, when it was placed, and state of completion.
    2. The waiters should be able to order foods/drinks that the cooks can see in real time.
    3. The cooks should be able to manage the state of the order. For example, cooking, ready.
    4. The waiters should be informed when the food is ready to serve.
+   5. The tables should be assigned to the waiters. 
         
 2. The product should be able to manage staff account.
      1. Staff account should conist of first name, last name, work ID, login time, logout time, work hours, age, sex, job ID, job title. 
 3. The product should be able to manage the menu.
-      1. The menu should consists of name, type of dish, price.
+      1. The menu should consists of name, type of dish, price, description. 
       2. The menu should stay constantly updated.
-      3. The menu should be able to be changed depending on the restaurant.
+      3. The menu should be able to be changed depending on the restaurants needs.
    
 
 ## Database
