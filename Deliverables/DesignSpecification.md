@@ -22,6 +22,8 @@ Tools: [Maven](https://maven.apache.org/), [Java 21](https://www.oracle.com/java
    1. When an API is accessed, the server will check if the token is valid, and the token can access the API.
    2. The server will consistently send back JSON formatted data.
 6. The server will allow for real time updating via websockets by the plugin Websockets in Spring.
-7. The server will have documentation via Github Wiki on this Github repository.
+7. The server will connect to the database via the Spring plugin JDBC.
+   1. To allow for the switching of databases, the logic for the specific database will be separate from the server logic. 
+9. The server will have documentation via Github Wiki on this Github repository under the section [Server](https://github.com/CEG4110-Team-Jacob/Project/wiki/Server).  
 
 ## User Interface
