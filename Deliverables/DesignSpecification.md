@@ -13,7 +13,15 @@ Tools: [Maven](https://maven.apache.org/), [Java 21](https://www.oracle.com/java
 1. The server will be tested via the test package within Spring.
    1. The integration testing will be within its own separate package that tests many different practical API combinations.
    2. The unit testing will be within a package called test. The unit tests for each file will be in a file in test with a similar path.
-1. The server will be configurable via a file called .config.json. Json files allow for easy configuration.
-1. The only initial dependencies needed are Maven and Java 21. The rest of the dependencies can be installed via Maven automatically. Maven can also build and run the server with one command.
+2. The server will be configurable via a file called .config.json. Json files allow for easy configuration.
+3. The only initial dependencies needed are Maven and Java 21. The rest of the dependencies can be installed via Maven automatically. Maven can also build and run the server with one command.
+4. The frontend will send the login information to the server via a POST request.  
+   1. The server will confirm the login information by accessing the database and checking if the username and password hash is correct.  If it is incorrect, return an invalid credentials error.
+   2. If it is correct, return a token that will allow the user to access information via GET requests.
+5. The web plugin for Spring has the ability to open up APIs.
+   1. When an API is accessed, the server will check if the token is valid, and the token can access the API.
+   2. The server will consistently send back JSON formatted data.
+6. The server will allow for real time updating via websockets by the plugin Websockets in Spring.
+7. The server will have documentation via Github Wiki on this Github repository.
 
 ## User Interface
