@@ -27,3 +27,11 @@ Tools: [Maven](https://maven.apache.org/), [Java 21](https://www.oracle.com/java
 9. The server will have documentation via Github Wiki on this Github repository under the section [Server](https://github.com/CEG4110-Team-Jacob/Project/wiki/Server).  
 
 ## User Interface
+
+- The product manages orders that are taken down by the waiters.
+- The product displays all the orders that were made by the waiter. The product also shows the state of the meal that was ordered.
+- The product give the manager the ability to assign waiters to tables.
+- THe product give the cook the ability to see the orders as soon as they made.
+- The product gives the manager the ability to manage staff.
+     - Management includes creation of account for new staff, termination of account, ability to see the number of work hours, name etc.
+- The product can manage the menu by adding and removing products from it. Also adjusting the names of the items sold. 
