@@ -86,7 +86,7 @@ We will assume that the server that is hosting the software will be running Linu
    4. The waiters should be informed when the food is ready to serve.
    5. The tables should be assigned to the waiters.
 2. The managers should be able to manage staff accounts.
-   1. Staff account should conist of first name, last name, work ID, login time, logout time, work hours, age, sex, job ID, job title.
+   1. Staff account should conist of first name, last name, work ID, login time, logout time, work hours, age, job title.
    2. Managers shall also be able to create accounts for employees.
 3. The product should be able to manage the menu.
    1. The menu should consists of name, type of dish, price, description, and availability.
