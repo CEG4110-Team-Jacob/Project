@@ -47,4 +47,28 @@ Tools: [Maven](https://maven.apache.org/), [Java 21](https://www.oracle.com/java
 9. The server will have documentation via Github Wiki on this Github repository under the section [Server](https://github.com/CEG4110-Team-Jacob/Project/wiki/Server).  
 
 ## User Interface
-
+1. The waiter's section will display information regarding their current table assignments and the status of those tables.
+   1. Selecting a table will show the table number, time of order, and the order.
+      1. Selecting the order will show the total price, and the list of items.
+   2. The waiter's section will also display any items that are on the menu but cannot be made due to stock limitations.
+2. The cook's section will display information regarding the current orders that have been sent to the kitchen, and the status of those orders.
+   1. The orders will be arranged in a list prioritizing both time and completion of a full table's worth of orders.
+   2. The cook will be able to check a box that says that the order is done and ready to be picked up.
+3. The manager's section will display information regarding all of the employees and the menu.
+   1. The manager will be able to choose a section that they want more information on. These sections will include "Menu", "Staff", "Current Orders" and "Tables".
+      1. The "Menu" section will display the menu along with a button labeled "edit" at the top of the page. If the button is clicked, the manager will be able to add, remove, or otherwise edit items in the menu.
+         1. This section will also display information regarding current stock of items. Anything that is on the menu but unable to be made will be placed at the top of the list.
+      3. In the "Staff" section, there will be a button that displays all the workers, the login time, and total work hours.
+         1. Selecting a specific staff memeber will display further information about them, including but not limited to, role, name, hours worked by week, etc.
+         2. This section will also include a button that allows manangers to delete the account of a particular staff member.
+         3. This section will also include a button that allows manager to create a new account for a new employee. This will require input of the new employee's information and will create an account for them.
+      4. In the "Current Orders" section all of the active orders will be displayed. Selecting a particular order will show the table number, and waiter assigned to the table, along with the order's status.
+      5. In the "Tables" section, each tables will be displayed along with the table's current status.
+         1. This section will allow mamangers to see which waiter is assigned to which table.
+         2. This section will also allow managers to select tables and assign waiters to groups of tables.
+4. The host's section will display information regarding the restaurant's tables and layout.
+   1. Each table will be colored according to its current status.
+      1. A green table will be vacant and ready.
+      2. A red table will be occupied.
+      3. A gray table will be a table that is not currently in use.
+5. The user interface will be programmed using [Java Swing](https://docs.oracle.com/javase/tutorial/uiswing/)
