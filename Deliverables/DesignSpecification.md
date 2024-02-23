@@ -23,6 +23,30 @@
 5. In the table section, the tables will be displayed and the status of each table will also be displayed. 
 
 ## Database
+Tools: [Oracle XE](https://www.oracle.com/database/technologies/appdev/xe.html)
+1. The database will use a relational database model
+2. The database will use Oracle XE.
+3. The logical database schema shall be as follows:
+      1. There will be four tables for cooks, waiters, tables
+            1. Cooks will be related to waiters
+            2. Waiters will be related to the cooks and tables tables
+            3. tables will be related to waiters
+      2. Cooks, waiters, and tables will all have unique keys which will also be used as foreign keys
+      3. Orders will be a field in the tables' table
+      4. Logical Constraints must be placed such that unique IDs exist for all table entries
+            1. Further constraints will be placed om the waiter and cook tables such that valid entries require first names, last names, and contact information
+4. The database views will be as follows:
+      1. The manager will have access to all tables
+      2. Waiters will have access to a limited form of the tables table in regards to orders
+      3. Cooks will have access to the waiters table data on orders assosciated with the waiters
+      4. Hosts/Hostesses will have access to a limited form of the tables table in regards to table occupancy
+5. The database can communicate in real time with the servers as the Oracle XE Database can allow the Java based server to communicate with the database via JDBC
+6. The database will have documentation on the following:
+      1. How to perform queries, item addition and deletion, and data insertion
+      2. How to perform the initial data setup
+      3. The configuration file
+      4. How to set up the seperate views for roles
+      5. All documentation will be found under the [Database](https://github.com/CEG4110-Team-Jacob/Project/wiki/Database) section of the Github Wiki
 
 ## Server
 
