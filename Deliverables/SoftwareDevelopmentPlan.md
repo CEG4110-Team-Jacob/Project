@@ -58,7 +58,6 @@ Who makes the decisions?
 
   - 2/14 Software Development Plan
   - 2/18 Minimum Viable Product Requirements
-  - 2/22 Design Specification
-  - 3/15 Minimum Viable Product
-  - 4/1 Stop adding new features and get ready for final product.
-  - 4/4 Finish of Project
+  - 2/22 Minimum Design Specification
+  - 3/29 Minimum Viable Product
+  - 4/5 Final Requirements and Design Specifications
