@@ -52,7 +52,7 @@ Tools: [Oracle XE](https://www.oracle.com/database/technologies/appdev/xe.html)
 
 Framework: [Java Spring](https://spring.io/)
 
-Tools: [Maven](https://maven.apache.org/), [Java 21](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
+Tools: [Gradle](https://gradle.org/), [Java 21](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
 
 1. The server will be tested via the test package within Spring.
    1. The integration testing will be within its own separate package that tests many different practical API combinations.
