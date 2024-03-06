@@ -24,7 +24,7 @@ public class Controller {
             @RequestParam(value = "id") int orderId) {
         Worker worker = userRepository.authenticate(token);
         if (worker == null)
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         Order test = new Order();
         test.setId(10);
         return new ResponseEntity<Order>(test, HttpStatus.OK);
