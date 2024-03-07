@@ -2,9 +2,7 @@ package com.restaurantsystem.api.data;
 
 import java.util.List;
 
-enum Status {
-    Completed, Order, InProgress
-}
+import com.restaurantsystem.api.data.enums.Status;
 
 public class Order {
     private int id;

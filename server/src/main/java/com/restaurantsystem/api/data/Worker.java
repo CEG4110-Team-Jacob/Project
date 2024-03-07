@@ -1,8 +1,6 @@
 package com.restaurantsystem.api.data;
 
-enum Job {
-    Waiter, Host, Manager, Cook
-}
+import com.restaurantsystem.api.data.enums.Job;
 
 public class Worker {
     private int id;

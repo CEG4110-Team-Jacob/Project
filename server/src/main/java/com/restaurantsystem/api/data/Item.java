@@ -1,13 +1,11 @@
 package com.restaurantsystem.api.data;
 
-enum Type {
-    Beverage, Food
-}
+import com.restaurantsystem.api.data.enums.ItemType;
 
 public class Item {
     private String name;
     private String description;
-    private Type type;
+    private ItemType type;
     private int price; // Price in cents
     private boolean inStock;
 
@@ -19,11 +17,11 @@ public class Item {
         this.name = name;
     }
 
-    public Type getType() {
+    public ItemType getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(ItemType type) {
         this.type = type;
     }
 
