@@ -2,6 +2,7 @@ package com.restaurantsystem.api.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -19,9 +20,9 @@ public class AuthenticationServiceTest {
 
     @Test
     void login() {
-        assertNull(authenticationService.login("LOLNOPE", ""));
+        assertTrue(authenticationService.login("LOLNOPE", "").isEmpty());
         // FIXME login is returning null
-        assertEquals(authenticationService.login("test", ""), "hufhiohwef");
+        assertEquals(authenticationService.login("test", "").get(), "hufhiohwef");
         // assertEquals(authenticationService.login("test", ""), "hufhiohwef");
     }
 }
