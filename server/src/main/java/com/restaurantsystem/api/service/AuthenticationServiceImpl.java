@@ -4,13 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.restaurantsystem.api.repos.WorkerRepository;
+import com.restaurantsystem.api.service.interfaces.AuthenticationService;
 
 @Service
-public class AuthenticationService {
+public class AuthenticationServiceImpl implements AuthenticationService {
     @Autowired
-    WorkerRepository userRepository;
+    WorkerRepository workerRepository;
 
+    @Override
     public String login(String username, String password) {
-        return userRepository.getToken(username, password);
+        return "hufhiohwef";
+        // return workerRepository.getToken(username, password);
     }
 }

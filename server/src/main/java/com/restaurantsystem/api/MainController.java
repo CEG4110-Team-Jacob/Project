@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.restaurantsystem.api.service.AuthenticationService;
+import com.restaurantsystem.api.service.AuthenticationServiceImpl;
 
 @SpringBootApplication
 @RestController
 public class MainController {
 	@Autowired
-	AuthenticationService authenticationService;
+	AuthenticationServiceImpl authenticationService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MainController.class, args);
