@@ -1,5 +1,7 @@
 package com.restaurantsystem.api.service.interfaces;
 
+import java.util.Optional;
+
 public interface AuthenticationService {
-    public String login(String username, String password);
+    public Optional<String> login(String username, String password);
 }

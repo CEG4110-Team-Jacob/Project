@@ -1,5 +1,7 @@
 package com.restaurantsystem.api.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +14,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     WorkerRepository workerRepository;
 
     @Override
-    public String login(String username, String password) {
-        return "hufhiohwef";
+    public Optional<String> login(String username, String password) {
+        return Optional.of("hufhiohwef");
         // return workerRepository.getToken(username, password);
     }
 }

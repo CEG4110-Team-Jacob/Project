@@ -1,5 +1,7 @@
 package com.restaurantsystem.api;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -39,9 +41,9 @@ public class MainController {
 	@GetMapping("/login")
 	public ResponseEntity<String> login(@RequestParam(value = "uname") String uname,
 			@RequestParam(value = "passwd") String password) {
-		String token = authenticationService.login(uname, password);
-		if (token == null)
+		Optional<String> token = authenticationService.login(uname, password);
+		if (token.isEmpty())
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-		return new ResponseEntity<String>(token, HttpStatus.OK);
+		return new ResponseEntity<String>(token.get(), HttpStatus.OK);
 	}
 }
