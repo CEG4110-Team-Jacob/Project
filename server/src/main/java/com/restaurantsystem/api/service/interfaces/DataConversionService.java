@@ -11,5 +11,5 @@ public interface DataConversionService {
 
     public Item toSharedItem(com.restaurantsystem.api.data.Item item);
 
-    public OrderWaiter order(Order order);
+    public OrderWaiter toSharedOrder(Order order);
 }

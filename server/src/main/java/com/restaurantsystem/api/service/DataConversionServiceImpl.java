@@ -15,6 +15,8 @@ public class DataConversionServiceImpl implements DataConversionService {
 
     @Override
     public List<Item> toSharedItems(List<com.restaurantsystem.api.data.Item> items) {
+        if (items == null)
+            return new ArrayList<>();
         List<Item> converted = new ArrayList<>(items.size());
         for (com.restaurantsystem.api.data.Item item : items) {
             converted.add(toSharedItem(item));
@@ -28,7 +30,7 @@ public class DataConversionServiceImpl implements DataConversionService {
     }
 
     @Override
-    public OrderWaiter order(Order order) {
+    public OrderWaiter toSharedOrder(Order order) {
         return new OrderWaiter(order.getId(), toSharedItems(order.getItems()), order.getTimeOrdered(),
                 order.getStatus(), order.getTotalPrice());
     }

@@ -19,7 +19,7 @@ import com.restaurantsystem.api.shared.waiter.OrderWaiter;
 
 @RestController
 @RequestMapping(path = "/waiter")
-public class Controller {
+public class WaiterController {
     @Autowired
     OrderRepository orderRepository;
     @Autowired
@@ -27,7 +27,7 @@ public class Controller {
     @Autowired
     DataConversionService dataConversion;
 
-    // TODO
+    // TODO Connect to database
     @GetMapping("/order")
     public ResponseEntity<OrderWaiter> getOrder(@RequestParam(value = "t") String token,
             @RequestParam(value = "id") int orderId) {
@@ -35,10 +35,10 @@ public class Controller {
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         // Optional<Order> order = orderRepository.findById(orderId);
-        Optional<Order> order = Optional.of(new Order());
+        Order order1 = new Order();
+        Optional<Order> order = Optional.of(order1);
         if (order.isEmpty())
-            // return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            order = Optional.of(new Order());
-        return new ResponseEntity<OrderWaiter>(dataConversion.order(order.get()), HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<OrderWaiter>(dataConversion.toSharedOrder(order.get()), HttpStatus.OK);
     }
 }
