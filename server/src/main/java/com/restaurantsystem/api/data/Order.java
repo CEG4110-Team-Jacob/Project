@@ -7,8 +7,8 @@ import com.restaurantsystem.api.shared.enums.Status;
 public class Order {
     private int id;
     private List<Item> items;
-    private int timeOrdered;
-    private int timeCompleted;
+    private long timeOrdered;
+    private long timeCompleted;
     private Status status;
     private int totalPrice;
     private Worker waiter;
@@ -21,19 +21,19 @@ public class Order {
         this.items = items;
     }
 
-    public int getTimeOrdered() {
+    public long getTimeOrdered() {
         return timeOrdered;
     }
 
-    public void setTimeOrdered(int timeOrdered) {
+    public void setTimeOrdered(long timeOrdered) {
         this.timeOrdered = timeOrdered;
     }
 
-    public int getTimeCompleted() {
+    public long getTimeCompleted() {
         return timeCompleted;
     }
 
-    public void setTimeCompleted(int timeCompleted) {
+    public void setTimeCompleted(long timeCompleted) {
         this.timeCompleted = timeCompleted;
     }
 

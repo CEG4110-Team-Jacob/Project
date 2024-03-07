@@ -3,6 +3,7 @@ package com.restaurantsystem.api.data;
 import com.restaurantsystem.api.shared.enums.ItemType;
 
 public class Item {
+    private int id;
     private String name;
     private String description;
     private ItemType type;
@@ -47,6 +48,14 @@ public class Item {
 
     public void setInStock(boolean inStock) {
         this.inStock = inStock;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }
