@@ -2,7 +2,7 @@ package com.restaurantsystem.api.data;
 
 import java.util.List;
 
-import com.restaurantsystem.api.data.enums.Status;
+import com.restaurantsystem.api.shared.enums.Status;
 
 public class Order {
     private int id;

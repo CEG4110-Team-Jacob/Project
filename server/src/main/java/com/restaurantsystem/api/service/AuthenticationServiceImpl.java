@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.restaurantsystem.api.data.Worker;
-import com.restaurantsystem.api.data.enums.Job;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.service.interfaces.AuthenticationService;
+import com.restaurantsystem.api.shared.enums.Job;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {

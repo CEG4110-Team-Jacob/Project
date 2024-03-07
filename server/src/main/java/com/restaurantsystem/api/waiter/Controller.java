@@ -12,26 +12,33 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restaurantsystem.api.data.Order;
 import com.restaurantsystem.api.data.Worker;
-import com.restaurantsystem.api.repos.WorkerRepository;
+import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.service.interfaces.AuthenticationService;
+import com.restaurantsystem.api.service.interfaces.DataConversionService;
+import com.restaurantsystem.api.shared.waiter.OrderWaiter;
 
 @RestController
 @RequestMapping(path = "/waiter")
 public class Controller {
     @Autowired
-    WorkerRepository userRepository;
+    OrderRepository orderRepository;
     @Autowired
     AuthenticationService authenticationService;
+    @Autowired
+    DataConversionService dataConversion;
 
     // TODO
     @GetMapping("/order")
-    public ResponseEntity<Order> getOrder(@RequestParam(value = "t") String token,
+    public ResponseEntity<OrderWaiter> getOrder(@RequestParam(value = "t") String token,
             @RequestParam(value = "id") int orderId) {
         Optional<Worker> worker = authenticationService.authenticate(token);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        Order test = new Order();
-        test.setId(10);
-        return new ResponseEntity<Order>(test, HttpStatus.OK);
+        // Optional<Order> order = orderRepository.findById(orderId);
+        Optional<Order> order = Optional.of(new Order());
+        if (order.isEmpty())
+            // return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            order = Optional.of(new Order());
+        return new ResponseEntity<OrderWaiter>(dataConversion.order(order.get()), HttpStatus.OK);
     }
 }

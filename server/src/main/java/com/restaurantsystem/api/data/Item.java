@@ -1,6 +1,6 @@
 package com.restaurantsystem.api.data;
 
-import com.restaurantsystem.api.data.enums.ItemType;
+import com.restaurantsystem.api.shared.enums.ItemType;
 
 public class Item {
     private String name;

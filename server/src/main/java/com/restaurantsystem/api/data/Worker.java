@@ -1,6 +1,6 @@
 package com.restaurantsystem.api.data;
 
-import com.restaurantsystem.api.data.enums.Job;
+import com.restaurantsystem.api.shared.enums.Job;
 
 public class Worker {
     private int id;
