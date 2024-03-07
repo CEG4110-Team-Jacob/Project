@@ -8,6 +8,6 @@ import com.restaurantsystem.api.shared.enums.Status;
 /**
  * OrderWaiter
  */
-public record OrderWaiter(int id, List<Item> items, int timeOrdered,
-                Status status, int totalPrice) {
+public record GetOrderWaiter(int id, List<Item> items, int timeOrdered,
+        Status status, int totalPrice) {
 }

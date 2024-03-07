@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restaurantsystem.api.data.Order;
@@ -15,7 +16,9 @@ import com.restaurantsystem.api.data.Worker;
 import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.service.interfaces.AuthenticationService;
 import com.restaurantsystem.api.service.interfaces.DataConversionService;
-import com.restaurantsystem.api.shared.waiter.OrderWaiter;
+import com.restaurantsystem.api.shared.waiter.GetOrderWaiter;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping(path = "/waiter")
@@ -29,7 +32,7 @@ public class WaiterController {
 
     // TODO Connect to database
     @GetMapping("/order")
-    public ResponseEntity<OrderWaiter> getOrder(@RequestParam(value = "t") String token,
+    public ResponseEntity<GetOrderWaiter> getOrder(@RequestParam(value = "t") String token,
             @RequestParam(value = "id") int orderId) {
         Optional<Worker> worker = authenticationService.authenticate(token);
         if (worker.isEmpty())
@@ -39,6 +42,14 @@ public class WaiterController {
         Optional<Order> order = Optional.of(order1);
         if (order.isEmpty())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<OrderWaiter>(dataConversion.toSharedOrder(order.get()), HttpStatus.OK);
+        return new ResponseEntity<GetOrderWaiter>(dataConversion.toSharedOrder(order.get()), HttpStatus.OK);
     }
+
+    @PostMapping("/addOrder")
+    public HttpStatus postMethodName(@RequestBody String entity) {
+        // TODO: process POST request
+
+        return HttpStatus.OK;
+    }
+
 }

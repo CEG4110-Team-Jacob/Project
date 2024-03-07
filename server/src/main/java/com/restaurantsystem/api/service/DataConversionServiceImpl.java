@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.restaurantsystem.api.data.Order;
 import com.restaurantsystem.api.service.interfaces.DataConversionService;
 import com.restaurantsystem.api.shared.all.Item;
-import com.restaurantsystem.api.shared.waiter.OrderWaiter;
+import com.restaurantsystem.api.shared.waiter.GetOrderWaiter;
 
 @Service
 public class DataConversionServiceImpl implements DataConversionService {
@@ -30,8 +30,8 @@ public class DataConversionServiceImpl implements DataConversionService {
     }
 
     @Override
-    public OrderWaiter toSharedOrder(Order order) {
-        return new OrderWaiter(order.getId(), toSharedItems(order.getItems()), order.getTimeOrdered(),
+    public GetOrderWaiter toSharedOrder(Order order) {
+        return new GetOrderWaiter(order.getId(), toSharedItems(order.getItems()), order.getTimeOrdered(),
                 order.getStatus(), order.getTotalPrice());
     }
 
