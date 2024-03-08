@@ -30,7 +30,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         worker.setAge(10);
         worker.setId(0);
         worker.setJob(Job.Waiter);
-        worker.setName("LOL");
+        worker.setFirstName("LOL");
         worker.setToken("hufhiohwef");
         return Optional.of(worker);
     }

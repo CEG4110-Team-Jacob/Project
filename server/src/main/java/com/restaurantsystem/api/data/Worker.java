@@ -4,17 +4,18 @@ import com.restaurantsystem.api.shared.enums.Job;
 
 public class Worker {
     private int id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private int age;
     private Job job;
     private String token;
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String name) {
+        this.firstName = name;
     }
 
     public int getAge() {
@@ -47,6 +48,14 @@ public class Worker {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
 }
