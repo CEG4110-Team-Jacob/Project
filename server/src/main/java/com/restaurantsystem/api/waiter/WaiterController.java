@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restaurantsystem.api.data.Order;
 import com.restaurantsystem.api.data.Worker;
+import com.restaurantsystem.api.data.enums.Job;
 import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.service.interfaces.AuthenticationService;
 import com.restaurantsystem.api.service.interfaces.DataConversionService;
-import com.restaurantsystem.api.shared.enums.Job;
 import com.restaurantsystem.api.shared.waiter.GetOrderWaiter;
 import com.restaurantsystem.api.shared.waiter.PostOrderWaiter;
 
