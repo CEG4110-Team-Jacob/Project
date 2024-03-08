@@ -1,4 +1,4 @@
-package com.restaurantsystem.api.waiter;
+package com.restaurantsystem.api.controllers;
 
 import java.util.Optional;
 
