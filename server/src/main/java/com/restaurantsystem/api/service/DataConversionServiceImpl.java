@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.restaurantsystem.api.data.Item;
 import com.restaurantsystem.api.data.Order;
-import com.restaurantsystem.api.data.enums.Status;
+import com.restaurantsystem.api.data.Order.Status;
 import com.restaurantsystem.api.repos.ItemRepository;
 import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.service.interfaces.DataConversionService;

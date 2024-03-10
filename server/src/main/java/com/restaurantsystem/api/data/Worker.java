@@ -1,7 +1,5 @@
 package com.restaurantsystem.api.data;
 
-import com.restaurantsystem.api.data.enums.Job;
-
 public class Worker {
     private int id;
     private String firstName;
@@ -9,6 +7,10 @@ public class Worker {
     private int age;
     private Job job;
     private String token;
+
+    public enum Job {
+        Waiter, Host, Manager, Cook
+    }
 
     public String getFirstName() {
         return firstName;

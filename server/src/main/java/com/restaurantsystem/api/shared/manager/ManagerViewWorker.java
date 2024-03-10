@@ -1,6 +1,6 @@
 package com.restaurantsystem.api.shared.manager;
 
-import com.restaurantsystem.api.data.enums.Job;
+import com.restaurantsystem.api.data.Worker.Job;
 
 /**
  * Worker

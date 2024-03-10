@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restaurantsystem.api.data.Worker.Job;
 import com.restaurantsystem.api.data.Order;
 import com.restaurantsystem.api.data.Worker;
-import com.restaurantsystem.api.data.enums.Job;
 import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.service.interfaces.AuthenticationService;
 import com.restaurantsystem.api.service.interfaces.DataConversionService;

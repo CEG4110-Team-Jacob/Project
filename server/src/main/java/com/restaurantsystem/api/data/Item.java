@@ -1,7 +1,5 @@
 package com.restaurantsystem.api.data;
 
-import com.restaurantsystem.api.data.enums.ItemType;
-
 public class Item {
     private int id;
     private String name;
@@ -9,6 +7,11 @@ public class Item {
     private ItemType type;
     private int price; // Price in cents
     private boolean inStock;
+
+    public enum ItemType {
+        Beverage, Food
+
+    }
 
     public String getName() {
         return name;

@@ -2,8 +2,6 @@ package com.restaurantsystem.api.data;
 
 import java.util.List;
 
-import com.restaurantsystem.api.data.enums.Status;
-
 public class Order {
     private int id;
     private List<Item> items;
@@ -12,6 +10,10 @@ public class Order {
     private Status status;
     private int totalPrice;
     private Worker waiter;
+
+    public enum Status {
+        Completed, Order, InProgress
+    }
 
     public List<Item> getItems() {
         return items;
