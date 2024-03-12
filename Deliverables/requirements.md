@@ -85,13 +85,13 @@ We will assume that the server that is hosting the software will be running Linu
    3. The cooks shall be able to manage the state of the order. For example, cooking, ready.
    4. The waiters shall be informed when the food is ready to serve.
    5. The tables shall be assigned to the waiters.
-2. The managers should be able to manage staff accounts.
-   1. Staff account should conist of first name, last name, work ID, login time, logout time, work hours, age, job title.
+2. The managers shall be able to manage staff accounts.
+   1. Staff account shall conist of first name, last name, work ID, login time, logout time, work hours, age, job title.
    2. Managers shall also be able to create accounts for employees.
-3. The product should be able to manage the menu.
-   1. The menu should consists of name, type of dish, price, description, and availability.
-   2. The menu should stay constantly updated.
-   3. The menu should be able to be changed depending on the restaurants needs by the manager.
+3. The product shall be able to manage the menu.
+   1. The menu shall consists of name, type of dish, price, description, and availability.
+   2. The menu shall stay constantly updated.
+   3. The menu shall be able to be changed depending on the restaurants needs by the manager.
 
 ## Database
 
