@@ -1,12 +1,27 @@
 package com.restaurantsystem.api.data;
 
+import java.util.Set;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+@Entity
 public class Worker {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     private String firstName;
     private String lastName;
     private int age;
     private Job job;
     private String token;
+    @OneToMany(mappedBy = "waiter")
+    private Set<Order> orders;
+    @OneToMany(mappedBy = "waiter")
+    private Set<Table> tables;
 
     public enum Job {
         Waiter, Host, Manager, Cook

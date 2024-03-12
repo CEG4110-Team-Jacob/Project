@@ -35,12 +35,14 @@ public class DataConversionServiceImpl implements DataConversionService {
 
     @Override
     public SharedItem toSharedItem(Item item) {
-        return new SharedItem(item.getName(), item.getDescription(), item.getType(), item.getPrice(), item.isInStock());
+        return new SharedItem(item.getName(), item.getDescription(), item.getType(),
+                item.getPrice(), item.isInStock());
     }
 
     @Override
     public GetOrderWaiter toSharedOrder(Order order) {
-        return new GetOrderWaiter(order.getId(), toSharedItems(order.getItems()), order.getTimeOrdered(),
+        return new GetOrderWaiter(order.getId(), toSharedItems(order.getItems()),
+                order.getTimeOrdered(),
                 order.getStatus(), order.getTotalPrice());
     }
 

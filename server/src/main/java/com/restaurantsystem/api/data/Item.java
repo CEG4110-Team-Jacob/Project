@@ -1,12 +1,28 @@
 package com.restaurantsystem.api.data;
 
+import java.util.Set;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+
+@Table(name = "restaurant_item")
+@Entity
 public class Item {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     private String name;
     private String description;
     private ItemType type;
     private int price; // Price in cents
     private boolean inStock;
+
+    @ManyToMany(mappedBy = "items")
+    private Set<Order> orders;
 
     public enum ItemType {
         Beverage, Food

@@ -1,8 +1,18 @@
 package com.restaurantsystem.api.data;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+
+@Entity(name = "restaurant_table")
 public class Table {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     private int number;
+    @ManyToOne
     private Worker waiter;
     private boolean isOccupied;
     private int numSeats;

@@ -46,11 +46,13 @@ public class WaiterController {
         Optional<Order> order = Optional.of(order1);
         if (order.isEmpty())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<GetOrderWaiter>(dataConversion.toSharedOrder(order.get()), HttpStatus.OK);
+        return new ResponseEntity<GetOrderWaiter>(dataConversion.toSharedOrder(order.get()),
+                HttpStatus.OK);
     }
 
     @PostMapping("/addOrder")
-    public HttpStatus addOrder(@RequestBody PostOrderWaiter order, @RequestParam(value = "t") String token) {
+    public HttpStatus addOrder(@RequestBody PostOrderWaiter order,
+            @RequestParam(value = "t") String token) {
         Optional<Worker> worker = authenticationService.authenticate(token);
         if (worker.isEmpty())
             return HttpStatus.UNAUTHORIZED;
