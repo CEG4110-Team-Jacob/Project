@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.test.context.transaction.AfterTransaction;
 import org.springframework.test.context.transaction.BeforeTransaction;
 
 import com.restaurantsystem.api.data.Worker;
@@ -33,6 +34,11 @@ public class AuthenticationServiceTest {
         worker1.setUsername("test");
         worker1.setPasswordHash(passwordEncoder.encode("test"));
         workerRepository.save(worker1);
+    }
+
+    @AfterTransaction
+    void depopulate() {
+        workerRepository.deleteAll();
     }
 
     @Test
