@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Worker {
@@ -15,6 +16,8 @@ public class Worker {
     private int id;
     private String firstName;
     private String lastName;
+    private String username;
+    private String passwordHash;
     private int age;
     private Job job;
     private String token;
@@ -73,6 +76,38 @@ public class Worker {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+
+    public Set<Table> getTables() {
+        return tables;
+    }
+
+    public void setTables(Set<Table> tables) {
+        this.tables = tables;
     }
 
 }

@@ -5,19 +5,25 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restaurantsystem.api.data.Worker;
+import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.service.AuthenticationServiceImpl;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 @RestController
 public class MainController {
 	@Autowired
 	AuthenticationServiceImpl authenticationService;
+	@Autowired
+	WorkerRepository workerRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MainController.class, args);
@@ -28,6 +34,10 @@ public class MainController {
 		if (name.equals("wow")) {
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
+		Worker test = new Worker();
+		test.setUsername("bruh");
+		test.setPasswordHash(new BCryptPasswordEncoder().encode("XD"));
+		workerRepository.save(test);
 		return new ResponseEntity<String>(name, HttpStatus.OK);
 	}
 
@@ -43,7 +53,7 @@ public class MainController {
 			@RequestParam(value = "passwd") String password) {
 		Optional<String> token = authenticationService.login(uname, password);
 		if (token.isEmpty())
-			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<String>(token.get(), HttpStatus.OK);
 	}
 }
