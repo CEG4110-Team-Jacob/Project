@@ -32,7 +32,6 @@ public class WaiterController {
     @Autowired
     DataConversionService dataConversion;
 
-    // TODO Connect to database
     @GetMapping("/order")
     public ResponseEntity<GetOrderWaiter> getOrder(@RequestParam(value = "t") String token,
             @RequestParam(value = "id") int orderId) {
@@ -41,9 +40,7 @@ public class WaiterController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         if (worker.get().getJob() != Job.Waiter)
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        // Optional<Order> order = orderRepository.findById(orderId);
-        Order order1 = new Order();
-        Optional<Order> order = Optional.of(order1);
+        Optional<Order> order = orderRepository.findById(orderId);
         if (order.isEmpty())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         return new ResponseEntity<GetOrderWaiter>(dataConversion.toSharedOrder(order.get()),
