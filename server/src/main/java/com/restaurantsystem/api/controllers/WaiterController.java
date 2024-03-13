@@ -66,12 +66,8 @@ public class WaiterController {
         o.setItems(items);
         o.setTimeOrdered(new Date());
         o.setTimeCompleted(null);
-        int totalPrice = 0;
-        for (Item item : items) {
-            totalPrice += item.getPrice();
-        }
+        o.setTotalPrice();
         o.setStatus(Status.Ordered);
-        o.setTotalPrice(totalPrice);
         o.setWaiter(worker.get());
         orderRepository.save(o);
         return HttpStatus.OK;

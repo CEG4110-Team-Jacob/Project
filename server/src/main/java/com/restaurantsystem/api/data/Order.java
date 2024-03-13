@@ -72,8 +72,11 @@ public class Order {
         return totalPrice;
     }
 
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setTotalPrice() {
+        totalPrice = 0;
+        for (Item item : items) {
+            totalPrice += item.getPrice();
+        }
     }
 
     public int getId() {
