@@ -1,6 +1,9 @@
 package com.restaurantsystem.api.controllers;
 
 import java.util.Optional;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restaurantsystem.api.data.Worker.Job;
+import com.restaurantsystem.api.data.Item;
 import com.restaurantsystem.api.data.Order;
 import com.restaurantsystem.api.data.Worker;
+import com.restaurantsystem.api.data.Order.Status;
+import com.restaurantsystem.api.repos.ItemRepository;
 import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.service.interfaces.AuthenticationService;
-import com.restaurantsystem.api.service.interfaces.DataConversionService;
 import com.restaurantsystem.api.shared.waiter.GetOrderWaiter;
 import com.restaurantsystem.api.shared.waiter.PostOrderWaiter;
 
@@ -28,9 +33,9 @@ public class WaiterController {
     @Autowired
     OrderRepository orderRepository;
     @Autowired
-    AuthenticationService authenticationService;
+    ItemRepository itemRepository;
     @Autowired
-    DataConversionService dataConversion;
+    AuthenticationService authenticationService;
 
     @GetMapping("/order")
     public ResponseEntity<GetOrderWaiter> getOrder(@RequestParam(value = "t") String token,
@@ -40,10 +45,10 @@ public class WaiterController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         if (worker.get().getJob() != Job.Waiter)
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        Optional<Order> order = orderRepository.findById(orderId);
+        Optional<GetOrderWaiter> order = orderRepository.findById(orderId, GetOrderWaiter.class);
         if (order.isEmpty())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<GetOrderWaiter>(dataConversion.toSharedOrder(order.get()),
+        return new ResponseEntity<GetOrderWaiter>(order.get(),
                 HttpStatus.OK);
     }
 
@@ -55,9 +60,20 @@ public class WaiterController {
             return HttpStatus.UNAUTHORIZED;
         if (worker.get().getJob() != Job.Waiter)
             return HttpStatus.UNAUTHORIZED;
-        Order o = dataConversion.toOrder(order, worker.get().getId());
+        Order o = new Order();
+        List<Item> items = new ArrayList<>();
+        itemRepository.findAllById(order.items()).forEach(items::add);
+        o.setItems(items);
+        o.setTimeOrdered(new Date());
+        o.setTimeCompleted(null);
+        int totalPrice = 0;
+        for (Item item : items) {
+            totalPrice += item.getPrice();
+        }
+        o.setStatus(Status.Ordered);
+        o.setTotalPrice(totalPrice);
+        o.setWaiter(worker.get());
         orderRepository.save(o);
-
         return HttpStatus.OK;
     }
 

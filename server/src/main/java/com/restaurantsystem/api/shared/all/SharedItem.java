@@ -2,6 +2,17 @@ package com.restaurantsystem.api.shared.all;
 
 import com.restaurantsystem.api.data.Item.ItemType;
 
-public record SharedItem(String name, String description, ItemType type, int price, boolean inStock) {
+public interface SharedItem {
+    int getId();
+
+    String getName();
+
+    String getDescription();
+
+    ItemType getType();
+
+    int getPrice();
+
+    boolean isInStock();
 
 }

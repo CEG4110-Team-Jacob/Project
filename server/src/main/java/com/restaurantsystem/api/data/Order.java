@@ -1,6 +1,7 @@
 package com.restaurantsystem.api.data;
 
 import java.util.List;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,8 +23,8 @@ public class Order {
     @ManyToMany
     @JoinTable(name = "orders_to_items", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "item_id"))
     private List<Item> items;
-    private long timeOrdered;
-    private long timeCompleted;
+    private Date timeOrdered;
+    private Date timeCompleted;
     @Column(name = "order_status")
     private Status status;
     private int totalPrice;
@@ -32,7 +33,7 @@ public class Order {
     private Worker waiter;
 
     public enum Status {
-        Completed, Order, InProgress
+        Completed, Ordered, InProgress
     }
 
     public List<Item> getItems() {
@@ -43,19 +44,19 @@ public class Order {
         this.items = items;
     }
 
-    public long getTimeOrdered() {
+    public Date getTimeOrdered() {
         return timeOrdered;
     }
 
-    public void setTimeOrdered(long timeOrdered) {
+    public void setTimeOrdered(Date timeOrdered) {
         this.timeOrdered = timeOrdered;
     }
 
-    public long getTimeCompleted() {
+    public Date getTimeCompleted() {
         return timeCompleted;
     }
 
-    public void setTimeCompleted(long timeCompleted) {
+    public void setTimeCompleted(Date timeCompleted) {
         this.timeCompleted = timeCompleted;
     }
 
