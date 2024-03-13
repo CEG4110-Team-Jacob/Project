@@ -1,5 +1,6 @@
 package com.restaurantsystem.api.service;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
@@ -45,6 +46,13 @@ public class AuthenticationServiceTest {
     @AfterTransaction
     void depopulate() {
         workerRepository.deleteAll();
+    }
+
+    @Test
+    void contextLoads() {
+        assertNotNull(workerRepository);
+        assertNotNull(authenticationService);
+        assertNotNull(passwordEncoder);
     }
 
     /**
