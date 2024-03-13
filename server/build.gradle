@@ -30,3 +30,7 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+test {
+    dependsOn cleanTest
+    testLogging.showStandardStreams = true
+}
