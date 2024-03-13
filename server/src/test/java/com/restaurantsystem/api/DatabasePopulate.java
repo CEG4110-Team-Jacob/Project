@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.restaurantsystem.api.data.Item;
 import com.restaurantsystem.api.data.Order;
@@ -21,20 +24,23 @@ import com.restaurantsystem.api.repos.ItemRepository;
 import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
 
-@Service
 public class DatabasePopulate implements BeforeAllCallback {
 
-    @Autowired
     ItemRepository itemRepository;
 
-    @Autowired
     OrderRepository orderRepository;
-    @Autowired
     WorkerRepository workerRepository;
+    private boolean first = true;
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
     public void beforeAll(ExtensionContext context) throws Exception {
+        if (!first)
+            return;
+        ApplicationContext context2 = SpringExtension.getApplicationContext(context);
+        itemRepository = context2.getBean(ItemRepository.class);
+        orderRepository = context2.getBean(OrderRepository.class);
+        workerRepository = context2.getBean(WorkerRepository.class);
         populateWorkers();
         populateItems();
         populateOrders();
@@ -101,7 +107,4 @@ public class DatabasePopulate implements BeforeAllCallback {
         o1.setWaiter(null);
     }
 
-    public void depopulateItems() {
-        itemRepository.deleteAll();
-    }
 }
