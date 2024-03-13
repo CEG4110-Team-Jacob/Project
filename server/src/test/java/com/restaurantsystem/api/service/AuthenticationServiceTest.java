@@ -28,6 +28,9 @@ public class AuthenticationServiceTest {
 
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    /**
+     * Populates the database
+     */
     @BeforeTransaction
     void populate() {
         Worker worker1 = new Worker();
@@ -36,11 +39,17 @@ public class AuthenticationServiceTest {
         workerRepository.save(worker1);
     }
 
+    /**
+     * Depopulates the database
+     */
     @AfterTransaction
     void depopulate() {
         workerRepository.deleteAll();
     }
 
+    /**
+     * Tests the login features as well as authentication
+     */
     @Test
     @Transactional
     void login() {
@@ -50,8 +59,16 @@ public class AuthenticationServiceTest {
         authenticate(t.get());
     }
 
+    /**
+     * Tests authentication
+     * 
+     * @param token Valid token
+     */
     void authenticate(String token) {
-        assertTrue(authenticationService.authenticate(token).isPresent());
+        Optional<Worker> worker = authenticationService.authenticate(token);
+        assertTrue(worker.isPresent());
+        assertTrue(worker.get().getUsername().equals("test"));
+        assertTrue(passwordEncoder.matches("test", worker.get().getPasswordHash()));
         assertTrue(authenticationService.authenticate("hqe8fh").isEmpty());
     }
 }

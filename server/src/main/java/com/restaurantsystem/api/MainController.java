@@ -25,22 +25,6 @@ public class MainController {
 	@Autowired
 	WorkerRepository workerRepository;
 
-	public static void main(String[] args) {
-		SpringApplication.run(MainController.class, args);
-	}
-
-	@GetMapping("/hello")
-	public ResponseEntity<String> hello(@RequestParam(value = "name", defaultValue = "Hello World!") String name) {
-		if (name.equals("wow")) {
-			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-		}
-		Worker test = new Worker();
-		test.setUsername("bruh");
-		test.setPasswordHash(new BCryptPasswordEncoder().encode("XD"));
-		workerRepository.save(test);
-		return new ResponseEntity<String>(name, HttpStatus.OK);
-	}
-
 	/**
 	 * Tries to log in
 	 * 
@@ -55,5 +39,14 @@ public class MainController {
 		if (token.isEmpty())
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<String>(token.get(), HttpStatus.OK);
+	}
+
+	/**
+	 * Driver
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		SpringApplication.run(MainController.class, args);
 	}
 }
