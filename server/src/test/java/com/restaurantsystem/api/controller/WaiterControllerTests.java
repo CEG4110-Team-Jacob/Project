@@ -2,6 +2,7 @@ package com.restaurantsystem.api.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -16,12 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.restaurantsystem.api.DatabasePopulate;
-import com.restaurantsystem.api.controllers.WaiterController;
-import com.restaurantsystem.api.repos.WorkerRepository;
+import com.restaurantsystem.api.data.Item.ItemType;
+import com.restaurantsystem.api.data.Order.Status;
 import com.restaurantsystem.api.service.AuthenticationServiceImpl;
-import com.restaurantsystem.api.service.interfaces.AuthenticationService;
-import com.restaurantsystem.api.shared.waiter.GetOrderWaiter;
-
 import jakarta.transaction.Transactional;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -36,9 +34,6 @@ public class WaiterControllerTests {
     @Autowired
     private AuthenticationServiceImpl authenticationService;
 
-    @Autowired
-    private WorkerRepository workerRepository;
-
     private String token;
 
     @BeforeEach
@@ -52,15 +47,22 @@ public class WaiterControllerTests {
         assertNotNull(authenticationService);
     }
 
-    record ListOfOrders(List<GetOrderWaiter> orders) {
+    record ListOfOrders(List<Order> orders) {
     }
+
+    record Order(int id, List<Item> items, Date timeOrdered, Status status, int totalPrice) {
+    }
+
+    record Item(String description, int id, String name, ItemType type, int price, boolean inStock) {
+    };
 
     @Transactional
     @Test
     void getOrder() {
         String query = "t=" + token;
-        ResponseEntity<WaiterController.Orders> response = restTemplate
-                .getForEntity("http://localhost:" + port + "/waiter/order?" + query, WaiterController.Orders.class);
+        ResponseEntity<ListOfOrders> response = restTemplate
+                .getForEntity("http://localhost:" + port + "/waiter/order?" + query, ListOfOrders.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertNotNull(response.getBody());
     }
 }
