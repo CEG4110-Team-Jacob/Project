@@ -59,6 +59,7 @@ public class DatabasePopulate implements BeforeAllCallback {
                 "A round patty of ground beef, fried or grilled and typically served on a bun or roll and garnished with various condiments.");
         burger.setPrice(1000);
         burger.setType(ItemType.Food);
+        burger.setId(1);
         itemRepository.save(burger);
 
         Item water = new Item();
@@ -67,6 +68,7 @@ public class DatabasePopulate implements BeforeAllCallback {
         water.setDescription("Literally just extremely overpriced water.");
         water.setPrice(10000);
         water.setType(ItemType.Beverage);
+        water.setId(2);
         itemRepository.save(water);
 
         Item fries = new Item();
@@ -76,6 +78,7 @@ public class DatabasePopulate implements BeforeAllCallback {
                 "Batonnet or allumette-cut deep-fried potatoes of disputed origin from Belgium or France. They are prepared by cutting potatoes into even strips, drying them, and frying them, usually in a deep fryer.");
         fries.setPrice(300);
         fries.setType(ItemType.Food);
+        fries.setId(3);
         itemRepository.save(fries);
     }
 

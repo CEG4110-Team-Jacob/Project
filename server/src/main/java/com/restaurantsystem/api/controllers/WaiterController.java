@@ -57,13 +57,13 @@ public class WaiterController {
     }
 
     @PostMapping("/addOrder")
-    public HttpStatus addOrder(@RequestBody PostOrderWaiter order,
+    public ResponseEntity<Integer> addOrder(@RequestBody PostOrderWaiter order,
             @RequestParam(value = "t") String token) {
         Optional<Worker> worker = authenticationService.authenticate(token);
         if (worker.isEmpty())
-            return HttpStatus.UNAUTHORIZED;
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         if (worker.get().getJob() != Job.Waiter)
-            return HttpStatus.UNAUTHORIZED;
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         Order o = new Order();
         List<Item> items = new ArrayList<>();
         itemRepository.findAllById(order.items()).forEach(items::add);
@@ -73,8 +73,8 @@ public class WaiterController {
         o.setTotalPrice();
         o.setStatus(Status.Ordered);
         o.setWaiter(worker.get());
-        orderRepository.save(o);
-        return HttpStatus.OK;
+        o = orderRepository.save(o);
+        return new ResponseEntity<>(o.getId(), HttpStatus.OK);
     }
 
 }

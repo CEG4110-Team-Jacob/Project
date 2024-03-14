@@ -1,9 +1,11 @@
 package com.restaurantsystem.api.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -20,9 +22,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.restaurantsystem.api.DatabasePopulate;
+import com.restaurantsystem.api.data.Item;
+import com.restaurantsystem.api.data.Order;
+import com.restaurantsystem.api.data.Worker;
 import com.restaurantsystem.api.data.Item.ItemType;
 import com.restaurantsystem.api.data.Order.Status;
+import com.restaurantsystem.api.repos.OrderRepository;
+import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.service.AuthenticationServiceImpl;
+import com.restaurantsystem.api.shared.waiter.PostOrderWaiter;
+
 import jakarta.transaction.Transactional;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -30,6 +39,12 @@ import jakarta.transaction.Transactional;
 public class WaiterControllerTests {
     @LocalServerPort
     private int port;
+
+    @Autowired
+    private WorkerRepository workerRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -51,29 +66,50 @@ public class WaiterControllerTests {
         assertNotNull(authenticationService);
     }
 
-    record ListOfOrders(List<Order> orders) {
+    record ListOfOrders(List<OrderRecord> orders) {
+        record OrderRecord(int id, List<Item> items, Date timeOrdered, Status status, int totalPrice) {
+        }
+
+        record Item(String description, int id, String name, ItemType type, int price, boolean inStock) {
+        };
     }
 
-    record Order(int id, List<Item> items, Date timeOrdered, Status status, int totalPrice) {
+    String getUrl() {
+        return "http://localhost:" + port + "/waiter/";
     }
-
-    record Item(String description, int id, String name, ItemType type, int price, boolean inStock) {
-    };
 
     @Transactional
     @Test
     void getOrder() {
-        String query = "t=" + token;
         ResponseEntity<ListOfOrders> response = restTemplate
-                .getForEntity("http://localhost:" + port + "/waiter/order?" + query, ListOfOrders.class);
+                .getForEntity(getUrl() + "order?t=" + token, ListOfOrders.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertNotNull(response.getBody());
-        assertTrue(response.getBody().orders.size() > 0);
+        assertFalse(response.getBody().orders.isEmpty());
         Optional<String> hostToken = authenticationService.login(DatabasePopulate.Host1.username(),
                 DatabasePopulate.Host1.password());
         assertTrue(hostToken.isPresent());
         ResponseEntity<ListOfOrders> hostReponse = restTemplate
-                .getForEntity("http://localhost:" + port + "/waiter/order?t=" + hostToken, ListOfOrders.class);
+                .getForEntity(getUrl() + "order?t=" + hostToken, ListOfOrders.class);
         assertEquals(hostReponse.getStatusCode(), HttpStatus.UNAUTHORIZED);
+    }
+
+    @Transactional
+    @Test
+    void addOrder() {
+        ResponseEntity<Integer> response = restTemplate.postForEntity(
+                getUrl() + "addOrder?t=" + token, new PostOrderWaiter(Arrays.asList(1, 2)), Integer.class);
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertTrue(response.getBody() > 0);
+        Optional<Worker> waiter = workerRepository.findByToken(token);
+        assertTrue(waiter.isPresent());
+        Optional<Order> order = orderRepository.findById(response.getBody());
+        assertTrue(order.isPresent());
+        assertEquals(order.get().getStatus(), Status.Ordered);
+        List<Item> items = order.get().getItems();
+        assertEquals(items.get(0).getId(), 1);
+        assertEquals(items.get(1).getId(), 2);
+        assertTrue(order.get().getTimeOrdered().before(new Date()));
+        assertTrue(order.get().getTimeOrdered().after(new Date(new Date().getTime() - 10 * 1000)));
     }
 }
