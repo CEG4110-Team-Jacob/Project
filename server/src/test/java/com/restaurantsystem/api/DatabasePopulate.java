@@ -1,12 +1,9 @@
 package com.restaurantsystem.api;
 
-import static org.mockito.ArgumentMatchers.same;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
-import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
@@ -26,13 +23,19 @@ import com.restaurantsystem.api.repos.WorkerRepository;
 
 public class DatabasePopulate implements BeforeAllCallback {
 
-    ItemRepository itemRepository;
+    public record Login(String username, String password) {
+    }
 
-    OrderRepository orderRepository;
-    WorkerRepository workerRepository;
-    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    public static Login Waiter1 = new Login("jd", "janedoe");
+    public static Login Host1 = new Login("jin", "jindigo");
 
     private static boolean first = true;
+    ItemRepository itemRepository;
+    OrderRepository orderRepository;
+
+    WorkerRepository workerRepository;
 
     @Override
     public void beforeAll(ExtensionContext context) throws Exception {
@@ -82,8 +85,8 @@ public class DatabasePopulate implements BeforeAllCallback {
         waiter1.setFirstName("Jane");
         waiter1.setLastName("Doe");
         waiter1.setJob(Job.Waiter);
-        waiter1.setUsername("jd");
-        waiter1.setPasswordHash(passwordEncoder.encode("janedoe"));
+        waiter1.setUsername(Waiter1.username);
+        waiter1.setPasswordHash(passwordEncoder.encode(Waiter1.password));
         waiter1.setTables(null);
         workerRepository.save(waiter1);
 
@@ -92,8 +95,8 @@ public class DatabasePopulate implements BeforeAllCallback {
         host.setFirstName("Jim");
         host.setLastName("Indigo");
         host.setJob(Job.Host);
-        host.setUsername("jin");
-        host.setPasswordHash(passwordEncoder.encode("jindigo"));
+        host.setUsername(Host1.username);
+        host.setPasswordHash(passwordEncoder.encode(Host1.password));
         host.setTables(null);
         workerRepository.save(host);
     }

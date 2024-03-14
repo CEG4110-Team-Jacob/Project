@@ -44,7 +44,8 @@ public class AuthenticationServiceTest {
     @Transactional
     void login() {
         assertTrue(authenticationService.login("jlgebg", "uiguef").isEmpty());
-        Optional<String> t = authenticationService.login("jd", "janedoe");
+        Optional<String> t = authenticationService.login(DatabasePopulate.Waiter1.username(),
+                DatabasePopulate.Waiter1.password());
         assertTrue(t.isPresent());
         authenticate(t.get());
     }
@@ -57,8 +58,8 @@ public class AuthenticationServiceTest {
     void authenticate(String token) {
         Optional<Worker> worker = authenticationService.authenticate(token);
         assertTrue(worker.isPresent());
-        assertTrue(worker.get().getUsername().equals("jd"));
-        assertTrue(passwordEncoder.matches("janedoe", worker.get().getPasswordHash()));
+        assertTrue(worker.get().getUsername().equals(DatabasePopulate.Waiter1.username()));
+        assertTrue(passwordEncoder.matches(DatabasePopulate.Waiter1.password(), worker.get().getPasswordHash()));
         assertTrue(authenticationService.authenticate("hqe8fh").isEmpty());
     }
 }

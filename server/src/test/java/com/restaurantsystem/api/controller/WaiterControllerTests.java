@@ -2,8 +2,11 @@ package com.restaurantsystem.api.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,7 +41,8 @@ public class WaiterControllerTests {
 
     @BeforeEach
     void login() {
-        token = authenticationService.login("jd", "janedoe").get();
+        token = authenticationService.login(DatabasePopulate.Waiter1.username(), DatabasePopulate.Waiter1.password())
+                .get();
     }
 
     @Test
@@ -64,5 +68,12 @@ public class WaiterControllerTests {
                 .getForEntity("http://localhost:" + port + "/waiter/order?" + query, ListOfOrders.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertNotNull(response.getBody());
+        assertTrue(response.getBody().orders.size() > 0);
+        Optional<String> hostToken = authenticationService.login(DatabasePopulate.Host1.username(),
+                DatabasePopulate.Host1.password());
+        assertTrue(hostToken.isPresent());
+        ResponseEntity<ListOfOrders> hostReponse = restTemplate
+                .getForEntity("http://localhost:" + port + "/waiter/order?t=" + hostToken, ListOfOrders.class);
+        assertEquals(hostReponse.getStatusCode(), HttpStatus.UNAUTHORIZED);
     }
 }

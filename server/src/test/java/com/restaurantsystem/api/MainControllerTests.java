@@ -38,7 +38,8 @@ class MainControllerTests {
 	@Transactional
 	void login() {
 		String url = "http://localhost:" + port + "/";
-		String query = "?uname=jd&passwd=janedoe";
+		String query = "?uname=" + DatabasePopulate.Waiter1.username() + "&passwd="
+				+ DatabasePopulate.Waiter1.password();
 		ResponseEntity<String> response = restTemplate.getForEntity(url + "login" + query, String.class);
 		assertEquals(response.getStatusCode(), HttpStatus.OK);
 	}
