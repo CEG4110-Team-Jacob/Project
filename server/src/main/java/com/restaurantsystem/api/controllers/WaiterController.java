@@ -38,8 +38,11 @@ public class WaiterController {
     @Autowired
     AuthenticationService authenticationService;
 
+    public record Orders(List<GetOrderWaiter> orders) {
+    }
+
     @GetMapping("/order")
-    public ResponseEntity<List<GetOrderWaiter>> getOrder(@RequestParam(value = "t") String token) {
+    public ResponseEntity<Orders> getOrder(@RequestParam(value = "t") String token) {
         Optional<Worker> worker = authenticationService.authenticate(token);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -48,8 +51,9 @@ public class WaiterController {
         List<GetOrderWaiter> order = orderRepository.findAllByStatusInAndWaiter(
                 Arrays.asList(Status.InProgress, Status.Ordered), worker.get(),
                 GetOrderWaiter.class);
-        return new ResponseEntity<List<GetOrderWaiter>>(order,
+        ResponseEntity<Orders> orders = new ResponseEntity<Orders>(new Orders(order),
                 HttpStatus.OK);
+        return orders;
     }
 
     @PostMapping("/addOrder")

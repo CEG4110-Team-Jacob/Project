@@ -34,6 +34,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             return Optional.empty();
         String token = generateToken(username);
         worker.get().setToken(token);
+        workerRepository.save(worker.get());
         return Optional.of(token);
     }
 
@@ -73,8 +74,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public Optional<Worker> authenticate(String token) {
         if (!isValidToken(token))
             return Optional.empty();
-        System.out.println(workerRepository);
-        System.out.println(workerRepository.findByToken(token));
         return workerRepository.findByToken(token);
     }
 

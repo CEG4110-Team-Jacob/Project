@@ -1,6 +1,7 @@
 package com.restaurantsystem.api.shared.waiter;
 
 import java.util.List;
+import java.util.Date;
 
 import com.restaurantsystem.api.data.Order.Status;
 import com.restaurantsystem.api.shared.all.SharedItem;
@@ -10,7 +11,7 @@ public interface GetOrderWaiter {
 
     List<SharedItem> getItems();
 
-    long getTimeOrdered();
+    Date getTimeOrdered();
 
     Status getStatus();
 

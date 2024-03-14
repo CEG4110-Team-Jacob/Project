@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.restaurantsystem.api.DatabasePopulate;
+import com.restaurantsystem.api.controllers.WaiterController;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.service.AuthenticationServiceImpl;
 import com.restaurantsystem.api.service.interfaces.AuthenticationService;
@@ -58,10 +59,8 @@ public class WaiterControllerTests {
     @Test
     void getOrder() {
         String query = "t=" + token;
-        System.out.println(workerRepository);
-        System.out.println(workerRepository.findByToken(token));
-        ResponseEntity<ListOfOrders> response = restTemplate
-                .getForEntity("http://localhost:" + port + "/waiter/order?" + query, ListOfOrders.class);
+        ResponseEntity<WaiterController.Orders> response = restTemplate
+                .getForEntity("http://localhost:" + port + "/waiter/order?" + query, WaiterController.Orders.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
 }
