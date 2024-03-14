@@ -1,18 +1,18 @@
 package com.restaurantsystem.api;
 
+import static org.mockito.ArgumentMatchers.same;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.restaurantsystem.api.data.Item;
 import com.restaurantsystem.api.data.Order;
@@ -30,13 +30,15 @@ public class DatabasePopulate implements BeforeAllCallback {
 
     OrderRepository orderRepository;
     WorkerRepository workerRepository;
-    private boolean first = true;
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    private static boolean first = true;
 
     @Override
     public void beforeAll(ExtensionContext context) throws Exception {
         if (!first)
             return;
+        first = false;
         ApplicationContext context2 = SpringExtension.getApplicationContext(context);
         itemRepository = context2.getBean(ItemRepository.class);
         orderRepository = context2.getBean(OrderRepository.class);
@@ -104,7 +106,8 @@ public class DatabasePopulate implements BeforeAllCallback {
         o1.setTimeOrdered(new Date());
         o1.setTimeCompleted(null);
         o1.setTotalPrice();
-        o1.setWaiter(null);
+        o1.setWaiter(workerRepository.findById(1).get());
+        orderRepository.save(o1);
     }
 
 }

@@ -19,7 +19,7 @@ import com.restaurantsystem.api.service.interfaces.AuthenticationService;
 
 import jakarta.transaction.Transactional;
 
-@SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ExtendWith({ DatabasePopulate.class })
 public class AuthenticationServiceTest {
     @Autowired

@@ -21,7 +21,7 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
     @Autowired
-    WorkerRepository workerRepository;
+    public WorkerRepository workerRepository;
 
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -73,6 +73,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public Optional<Worker> authenticate(String token) {
         if (!isValidToken(token))
             return Optional.empty();
+        System.out.println(workerRepository);
+        System.out.println(workerRepository.findByToken(token));
         return workerRepository.findByToken(token);
     }
 

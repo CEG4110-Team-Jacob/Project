@@ -2,6 +2,7 @@ package com.restaurantsystem.api.controllers;
 
 import java.util.Optional;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -38,17 +39,16 @@ public class WaiterController {
     AuthenticationService authenticationService;
 
     @GetMapping("/order")
-    public ResponseEntity<GetOrderWaiter> getOrder(@RequestParam(value = "t") String token,
-            @RequestParam(value = "id") int orderId) {
+    public ResponseEntity<List<GetOrderWaiter>> getOrder(@RequestParam(value = "t") String token) {
         Optional<Worker> worker = authenticationService.authenticate(token);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         if (worker.get().getJob() != Job.Waiter)
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        Optional<GetOrderWaiter> order = orderRepository.findById(orderId, GetOrderWaiter.class);
-        if (order.isEmpty())
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<GetOrderWaiter>(order.get(),
+        List<GetOrderWaiter> order = orderRepository.findAllByStatusInAndWaiter(
+                Arrays.asList(Status.InProgress, Status.Ordered), worker.get(),
+                GetOrderWaiter.class);
+        return new ResponseEntity<List<GetOrderWaiter>>(order,
                 HttpStatus.OK);
     }
 
