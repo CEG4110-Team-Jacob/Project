@@ -112,8 +112,38 @@ public class DatabasePopulate implements BeforeAllCallback {
         o1.setTimeOrdered(new Date());
         o1.setTimeCompleted(null);
         o1.setTotalPrice();
-        o1.setWaiter(workerRepository.findById(1).get());
+        o1.setWaiter(workerRepository.findByUsername(Waiter1.username).get());
         orderRepository.save(o1);
+
+        Order o2 = new Order();
+        o2.setItems(new ArrayList<>());
+        itemRepository.findAllById(Arrays.asList(2, 3)).forEach(o2.getItems()::add);
+        o2.setStatus(Status.InProgress);
+        o2.setTimeOrdered(new Date());
+        o2.setTimeCompleted(null);
+        o2.setTotalPrice();
+        o2.setWaiter(workerRepository.findByUsername(Waiter1.username).get());
+        orderRepository.save(o2);
+
+        Order o3 = new Order();
+        o3.setItems(new ArrayList<>());
+        itemRepository.findAllById(Arrays.asList(1, 3)).forEach(o3.getItems()::add);
+        o3.setStatus(Status.Cooked);
+        o3.setTimeOrdered(new Date());
+        o3.setTimeCompleted(null);
+        o3.setTotalPrice();
+        o3.setWaiter(workerRepository.findByUsername(Waiter1.username).get());
+        orderRepository.save(o3);
+
+        Order o4 = new Order();
+        o4.setItems(new ArrayList<>());
+        itemRepository.findAllById(Arrays.asList(1)).forEach(o4.getItems()::add);
+        o4.setStatus(Status.Delivered);
+        o4.setTimeOrdered(new Date());
+        o4.setTimeCompleted(null);
+        o4.setTotalPrice();
+        o4.setWaiter(workerRepository.findByUsername(Waiter1.username).get());
+        orderRepository.save(o4);
     }
 
 }

@@ -49,7 +49,7 @@ public class WaiterController {
         if (worker.get().getJob() != Job.Waiter)
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         List<GetOrderWaiter> order = orderRepository.findAllByStatusInAndWaiter(
-                Arrays.asList(Status.InProgress, Status.Ordered), worker.get(),
+                Arrays.asList(Status.InProgress, Status.Ordered, Status.Cooked), worker.get(),
                 GetOrderWaiter.class);
         ResponseEntity<Orders> orders = new ResponseEntity<Orders>(new Orders(order),
                 HttpStatus.OK);
@@ -75,6 +75,21 @@ public class WaiterController {
         o.setWaiter(worker.get());
         o = orderRepository.save(o);
         return new ResponseEntity<>(o.getId(), HttpStatus.OK);
+    }
+
+    @PostMapping("/completeOrder")
+    public ResponseEntity<String> completeOrder(@RequestBody Integer orderId, @RequestParam(value = "t") String token) {
+        Optional<Worker> worker = authenticationService.authenticate(token);
+        if (worker.isEmpty())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        if (worker.get().getJob() != Job.Waiter)
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        Optional<Order> order = orderRepository.findById(orderId);
+        if (order.isEmpty() || order.get().getStatus() != Status.Cooked)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        order.get().setStatus(Status.Delivered);
+        orderRepository.save(order.get());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

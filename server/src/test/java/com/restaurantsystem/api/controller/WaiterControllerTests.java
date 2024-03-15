@@ -112,4 +112,31 @@ public class WaiterControllerTests {
         assertTrue(order.get().getTimeOrdered().before(new Date()));
         assertTrue(order.get().getTimeOrdered().after(new Date(new Date().getTime() - 10 * 1000)));
     }
+
+    @Transactional
+    @Test
+    void completeOrder() {
+        int cookedOrderId = 3;
+        ResponseEntity<String> cookedOrder = restTemplate.postForEntity(getUrl() + "completeOrder?t=" + token,
+                cookedOrderId,
+                String.class);
+        assertEquals(cookedOrder.getStatusCode(), HttpStatus.OK);
+        assertTrue(orderRepository.existsById(cookedOrderId));
+        assertEquals(orderRepository.findById(cookedOrderId).get().getStatus(), Status.Delivered);
+        int orderedOrderId = 1;
+        ResponseEntity<String> orderedOrder = restTemplate.postForEntity(getUrl() + "completeOrder?t=" + token,
+                orderedOrderId,
+                String.class);
+        assertEquals(orderedOrder.getStatusCode(), HttpStatus.BAD_REQUEST);
+        int inProgressOrderId = 2;
+        ResponseEntity<String> inProgressOrder = restTemplate.postForEntity(getUrl() + "completeOrder?t=" + token,
+                inProgressOrderId,
+                String.class);
+        assertEquals(inProgressOrder.getStatusCode(), HttpStatus.BAD_REQUEST);
+        int deliveredOrderId = 4;
+        ResponseEntity<String> deliveredOrder = restTemplate.postForEntity(getUrl() + "completeOrder?t=" + token,
+                deliveredOrderId,
+                String.class);
+        assertEquals(deliveredOrder.getStatusCode(), HttpStatus.BAD_REQUEST);
+    }
 }
