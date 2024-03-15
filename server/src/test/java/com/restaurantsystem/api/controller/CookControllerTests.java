@@ -17,11 +17,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.restaurantsystem.api.DatabasePopulate;
 import com.restaurantsystem.api.data.Order.Status;
-import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.service.interfaces.AuthenticationService;
 import com.restaurantsystem.api.shared.TestSharedItem;
 
