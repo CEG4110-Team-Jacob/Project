@@ -59,10 +59,8 @@ public class WaiterController {
     @PostMapping("/addOrder")
     public ResponseEntity<Integer> addOrder(@RequestBody PostOrderWaiter order,
             @RequestParam(value = "t") String token) {
-        Optional<Worker> worker = authenticationService.authenticate(token);
+        Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(token, Job.Waiter);
         if (worker.isEmpty())
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        if (worker.get().getJob() != Job.Waiter)
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         Order o = new Order();
         List<Item> items = new ArrayList<>();
@@ -79,10 +77,8 @@ public class WaiterController {
 
     @PostMapping("/completeOrder")
     public ResponseEntity<String> completeOrder(@RequestBody Integer orderId, @RequestParam(value = "t") String token) {
-        Optional<Worker> worker = authenticationService.authenticate(token);
+        Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(token, Job.Waiter);
         if (worker.isEmpty())
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        if (worker.get().getJob() != Job.Waiter)
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         Optional<Order> order = orderRepository.findById(orderId);
         if (order.isEmpty() || order.get().getStatus() != Status.Cooked)
@@ -94,10 +90,8 @@ public class WaiterController {
 
     @PostMapping("/cancelOrder")
     public ResponseEntity<String> cancelOrder(@RequestBody Integer orderId, @RequestParam(value = "t") String token) {
-        Optional<Worker> worker = authenticationService.authenticate(token);
+        Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(token, Job.Waiter);
         if (worker.isEmpty())
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        if (worker.get().getJob() != Job.Waiter)
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         Optional<Order> order = orderRepository.findById(orderId);
         order.get().setStatus(Status.Canceled);

@@ -28,8 +28,9 @@ public class DatabasePopulate implements BeforeAllCallback {
 
     static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public static Login Waiter1 = new Login("jd", "janedoe");
-    public static Login Host1 = new Login("jin", "jindigo");
+    public static final Login Waiter1 = new Login("jd", "janedoe");
+    public static final Login Host1 = new Login("jin", "jindigo");
+    public static final Login Cook1 = new Login("TimCook", "Apple");
 
     private static boolean first = true;
     ItemRepository itemRepository;
@@ -102,6 +103,16 @@ public class DatabasePopulate implements BeforeAllCallback {
         host.setPasswordHash(passwordEncoder.encode(Host1.password));
         host.setTables(null);
         workerRepository.save(host);
+
+        Worker cook = new Worker();
+        cook.setAge(63);
+        cook.setFirstName("Tim");
+        cook.setLastName("Cook");
+        cook.setJob(Job.Cook);
+        cook.setUsername(Cook1.username);
+        cook.setPasswordHash(passwordEncoder.encode(Cook1.password));
+        cook.setTables(null);
+        workerRepository.save(cook);
     }
 
     public void populateOrders() {

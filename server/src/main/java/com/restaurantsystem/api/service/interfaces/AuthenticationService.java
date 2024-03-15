@@ -3,6 +3,7 @@ package com.restaurantsystem.api.service.interfaces;
 import java.util.Optional;
 
 import com.restaurantsystem.api.data.Worker;
+import com.restaurantsystem.api.data.Worker.Job;
 
 public interface AuthenticationService {
     /**
@@ -21,4 +22,6 @@ public interface AuthenticationService {
      * @return The worker's data or none if token is invalid.
      */
     public Optional<Worker> authenticate(String token);
+
+    public Optional<Worker> hasJobAndAuthenticate(String token, Job job);
 }
