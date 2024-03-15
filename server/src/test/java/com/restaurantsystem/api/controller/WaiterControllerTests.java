@@ -20,19 +20,18 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.restaurantsystem.api.DatabasePopulate;
 import com.restaurantsystem.api.data.Item;
 import com.restaurantsystem.api.data.Order;
 import com.restaurantsystem.api.data.Worker;
-import com.restaurantsystem.api.data.Item.ItemType;
 import com.restaurantsystem.api.data.Order.Status;
 import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
-import com.restaurantsystem.api.service.AuthenticationServiceImpl;
+import com.restaurantsystem.api.service.interfaces.AuthenticationService;
+import com.restaurantsystem.api.shared.TestSharedItem;
 import com.restaurantsystem.api.shared.waiter.PostOrderWaiter;
-
-import jakarta.transaction.Transactional;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ExtendWith({ DatabasePopulate.class })
@@ -50,7 +49,7 @@ public class WaiterControllerTests {
     private TestRestTemplate restTemplate;
 
     @Autowired
-    private AuthenticationServiceImpl authenticationService;
+    private AuthenticationService authenticationService;
 
     private String token;
 
@@ -68,18 +67,14 @@ public class WaiterControllerTests {
     }
 
     record ListOfOrders(List<OrderRecord> orders) {
-        record OrderRecord(int id, List<Item> items, Date timeOrdered, Status status, int totalPrice) {
+        record OrderRecord(int id, List<TestSharedItem> items, Date timeOrdered, Status status, int totalPrice) {
         }
-
-        record Item(String description, int id, String name, ItemType type, int price, boolean inStock) {
-        };
     }
 
     String getUrl() {
         return "http://localhost:" + port + "/waiter/";
     }
 
-    @Transactional
     @Test
     void getOrder() {
         ResponseEntity<ListOfOrders> response = restTemplate
@@ -95,8 +90,8 @@ public class WaiterControllerTests {
         assertEquals(hostReponse.getStatusCode(), HttpStatus.UNAUTHORIZED);
     }
 
-    @Transactional
     @Test
+    @Transactional
     void addOrder() {
         ResponseEntity<Integer> response = restTemplate.postForEntity(
                 getUrl() + "addOrder?t=" + token, new PostOrderWaiter(Arrays.asList(1, 2)),
@@ -115,7 +110,6 @@ public class WaiterControllerTests {
         assertTrue(order.get().getTimeOrdered().after(new Date(new Date().getTime() - 10 * 1000)));
     }
 
-    @Transactional
     @Test
     void completeOrder() {
         int cookedOrderId = 3;
@@ -144,7 +138,6 @@ public class WaiterControllerTests {
         assertEquals(deliveredOrder.getStatusCode(), HttpStatus.BAD_REQUEST);
     }
 
-    @Transactional
     @Test
     void cancelOrder() {
         ResponseEntity<String> response = restTemplate.postForEntity(getUrl() + "cancelOrder?t=" + token,

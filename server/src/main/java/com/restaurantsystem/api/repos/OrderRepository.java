@@ -16,4 +16,6 @@ public interface OrderRepository extends CrudRepository<Order, Integer> {
     <T> Optional<T> findById(Integer id, Class<T> type);
 
     <T> List<T> findAllByStatusInAndWaiter(Collection<Status> statuses, Worker waiter, Class<T> type);
+
+    <T> List<T> findAllByStatusIn(Collection<Status> statuses, Class<T> type);
 }

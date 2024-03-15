@@ -1,5 +1,6 @@
 package com.restaurantsystem.api.service;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -14,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.restaurantsystem.api.DatabasePopulate;
 import com.restaurantsystem.api.data.Worker;
+import com.restaurantsystem.api.data.Worker.Job;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.service.interfaces.AuthenticationService;
 
@@ -48,6 +50,7 @@ public class AuthenticationServiceTest {
                 DatabasePopulate.Waiter1.password());
         assertTrue(t.isPresent());
         authenticate(t.get());
+        hasJobAndAuthenticate(t.get());
     }
 
     /**
@@ -61,5 +64,11 @@ public class AuthenticationServiceTest {
         assertTrue(worker.get().getUsername().equals(DatabasePopulate.Waiter1.username()));
         assertTrue(passwordEncoder.matches(DatabasePopulate.Waiter1.password(), worker.get().getPasswordHash()));
         assertTrue(authenticationService.authenticate("hqe8fh").isEmpty());
+    }
+
+    void hasJobAndAuthenticate(String token) {
+        Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(token, Job.Waiter);
+        assertTrue(worker.isPresent());
+        assertTrue(authenticationService.hasJobAndAuthenticate(token, Job.Host).isEmpty());
     }
 }

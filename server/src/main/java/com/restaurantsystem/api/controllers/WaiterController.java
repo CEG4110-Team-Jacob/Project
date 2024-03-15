@@ -31,22 +31,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping(path = "/waiter")
 public class WaiterController {
+    public record Orders(List<GetOrderWaiter> orders) {
+    }
+
     @Autowired
     OrderRepository orderRepository;
     @Autowired
     ItemRepository itemRepository;
+
     @Autowired
     AuthenticationService authenticationService;
 
-    public record Orders(List<GetOrderWaiter> orders) {
-    }
-
     @GetMapping("/order")
     public ResponseEntity<Orders> getOrder(@RequestParam(value = "t") String token) {
-        Optional<Worker> worker = authenticationService.authenticate(token);
+        Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(token, Job.Waiter);
         if (worker.isEmpty())
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        if (worker.get().getJob() != Job.Waiter)
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         List<GetOrderWaiter> order = orderRepository.findAllByStatusInAndWaiter(
                 Arrays.asList(Status.InProgress, Status.Ordered, Status.Cooked), worker.get(),
