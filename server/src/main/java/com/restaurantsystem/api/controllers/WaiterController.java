@@ -92,4 +92,17 @@ public class WaiterController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PostMapping("/cancelOrder")
+    public ResponseEntity<String> cancelOrder(@RequestBody Integer orderId, @RequestParam(value = "t") String token) {
+        Optional<Worker> worker = authenticationService.authenticate(token);
+        if (worker.isEmpty())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        if (worker.get().getJob() != Job.Waiter)
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        Optional<Order> order = orderRepository.findById(orderId);
+        order.get().setStatus(Status.Canceled);
+        orderRepository.save(order.get());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

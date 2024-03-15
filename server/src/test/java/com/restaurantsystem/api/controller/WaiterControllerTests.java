@@ -56,7 +56,8 @@ public class WaiterControllerTests {
 
     @BeforeEach
     void login() {
-        token = authenticationService.login(DatabasePopulate.Waiter1.username(), DatabasePopulate.Waiter1.password())
+        token = authenticationService
+                .login(DatabasePopulate.Waiter1.username(), DatabasePopulate.Waiter1.password())
                 .get();
     }
 
@@ -98,7 +99,8 @@ public class WaiterControllerTests {
     @Test
     void addOrder() {
         ResponseEntity<Integer> response = restTemplate.postForEntity(
-                getUrl() + "addOrder?t=" + token, new PostOrderWaiter(Arrays.asList(1, 2)), Integer.class);
+                getUrl() + "addOrder?t=" + token, new PostOrderWaiter(Arrays.asList(1, 2)),
+                Integer.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertTrue(response.getBody() > 0);
         Optional<Worker> waiter = workerRepository.findByToken(token);
@@ -129,14 +131,26 @@ public class WaiterControllerTests {
                 String.class);
         assertEquals(orderedOrder.getStatusCode(), HttpStatus.BAD_REQUEST);
         int inProgressOrderId = 2;
-        ResponseEntity<String> inProgressOrder = restTemplate.postForEntity(getUrl() + "completeOrder?t=" + token,
+        ResponseEntity<String> inProgressOrder = restTemplate.postForEntity(
+                getUrl() + "completeOrder?t=" + token,
                 inProgressOrderId,
                 String.class);
         assertEquals(inProgressOrder.getStatusCode(), HttpStatus.BAD_REQUEST);
         int deliveredOrderId = 4;
-        ResponseEntity<String> deliveredOrder = restTemplate.postForEntity(getUrl() + "completeOrder?t=" + token,
+        ResponseEntity<String> deliveredOrder = restTemplate.postForEntity(
+                getUrl() + "completeOrder?t=" + token,
                 deliveredOrderId,
                 String.class);
         assertEquals(deliveredOrder.getStatusCode(), HttpStatus.BAD_REQUEST);
+    }
+
+    @Transactional
+    @Test
+    void cancelOrder() {
+        ResponseEntity<String> response = restTemplate.postForEntity(getUrl() + "cancelOrder?t=" + token,
+                1,
+                String.class);
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertEquals(orderRepository.findById(1).get().getStatus(), Status.Canceled);
     }
 }

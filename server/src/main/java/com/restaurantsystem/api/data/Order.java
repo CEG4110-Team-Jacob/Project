@@ -33,7 +33,7 @@ public class Order {
     private Worker waiter;
 
     public enum Status {
-        Cooked, Ordered, InProgress, Delivered
+        Cooked, Ordered, InProgress, Delivered, Canceled
     }
 
     public List<Item> getItems() {
