@@ -1,5 +1,6 @@
 package com.restaurantsystem.api.service;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -36,6 +37,16 @@ public class AuthenticationServiceTest {
         assertNotNull(workerRepository);
         assertNotNull(authenticationService);
         assertNotNull(passwordEncoder);
+    }
+
+    @Test
+    void logout() {
+        Optional<String> t = authenticationService.login(DatabasePopulate.Waiter1.username(),
+                DatabasePopulate.Waiter1.password());
+        assertTrue(t.isPresent());
+        assertTrue(authenticationService.authenticate(t.get()).isPresent());
+        authenticationService.logout(t.get());
+        assertFalse(authenticationService.authenticate(t.get()).isPresent());
     }
 
     /**

@@ -91,4 +91,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return worker;
     }
 
+    @Override
+    public void logout(String token) {
+        Optional<Worker> worker = authenticate(token);
+        if (worker.isEmpty())
+            return;
+        worker.get().setToken(null);
+        workerRepository.save(worker.get());
+    }
+
 }

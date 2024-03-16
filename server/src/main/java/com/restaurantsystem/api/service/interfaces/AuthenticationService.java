@@ -24,4 +24,6 @@ public interface AuthenticationService {
     public Optional<Worker> authenticate(String token);
 
     public Optional<Worker> hasJobAndAuthenticate(String token, Job job);
+
+    public void logout(String token);
 }
