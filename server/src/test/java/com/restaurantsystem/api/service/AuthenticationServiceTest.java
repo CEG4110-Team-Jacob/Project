@@ -19,8 +19,6 @@ import com.restaurantsystem.api.data.Worker.Job;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.service.interfaces.AuthenticationService;
 
-import jakarta.transaction.Transactional;
-
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ExtendWith({ DatabasePopulate.class })
 public class AuthenticationServiceTest {
@@ -53,7 +51,6 @@ public class AuthenticationServiceTest {
      * Tests the login features as well as authentication
      */
     @Test
-    @Transactional
     void login() {
         assertTrue(authenticationService.login("jlgebg", "uiguef").isEmpty());
         Optional<String> t = authenticationService.login(DatabasePopulate.Waiter1.username(),

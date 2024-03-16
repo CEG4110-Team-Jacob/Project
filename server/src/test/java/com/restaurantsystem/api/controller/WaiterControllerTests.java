@@ -67,7 +67,8 @@ public class WaiterControllerTests {
     }
 
     record ListOfOrders(List<OrderRecord> orders) {
-        record OrderRecord(int id, List<TestSharedItem> items, Date timeOrdered, Status status, int totalPrice) {
+        record OrderRecord(int id, List<TestSharedItem> items, Date timeOrdered, Status status,
+                int totalPrice) {
         }
     }
 

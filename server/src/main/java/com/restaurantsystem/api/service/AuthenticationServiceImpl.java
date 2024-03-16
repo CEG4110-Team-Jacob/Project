@@ -8,6 +8,7 @@ import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.restaurantsystem.api.data.Worker;
 import com.restaurantsystem.api.data.Worker.Job;
@@ -62,6 +63,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
+    @Transactional
     public Optional<String> login(String username, String password) {
         Optional<Worker> worker = workerRepository.findByUsername(username);
         if (worker.isEmpty())
@@ -92,6 +94,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
+    @Transactional
     public void logout(String token) {
         Optional<Worker> worker = authenticate(token);
         if (worker.isEmpty())

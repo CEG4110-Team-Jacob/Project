@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,7 +43,7 @@ public class MainController {
         return new ResponseEntity<String>(token.get(), HttpStatus.OK);
     }
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public void logout(@RequestParam String t) {
         authenticationService.logout(t);
     }
