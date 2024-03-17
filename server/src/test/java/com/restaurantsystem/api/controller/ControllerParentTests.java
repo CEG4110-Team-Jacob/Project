@@ -10,7 +10,6 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 
 import com.restaurantsystem.api.DatabasePopulate;
 import com.restaurantsystem.api.DatabasePopulate.Login;
-import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.service.AuthenticationService;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -24,9 +23,6 @@ public class ControllerParentTests {
 
     @Autowired
     protected TestRestTemplate restTemplate;
-
-    @Autowired
-    protected OrderRepository orderRepository;
 
     protected String token;
 
