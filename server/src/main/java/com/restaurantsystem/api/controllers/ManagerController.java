@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.restaurantsystem.api.data.Worker;
 import com.restaurantsystem.api.data.Worker.Job;
 import com.restaurantsystem.api.repos.ItemRepository;
-import com.restaurantsystem.api.service.interfaces.AuthenticationService;
+import com.restaurantsystem.api.service.AuthenticationService;
 import com.restaurantsystem.api.shared.all.ListOfItems;
 import com.restaurantsystem.api.shared.all.SharedItem;
 

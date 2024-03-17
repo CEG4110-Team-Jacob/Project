@@ -22,7 +22,7 @@ import com.restaurantsystem.api.data.Worker;
 import com.restaurantsystem.api.data.Order.Status;
 import com.restaurantsystem.api.repos.ItemRepository;
 import com.restaurantsystem.api.repos.OrderRepository;
-import com.restaurantsystem.api.service.interfaces.AuthenticationService;
+import com.restaurantsystem.api.service.AuthenticationService;
 import com.restaurantsystem.api.shared.all.ListOfItems;
 import com.restaurantsystem.api.shared.all.SharedItem;
 import com.restaurantsystem.api.shared.waiter.GetOrderWaiter;

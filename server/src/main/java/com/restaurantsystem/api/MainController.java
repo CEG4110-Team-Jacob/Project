@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
-import com.restaurantsystem.api.service.AuthenticationServiceImpl;
+import com.restaurantsystem.api.service.AuthenticationService;
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 @RestController
 public class MainController {
     @Autowired
-    AuthenticationServiceImpl authenticationService;
+    AuthenticationService authenticationService;
     @Autowired
     WorkerRepository workerRepository;
     @Autowired

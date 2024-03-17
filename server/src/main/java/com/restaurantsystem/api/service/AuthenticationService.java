@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.restaurantsystem.api.data.Worker;
 import com.restaurantsystem.api.data.Worker.Job;
 import com.restaurantsystem.api.repos.WorkerRepository;
-import com.restaurantsystem.api.service.interfaces.AuthenticationService;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
@@ -21,7 +20,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
 @Service
-public class AuthenticationServiceImpl implements AuthenticationService {
+public class AuthenticationService {
     /**
      * How long the token lasts until expiration
      */
@@ -62,7 +61,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    @Override
     @Transactional
     public Optional<String> login(String username, String password) {
         Optional<Worker> worker = workerRepository.findByUsername(username);
@@ -76,14 +74,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return Optional.of(token);
     }
 
-    @Override
+    @Transactional
     public Optional<Worker> authenticate(String token) {
         if (!isValidToken(token))
             return Optional.empty();
         return workerRepository.findByToken(token);
     }
 
-    @Override
     public Optional<Worker> hasJobAndAuthenticate(String token, Job job) {
         Optional<Worker> worker = authenticate(token);
         if (worker.isEmpty())
@@ -93,7 +90,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return worker;
     }
 
-    @Override
     @Transactional
     public void logout(String token) {
         Optional<Worker> worker = authenticate(token);

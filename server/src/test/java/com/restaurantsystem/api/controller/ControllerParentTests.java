@@ -11,7 +11,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import com.restaurantsystem.api.DatabasePopulate;
 import com.restaurantsystem.api.DatabasePopulate.Login;
 import com.restaurantsystem.api.repos.OrderRepository;
-import com.restaurantsystem.api.service.interfaces.AuthenticationService;
+import com.restaurantsystem.api.service.AuthenticationService;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ExtendWith({ DatabasePopulate.class })

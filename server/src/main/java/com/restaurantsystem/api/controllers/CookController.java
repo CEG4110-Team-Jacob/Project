@@ -7,9 +7,12 @@ import com.restaurantsystem.api.data.Order;
 import com.restaurantsystem.api.data.Worker;
 import com.restaurantsystem.api.data.Order.Status;
 import com.restaurantsystem.api.data.Worker.Job;
+import com.restaurantsystem.api.repos.ItemRepository;
 import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
-import com.restaurantsystem.api.service.interfaces.AuthenticationService;
+import com.restaurantsystem.api.service.AuthenticationService;
+import com.restaurantsystem.api.shared.all.ListOfItems;
+import com.restaurantsystem.api.shared.all.SharedItem;
 import com.restaurantsystem.api.shared.cooks.GetOrderCook;
 
 import java.util.Arrays;
@@ -38,7 +41,19 @@ public class CookController {
     OrderRepository orderRepository;
 
     @Autowired
+    ItemRepository itemRepository;
+
+    @Autowired
     WorkerRepository workerRepository;
+
+    @GetMapping("/items")
+    public ResponseEntity<ListOfItems> getItems(@RequestParam String t) {
+        Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Cook);
+        if (worker.isEmpty())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        List<SharedItem> items = itemRepository.findAllBy(SharedItem.class);
+        return new ResponseEntity<ListOfItems>(new ListOfItems(items), HttpStatus.OK);
+    }
 
     @GetMapping("/getOrders")
     public ResponseEntity<Orders> getOrders(@RequestParam String t) {
