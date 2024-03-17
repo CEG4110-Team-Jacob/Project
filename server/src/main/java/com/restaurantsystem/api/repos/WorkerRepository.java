@@ -12,4 +12,7 @@ public interface WorkerRepository extends CrudRepository<Worker, Integer> {
     public Optional<Worker> findByUsername(String username);
 
     public Optional<Worker> findByToken(String token);
+
+    public boolean existsByUsername(String username);
+
 }

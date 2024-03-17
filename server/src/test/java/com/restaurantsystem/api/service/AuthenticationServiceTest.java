@@ -1,5 +1,6 @@
 package com.restaurantsystem.api.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,6 +18,7 @@ import com.restaurantsystem.api.DatabasePopulate;
 import com.restaurantsystem.api.data.Worker;
 import com.restaurantsystem.api.data.Worker.Job;
 import com.restaurantsystem.api.repos.WorkerRepository;
+import com.restaurantsystem.api.shared.manager.PostCreateAccount;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ExtendWith({ DatabasePopulate.class })
@@ -44,6 +46,23 @@ public class AuthenticationServiceTest {
         assertTrue(authenticationService.authenticate(t.get()).isPresent());
         authenticationService.logout(t.get());
         assertFalse(authenticationService.authenticate(t.get()).isPresent());
+    }
+
+    @Test
+    void createAccount() {
+        Optional<Worker> worker1 = authenticationService
+                .addWorker(new PostCreateAccount("a", "b", 20, Job.Waiter, "bill", "tom"));
+        assertTrue(worker1.isPresent());
+        assertNotNull(worker1.get());
+        assertTrue(workerRepository.existsById(worker1.get().getId()));
+        assertEquals(workerRepository.findById(worker1.get().getId()).get().getUsername(), "bill");
+        Optional<Worker> underaged = authenticationService
+                .addWorker(new PostCreateAccount("babab", "is", 10, Job.Manager, "you", "LOL"));
+        assertTrue(underaged.isEmpty());
+        Optional<Worker> sameUserName = authenticationService
+                .addWorker(new PostCreateAccount("hdsjaf", "jabs", 20, Job.Host, DatabasePopulate.Waiter1.username(),
+                        "asd"));
+        assertTrue(sameUserName.isEmpty());
     }
 
     /**

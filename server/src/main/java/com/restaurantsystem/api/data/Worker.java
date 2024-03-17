@@ -10,6 +10,10 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Worker {
+    public enum Job {
+        Waiter, Host, Manager, Cook
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
@@ -22,12 +26,9 @@ public class Worker {
     private String token;
     @OneToMany(mappedBy = "waiter")
     private Set<Order> orders;
+
     @OneToMany(mappedBy = "waiter")
     private Set<Table> tables;
-
-    public enum Job {
-        Waiter, Host, Manager, Cook
-    }
 
     public String getFirstName() {
         return firstName;

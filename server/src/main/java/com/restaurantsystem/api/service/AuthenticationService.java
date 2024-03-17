@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.restaurantsystem.api.data.Worker;
 import com.restaurantsystem.api.data.Worker.Job;
 import com.restaurantsystem.api.repos.WorkerRepository;
+import com.restaurantsystem.api.shared.manager.PostCreateAccount;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
@@ -99,4 +100,20 @@ public class AuthenticationService {
         workerRepository.save(worker.get());
     }
 
+    @Transactional
+    public Optional<Worker> addWorker(PostCreateAccount account) {
+        if (workerRepository.existsByUsername(account.username()))
+            return Optional.empty();
+        if (account.age() < 16)
+            return Optional.empty();
+        Worker worker = new Worker();
+        worker.setAge(account.age());
+        worker.setFirstName(account.firstName());
+        worker.setLastName(account.lastName());
+        worker.setJob(account.job());
+        worker.setUsername(account.username());
+        worker.setPasswordHash(passwordEncoder.encode(account.password()));
+        worker = workerRepository.save(worker);
+        return Optional.of(worker);
+    }
 }
