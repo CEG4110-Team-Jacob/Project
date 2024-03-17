@@ -23,6 +23,8 @@ import com.restaurantsystem.api.data.Order.Status;
 import com.restaurantsystem.api.repos.ItemRepository;
 import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.service.interfaces.AuthenticationService;
+import com.restaurantsystem.api.shared.all.ListOfItems;
+import com.restaurantsystem.api.shared.all.SharedItem;
 import com.restaurantsystem.api.shared.waiter.GetOrderWaiter;
 import com.restaurantsystem.api.shared.waiter.PostOrderWaiter;
 
@@ -54,6 +56,15 @@ public class WaiterController {
         ResponseEntity<Orders> orders = new ResponseEntity<Orders>(new Orders(order),
                 HttpStatus.OK);
         return orders;
+    }
+
+    @GetMapping("/items")
+    public ResponseEntity<ListOfItems> getItems(@RequestParam String t) {
+        Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Waiter);
+        if (worker.isEmpty())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        List<SharedItem> items = itemRepository.findAllBy(SharedItem.class);
+        return new ResponseEntity<ListOfItems>(new ListOfItems(items), HttpStatus.OK);
     }
 
     @PostMapping("/addOrder")

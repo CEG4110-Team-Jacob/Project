@@ -30,6 +30,7 @@ import com.restaurantsystem.api.data.Order.Status;
 import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.service.interfaces.AuthenticationService;
+import com.restaurantsystem.api.shared.ListOfItems;
 import com.restaurantsystem.api.shared.TestSharedItem;
 import com.restaurantsystem.api.shared.waiter.PostOrderWaiter;
 
@@ -146,5 +147,13 @@ public class WaiterControllerTests {
                 String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertEquals(orderRepository.findById(1).get().getStatus(), Status.Canceled);
+    }
+
+    @Test
+    void getItems() {
+        ResponseEntity<ListOfItems> items = restTemplate.getForEntity(getUrl() + "items?t=" + token,
+                ListOfItems.class);
+        assertEquals(items.getStatusCode(), HttpStatus.OK);
+        assertTrue(items.getBody().items().size() > 0);
     }
 }

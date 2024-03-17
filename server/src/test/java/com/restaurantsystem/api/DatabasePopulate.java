@@ -31,6 +31,7 @@ public class DatabasePopulate implements BeforeAllCallback {
     public static final Login Waiter1 = new Login("jd", "janedoe");
     public static final Login Host1 = new Login("jin", "jindigo");
     public static final Login Cook1 = new Login("TimCook", "Apple");
+    public static final Login Manager1 = new Login("OrangeGuy", "Wall");
 
     private static boolean first = true;
     ItemRepository itemRepository;
@@ -113,6 +114,16 @@ public class DatabasePopulate implements BeforeAllCallback {
         cook.setPasswordHash(passwordEncoder.encode(Cook1.password));
         cook.setTables(null);
         workerRepository.save(cook);
+
+        Worker manager = new Worker();
+        manager.setAge(77);
+        manager.setFirstName("Donald");
+        manager.setLastName("NotTrump");
+        manager.setJob(Job.Manager);
+        manager.setUsername(Manager1.username);
+        manager.setPasswordHash(passwordEncoder.encode(Manager1.password));
+        manager.setTables(null);
+        workerRepository.save(manager);
     }
 
     public void populateOrders() {

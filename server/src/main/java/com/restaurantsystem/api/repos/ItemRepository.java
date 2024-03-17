@@ -1,5 +1,6 @@
 package com.restaurantsystem.api.repos;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
@@ -10,5 +11,7 @@ import com.restaurantsystem.api.data.Item;
 @Repository
 public interface ItemRepository extends CrudRepository<Item, Integer> {
     <T> Optional<T> findById(Integer id);
+
+    <T> List<T> findAllBy(Class<T> type);
 
 }
