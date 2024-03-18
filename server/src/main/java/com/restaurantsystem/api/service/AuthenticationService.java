@@ -82,11 +82,19 @@ public class AuthenticationService {
         return workerRepository.findByToken(token);
     }
 
+    /**
+     * If the token is valid and has job. It also automatically accepts manager
+     * tokens without checking for jobs.
+     * 
+     * @param token
+     * @param job
+     * @return
+     */
     public Optional<Worker> hasJobAndAuthenticate(String token, Job job) {
         Optional<Worker> worker = authenticate(token);
         if (worker.isEmpty())
             return Optional.empty();
-        if (worker.get().getJob() != job)
+        if (worker.get().getJob() != job && worker.get().getJob() != Job.Manager)
             return Optional.empty();
         return worker;
     }

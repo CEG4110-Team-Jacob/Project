@@ -95,5 +95,9 @@ public class AuthenticationServiceTest {
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(token, Job.Waiter);
         assertTrue(worker.isPresent());
         assertTrue(authenticationService.hasJobAndAuthenticate(token, Job.Host).isEmpty());
+        Optional<String> managerToken = authenticationService.login(DatabasePopulate.Manager1.username(),
+                DatabasePopulate.Manager1.password());
+        assertTrue(managerToken.isPresent());
+        assertTrue(authenticationService.hasJobAndAuthenticate(managerToken.get(), Job.Waiter).isPresent());
     }
 }
