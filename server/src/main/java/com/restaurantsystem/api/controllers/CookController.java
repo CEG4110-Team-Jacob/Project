@@ -3,6 +3,7 @@ package com.restaurantsystem.api.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restaurantsystem.api.data.Item;
 import com.restaurantsystem.api.data.Order;
 import com.restaurantsystem.api.data.Worker;
 import com.restaurantsystem.api.data.Order.Status;
@@ -97,6 +98,34 @@ public class CookController {
         Order orderNew = orderRepository.save(order.get());
         int waiterId = orderNew.getWaiter().getId();
         waiterController.orderCompleted(waiterId, id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/itemDepleted")
+    @Transactional
+    public ResponseEntity<String> itemDepleted(@RequestParam String t, @RequestBody int id) {
+        Optional<Worker> cook = authenticationService.hasJobAndAuthenticate(t, Job.Cook);
+        if (cook.isEmpty())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        Optional<Item> item = itemRepository.findById(id);
+        if (item.isEmpty() || !item.get().isInStock())
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        item.get().setInStock(false);
+        itemRepository.save(item.get());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/itemRestocked")
+    @Transactional
+    public ResponseEntity<String> itemRestocked(@RequestParam String t, @RequestBody int id) {
+        Optional<Worker> cook = authenticationService.hasJobAndAuthenticate(t, Job.Cook);
+        if (cook.isEmpty())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        Optional<Item> item = itemRepository.findById(id);
+        if (item.isEmpty() || item.get().isInStock())
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        item.get().setInStock(true);
+        itemRepository.save(item.get());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

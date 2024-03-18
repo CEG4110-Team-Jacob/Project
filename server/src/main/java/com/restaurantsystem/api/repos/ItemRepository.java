@@ -10,7 +10,7 @@ import com.restaurantsystem.api.data.Item;
 
 @Repository
 public interface ItemRepository extends CrudRepository<Item, Integer> {
-    <T> Optional<T> findById(Integer id);
+    <T> Optional<T> findById(Integer id, Class<T> type);
 
     <T> List<T> findAllBy(Class<T> type);
 

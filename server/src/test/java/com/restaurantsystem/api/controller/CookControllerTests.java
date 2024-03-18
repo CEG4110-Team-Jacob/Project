@@ -1,6 +1,7 @@
 package com.restaurantsystem.api.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -26,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.restaurantsystem.api.DatabasePopulate;
 import com.restaurantsystem.api.data.Order;
 import com.restaurantsystem.api.data.Order.Status;
+import com.restaurantsystem.api.repos.ItemRepository;
 import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.service.AuthenticationService;
@@ -99,4 +101,24 @@ public class CookControllerTests extends ControllerParentTests {
         assertTrue(items.getBody().items().size() > 0);
     }
 
+    @Autowired
+    ItemRepository itemRepository;
+
+    @Test
+    void itemsDepleted() {
+        ResponseEntity<String> response = restTemplate.postForEntity(getUrl() + "itemDepleted?t=" + token, 1,
+                String.class);
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertTrue(itemRepository.findById(1).isPresent());
+        assertFalse(itemRepository.findById(1).get().isInStock());
+        itemRestocked();
+    }
+
+    void itemRestocked() {
+        ResponseEntity<String> response = restTemplate.postForEntity(getUrl() + "itemRestocked?t=" + token, 1,
+                String.class);
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertTrue(itemRepository.findById(1).isPresent());
+        assertTrue(itemRepository.findById(1).get().isInStock());
+    }
 }
