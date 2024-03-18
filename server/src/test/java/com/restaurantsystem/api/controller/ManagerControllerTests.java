@@ -3,6 +3,8 @@ package com.restaurantsystem.api.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.HashSet;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,7 +42,8 @@ public class ManagerControllerTests extends ControllerParentTests {
     @Test
     void createAccount() {
         ResponseEntity<String> response = restTemplate.postForEntity(getUrl() + "createWorker?t=" + token,
-                new PostCreateAccount("baba", "Not", 30, Job.Host, "hsdagai", "asdfhuas"), String.class);
+                new PostCreateAccount("baba", "Not", 30, Job.Host, "hsdagai", "asdfhuas", new HashSet<>()),
+                String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertTrue(workerRepository.existsByUsername("hsdagai"));
     }

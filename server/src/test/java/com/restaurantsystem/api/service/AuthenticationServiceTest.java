@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.HashSet;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -51,17 +52,17 @@ public class AuthenticationServiceTest {
     @Test
     void createAccount() {
         Optional<Worker> worker1 = authenticationService
-                .addWorker(new PostCreateAccount("a", "b", 20, Job.Waiter, "bill", "tom"));
+                .addWorker(new PostCreateAccount("a", "b", 20, Job.Waiter, "bill", "tom", new HashSet<>()));
         assertTrue(worker1.isPresent());
         assertNotNull(worker1.get());
         assertTrue(workerRepository.existsById(worker1.get().getId()));
         assertEquals(workerRepository.findById(worker1.get().getId()).get().getUsername(), "bill");
         Optional<Worker> underaged = authenticationService
-                .addWorker(new PostCreateAccount("babab", "is", 10, Job.Manager, "you", "LOL"));
+                .addWorker(new PostCreateAccount("babab", "is", 10, Job.Manager, "you", "LOL", new HashSet<>()));
         assertTrue(underaged.isEmpty());
         Optional<Worker> sameUserName = authenticationService
                 .addWorker(new PostCreateAccount("hdsjaf", "jabs", 20, Job.Host, DatabasePopulate.Waiter1.username(),
-                        "asd"));
+                        "asd", new HashSet<>()));
         assertTrue(sameUserName.isEmpty());
     }
 

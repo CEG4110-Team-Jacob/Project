@@ -1,6 +1,7 @@
 package com.restaurantsystem.api.service;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Optional;
 
 import javax.crypto.SecretKey;
@@ -10,8 +11,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.restaurantsystem.api.data.Table;
 import com.restaurantsystem.api.data.Worker;
 import com.restaurantsystem.api.data.Worker.Job;
+import com.restaurantsystem.api.repos.TableRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.shared.manager.PostCreateAccount;
 
@@ -61,6 +64,9 @@ public class AuthenticationService {
     public WorkerRepository workerRepository;
 
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    @Autowired
+    TableRepository tableRepository;
 
     @Transactional
     public Optional<String> login(String username, String password) {
@@ -120,6 +126,9 @@ public class AuthenticationService {
         worker.setLastName(account.lastName());
         worker.setJob(account.job());
         worker.setUsername(account.username());
+        Iterable<Table> tables = tableRepository.findAllById(account.tableIds());
+        worker.setTables(new HashSet<>());
+        tables.forEach(worker.getTables()::add);
         worker.setPasswordHash(passwordEncoder.encode(account.password()));
         worker = workerRepository.save(worker);
         return Optional.of(worker);
