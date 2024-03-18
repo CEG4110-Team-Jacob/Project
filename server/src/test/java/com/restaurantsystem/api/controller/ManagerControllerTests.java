@@ -9,14 +9,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.restaurantsystem.api.DatabasePopulate;
+import com.restaurantsystem.api.data.Item.ItemType;
 import com.restaurantsystem.api.data.Worker.Job;
+import com.restaurantsystem.api.repos.ItemRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.shared.ListOfItems;
+import com.restaurantsystem.api.shared.manager.AddItem;
 import com.restaurantsystem.api.shared.manager.PostCreateAccount;
 
 public class ManagerControllerTests extends ControllerParentTests {
     @Autowired
     WorkerRepository workerRepository;
+
+    @Autowired
+    ItemRepository itemRepository;
 
     public ManagerControllerTests() {
         this.login = DatabasePopulate.Manager1;
@@ -37,5 +43,13 @@ public class ManagerControllerTests extends ControllerParentTests {
                 new PostCreateAccount("baba", "Not", 30, Job.Host, "hsdagai", "asdfhuas"), String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertTrue(workerRepository.existsByUsername("hsdagai"));
+    }
+
+    @Test
+    void addItem() {
+        ResponseEntity<String> response = restTemplate.postForEntity(getUrl() + "addItem?t=" + token,
+                new AddItem("asda", "gasd", 200, true, ItemType.Food), String.class);
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertTrue(itemRepository.existsByName("asda"));
     }
 }
