@@ -75,7 +75,7 @@ public class WaiterControllerTests extends ControllerParentTests {
     @Transactional
     void addOrder() {
         ResponseEntity<Integer> response = restTemplate.postForEntity(
-                getUrl() + "addOrder?t=" + token, new PostOrderWaiter(Arrays.asList(1, 2)),
+                getUrl() + "addOrder?t=" + token, new PostOrderWaiter(Arrays.asList(1, 2), 1),
                 Integer.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertTrue(response.getBody() > 0);

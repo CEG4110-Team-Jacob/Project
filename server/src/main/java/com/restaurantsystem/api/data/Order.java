@@ -31,6 +31,8 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "worker_id")
     private Worker waiter;
+    @ManyToOne
+    private com.restaurantsystem.api.data.Table table;
 
     public enum Status {
         Cooked, Ordered, InProgress, Delivered, Canceled
@@ -93,6 +95,18 @@ public class Order {
 
     public void setWaiter(Worker waiter) {
         this.waiter = waiter;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public com.restaurantsystem.api.data.Table getTable() {
+        return table;
+    }
+
+    public void setTable(com.restaurantsystem.api.data.Table table) {
+        this.table = table;
     }
 
 }
