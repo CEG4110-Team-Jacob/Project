@@ -80,6 +80,9 @@ public class CookController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Autowired
+    WaiterController waiterController;
+
     @PostMapping("/completeOrder")
     @Transactional
     public ResponseEntity<String> completeOrder(@RequestParam String t,
@@ -91,7 +94,9 @@ public class CookController {
         if (order.isEmpty() || order.get().getStatus() != Status.InProgress)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         order.get().setStatus(Status.Cooked);
-        orderRepository.save(order.get());
+        Order orderNew = orderRepository.save(order.get());
+        int waiterId = orderNew.getWaiter().getId();
+        waiterController.orderCompleted(waiterId, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
