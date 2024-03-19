@@ -5,5 +5,5 @@ import java.util.List;
 /**
  * PostOrderWaiter
  */
-public record PostOrderWaiter(List<Integer> items) {
+public record PostOrderWaiter(List<Integer> items, int tableId) {
 }

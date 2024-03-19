@@ -13,12 +13,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.restaurantsystem.api.data.Item;
 import com.restaurantsystem.api.data.Order;
+import com.restaurantsystem.api.data.Table;
 import com.restaurantsystem.api.data.Worker;
 import com.restaurantsystem.api.data.Item.ItemType;
 import com.restaurantsystem.api.data.Order.Status;
 import com.restaurantsystem.api.data.Worker.Job;
 import com.restaurantsystem.api.repos.ItemRepository;
 import com.restaurantsystem.api.repos.OrderRepository;
+import com.restaurantsystem.api.repos.TableRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
 
 public class DatabasePopulate implements BeforeAllCallback {
@@ -38,6 +40,7 @@ public class DatabasePopulate implements BeforeAllCallback {
     OrderRepository orderRepository;
 
     WorkerRepository workerRepository;
+    TableRepository tableRepository;
 
     @Override
     public void beforeAll(ExtensionContext context) throws Exception {
@@ -48,9 +51,18 @@ public class DatabasePopulate implements BeforeAllCallback {
         itemRepository = context2.getBean(ItemRepository.class);
         orderRepository = context2.getBean(OrderRepository.class);
         workerRepository = context2.getBean(WorkerRepository.class);
+        tableRepository = context2.getBean(TableRepository.class);
         populateWorkers();
+        populateTables();
         populateItems();
         populateOrders();
+    }
+
+    public void populateTables() {
+        Table table1 = new Table();
+        table1.setNumSeats(3);
+        table1.setOccupied(false);
+        tableRepository.save(table1);
     }
 
     public void populateItems() {

@@ -20,10 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.restaurantsystem.api.data.Worker.Job;
 import com.restaurantsystem.api.data.Item;
 import com.restaurantsystem.api.data.Order;
+import com.restaurantsystem.api.data.Table;
 import com.restaurantsystem.api.data.Worker;
 import com.restaurantsystem.api.data.Order.Status;
 import com.restaurantsystem.api.repos.ItemRepository;
 import com.restaurantsystem.api.repos.OrderRepository;
+import com.restaurantsystem.api.repos.TableRepository;
 import com.restaurantsystem.api.service.AuthenticationService;
 import com.restaurantsystem.api.shared.all.ListOfItems;
 import com.restaurantsystem.api.shared.all.SharedItem;
@@ -43,6 +45,8 @@ public class WaiterController {
     OrderRepository orderRepository;
     @Autowired
     ItemRepository itemRepository;
+    @Autowired
+    TableRepository tableRepository;
 
     @Autowired
     AuthenticationService authenticationService;
@@ -85,6 +89,10 @@ public class WaiterController {
         o.setTotalPrice();
         o.setStatus(Status.Ordered);
         o.setWaiter(worker.get());
+        Optional<Table> table = tableRepository.findById(order.tableId());
+        if (table.isEmpty())
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        o.setTable(table.get());
         o = orderRepository.save(o);
         return new ResponseEntity<>(o.getId(), HttpStatus.OK);
     }

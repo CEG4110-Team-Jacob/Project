@@ -1,10 +1,13 @@
 package com.restaurantsystem.api.data;
 
+import java.util.Set;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity(name = "restaurant_table")
 public class Table {
@@ -14,6 +17,8 @@ public class Table {
     private int number;
     @ManyToOne
     private Worker waiter;
+    @OneToMany
+    private Set<Order> orders;
     private boolean isOccupied;
     private int numSeats;
 
@@ -55,6 +60,14 @@ public class Table {
 
     public void setNumSeats(int numSeats) {
         this.numSeats = numSeats;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 
 }
