@@ -1,3 +1,5 @@
+package org.example;
+
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
