@@ -4,11 +4,13 @@ public class MainFrame extends JFrame {
     private Waiters waiterGui = new Waiters();
     private ManagerWaiterView managerWorkerView = new ManagerWaiterView(Data.getWorkers().get(1));
     private Cooks cookGui = new Cooks();
+    private Login login = new Login();
 
     public MainFrame() {
         super("Restaurant");
 
-        add(waiterGui);
+        add(login);
+        // add(waiterGui);
         // add(cookGui);
         // add(managerWorkerView);
 
