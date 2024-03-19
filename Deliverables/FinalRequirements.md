@@ -111,26 +111,46 @@ We will assume that the server that is hosting the software will be running Linu
 ## Backend/Server
 
 1. Server shall have tests on all code that can be tested
+     e. Existence
    1. Server shall have integration tests
-   2. Server shall have unit tests
-2. Server shall be easily configurable.
-3. Server shall be compiled and run easily with minimum dependencies.
-4. Server shall accept login information
-   1. Server shall confirm the login is correct,
-   2. Server shall return a token for further access of data.
-5. Server shall have APIs
+      e. Existence
+   3. Server shall have unit tests
+      e. Existence
+3. Server shall be easily configurable.
+      e. The configuration should be in one place.
+5. Server shall be compiled and run easily with minimum dependencies.
+      e. With less than 5 initial dependencies to start.
+7. Server shall accept login information
+     e. Tests
+   1. Server shall confirm the login is correct.
+        e. Tests
+   3. Server shall return a token for further access of data.
+         e. Tests
+9. Server shall have APIs
+    e. Existence
    1. Shall make sure the user using the token can access the API.
-   2. Shall return data in a consistent format.
-   3. Shall have APIs for everything the UI wants.
-6. Server shall allow real time updating data of the UIs.
-7. Server shall be able to connect to the database
+      e. Tests
+   3. Shall return data in a consistent format.
+      e. Automatic
+   5. Shall have APIs for everything the UI wants.
+      e. Existence
+11. Server shall allow real time updating data of the UIs.
+    e. Tests and Checking
+13. Server shall be able to connect to the database
+       e. Tests
    1. Shall be able to switch databases without a rewrite of the entire server.
-8. Server shall have good documentation on:
+         e. Existence of interfaces to DB.
+11. Server shall have good documentation on:
    1. The initial dependencies to setup the server.
-   2. How to setup the server.
-   3. The configuration file.
-   4. Where the APIs are located via URL.
-   5. How to use each API.
+      e. Existence
+   3. How to setup the server.
+      e. Existence
+   5. The configuration file.
+      e. Existence
+   7. Where the APIs are located via URL.
+      e. Existence
+   9. How to use each API.
+       e. Existence
 
 ## User Interface
 
