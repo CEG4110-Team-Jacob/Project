@@ -8,9 +8,9 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         super("Restaurant");
 
-        // add(waiterGui);
+        add(waiterGui);
         // add(cookGui);
-        add(managerWorkerView);
+        // add(managerWorkerView);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 500);
