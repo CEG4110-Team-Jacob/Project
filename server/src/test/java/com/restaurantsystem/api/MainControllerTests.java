@@ -15,6 +15,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import com.restaurantsystem.api.data.Worker.Job;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.service.AuthenticationService;
 
@@ -58,5 +60,15 @@ class MainControllerTests {
 		assertTrue(t.isPresent());
 		restTemplate.postForEntity(getUrl() + "logout?t=" + t.get(), null, null);
 		assertTrue(authenticationService.authenticate(t.get()).isEmpty());
+	}
+
+	@Test
+	void getJob() {
+		Optional<String> t = authenticationService.login(DatabasePopulate.Waiter1.username(),
+				DatabasePopulate.Waiter1.password());
+		assertTrue(t.isPresent());
+		ResponseEntity<Job> job = restTemplate.getForEntity(getUrl() + "getJob?t=" + t.get(), Job.class);
+		assertEquals(job.getStatusCode(), HttpStatus.OK);
+		assertEquals(job.getBody(), Job.Waiter);
 	}
 }

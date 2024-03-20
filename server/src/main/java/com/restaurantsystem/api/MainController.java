@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restaurantsystem.api.data.Worker;
+import com.restaurantsystem.api.data.Worker.Job;
 import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.service.AuthenticationService;
@@ -41,6 +43,14 @@ public class MainController {
         if (token.isEmpty())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         return new ResponseEntity<String>(token.get(), HttpStatus.OK);
+    }
+
+    @GetMapping("/getJob")
+    public ResponseEntity<Job> getJob(@RequestParam String t) {
+        Optional<Worker> worker = authenticationService.authenticate(t);
+        if (worker.isEmpty())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<Worker.Job>(worker.get().getJob(), HttpStatus.OK);
     }
 
     @PostMapping("/logout")
