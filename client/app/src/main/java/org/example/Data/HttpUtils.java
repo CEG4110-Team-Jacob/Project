@@ -8,7 +8,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 
 public class HttpUtils {
-    public static final String SERVER_URL = "http://localhost:8081";
+    public static final String SERVER_URL = "http://localhost:8080";
     private static URI URI;
     private static final RestClient restClient = RestClient.create();
 
@@ -28,6 +28,17 @@ public class HttpUtils {
             return Optional.of(response.getBody());
         } catch (HttpClientErrorException e) {
             return Optional.empty();
+        }
+    }
+
+    public static void logout() {
+        if (Data.token == null)
+            return;
+        String query = "t=" + Data.token;
+        try {
+            restClient.post().uri(URI + "/logout?" + query).retrieve();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
