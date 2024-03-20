@@ -13,6 +13,7 @@ public class MainFrame extends JFrame {
     private Cooks cookGui = new Cooks();
     private Login login = new Login(() -> {
         System.out.println("Logged in");
+        System.out.println(org.example.Data.Waiters.getOrders());
         // TODO What happens when login is successful
     });
 

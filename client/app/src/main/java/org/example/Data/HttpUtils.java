@@ -3,14 +3,16 @@ package org.example.Data;
 import java.net.URI;
 import java.util.Optional;
 
+import org.example.Data.enums.Job;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 
 public class HttpUtils {
     public static final String SERVER_URL = "http://localhost:8080";
-    private static URI URI;
-    private static final RestClient restClient = RestClient.create();
+    public static URI URI;
+    public static final RestClient restClient = RestClient.create();
 
     static {
         try {
@@ -32,13 +34,28 @@ public class HttpUtils {
     }
 
     public static void logout() {
-        if (Data.token == null)
+        if (Data.token == null || Data.token.isEmpty())
             return;
         String query = "t=" + Data.token;
         try {
             restClient.post().uri(URI + "/logout?" + query).retrieve();
+            Data.token = "";
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public Optional<Job> getJob() {
+        String query = "t=" + Data.token;
+        try {
+            ResponseEntity<Job> job = restClient.get().uri(URI + "/getJob?" + query).retrieve().toEntity(Job.class);
+            if (job.getStatusCode() != HttpStatus.OK)
+                return Optional.empty();
+            if (!job.hasBody())
+                return Optional.empty();
+            return Optional.of(job.getBody());
+        } catch (Exception e) {
+            return Optional.empty();
         }
     }
 }

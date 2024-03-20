@@ -21,7 +21,7 @@ public class Data {
 
     private static HashMap<Integer, Table> tables = new HashMap<>();
 
-    public static String token;
+    public static String token = "";
 
     static {
         orders.put(1, new Order(1, "AS", Arrays.asList("Burger")));
