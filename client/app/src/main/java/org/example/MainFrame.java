@@ -2,11 +2,16 @@ package org.example;
 
 import javax.swing.JFrame;
 
+import org.example.Data.Data;
+
 public class MainFrame extends JFrame {
     private Waiters waiterGui = new Waiters();
     private ManagerWaiterView managerWorkerView = new ManagerWaiterView(Data.getWorkers().get(1));
     private Cooks cookGui = new Cooks();
-    private Login login = new Login();
+    private Login login = new Login(() -> {
+        System.out.println("Logged in");
+        // TODO What happens when login is successful
+    });
 
     public MainFrame() {
         super("Restaurant");

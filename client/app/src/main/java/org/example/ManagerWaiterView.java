@@ -8,6 +8,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.example.Data.Data;
+
 public class ManagerWaiterView extends JPanel {
     JPanel waiterInfo = new JPanel();
     JPanel times = new JPanel();

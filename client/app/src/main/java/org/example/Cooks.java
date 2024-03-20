@@ -2,6 +2,8 @@ package org.example;
 
 import javax.swing.*;
 
+import org.example.Data.Data;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;

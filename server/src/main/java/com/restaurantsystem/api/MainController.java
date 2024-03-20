@@ -48,6 +48,14 @@ public class MainController {
         authenticationService.logout(t);
     }
 
+    @Autowired
+    DatabasePopulate databasePopulate;
+
+    @GetMapping("/populate")
+    public void populate() {
+        databasePopulate.populate();
+    }
+
     /**
      * Driver
      * 
