@@ -112,25 +112,25 @@ We will assume that the server that is hosting the software will be running Linu
 
 1. Server shall have tests on all code that can be tested. `e. Existence`
    1. Server shall have integration tests. `e. Existence`
-   3. Server shall have unit tests. `e. Existence`
-3. Server shall be easily configurable. `e. The configuration should be in one place.`
-5. Server shall be compiled and run easily with minimum dependencies. `e. With less than 5 initial dependencies to start.`
-7. Server shall accept login information. `e. Tests`
+   2. Server shall have unit tests. `e. Existence`
+2. Server shall be easily configurable. `e. The configuration should be in one place.`
+3. Server shall be compiled and run easily with minimum dependencies. `e. With less than 5 initial dependencies to start.`
+4. Server shall accept login information. `e. Tests`
    1. Server shall confirm the login is correct. `e. Tests`
-   3. Server shall return a token for further access of data. `e. Tests`
-9. Server shall have APIs `e. Existence`
+   2. Server shall return a token for further access of data. `e. Tests`
+5. Server shall have APIs `e. Existence`
    1. Shall make sure the user using the token can access the API. `e. Tests`
-   3. Shall return data in a consistent format. `e. Automatic through the framework`
-   5. Shall have APIs for everything the UI wants. `e. Existence`
-11. Server shall allow real time updating data of the UIs. `e. Tests and Checking`
-13. Server shall be able to connect to the database `e. Tests`
+   2. Shall return data in a consistent format. `e. Automatic through the framework`
+   3. Shall have APIs for everything the UI wants. `e. Existence`
+6. Server shall allow real time updating data of the UIs. `e. Tests and Checking`
+7. Server shall be able to connect to the database `e. Tests`
    1. Shall be able to switch databases without a rewrite of the entire server. `e. Existence of interfaces to DB.`
-11. Server shall have good documentation on:
+8. Server shall have good documentation on:
    1. The initial dependencies to setup the server. `e. Existence`
-   3. How to setup the server. `e. Existence`
-   5. The configuration file. `e. Existence`
-   7. Where the APIs are located via URL. `e. Existence`
-   9. How to use each API. `e. Existence`
+   2. How to setup the server. `e. Existence`
+   3. The configuration file. `e. Existence`
+   4. Where the APIs are located via URL. `e. Existence`
+   5. How to use each API. `e. Existence`
 
 ## User Interface
 
