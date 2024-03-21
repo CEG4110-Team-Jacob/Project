@@ -8,8 +8,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
+/**
+ * A restaurant worker
+ * This could be split later, but it works fine now.
+ */
 @Entity
 public class Worker {
+    /**
+     * The job of a worker
+     */
     public enum Job {
         Waiter, Host, Manager, Cook
     }
@@ -23,11 +30,20 @@ public class Worker {
     private String passwordHash;
     private int age;
     private Job job;
+    /**
+     * Token used to use APIs
+     */
     private String token;
     @OneToMany(mappedBy = "waiter")
+    /**
+     * The orders a waiter has taken
+     */
     private Set<Order> orders;
 
     @OneToMany(mappedBy = "waiter")
+    /**
+     * The tables a waiter serves
+     */
     private Set<Table> tables;
 
     public String getFirstName() {

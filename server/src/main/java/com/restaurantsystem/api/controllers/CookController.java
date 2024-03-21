@@ -29,9 +29,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+/**
+ * A Controller for cooks
+ */
 @RestController
 @RequestMapping(path = "/cook")
 public class CookController {
+    /**
+     * A list of orders that Cooks get
+     */
     public record Orders(List<GetOrderCook> orders) {
     }
 
@@ -47,6 +53,12 @@ public class CookController {
     @Autowired
     WorkerRepository workerRepository;
 
+    /**
+     * Gets all items' details
+     * 
+     * @param t token
+     * @return items
+     */
     @GetMapping("/items")
     public ResponseEntity<ListOfItems> getItems(@RequestParam String t) {
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Cook);
@@ -56,6 +68,12 @@ public class CookController {
         return new ResponseEntity<ListOfItems>(new ListOfItems(items), HttpStatus.OK);
     }
 
+    /**
+     * Gets all the orders with status InProgress or Ordered
+     * 
+     * @param t token
+     * @return orders
+     */
     @GetMapping("/getOrders")
     public ResponseEntity<Orders> getOrders(@RequestParam String t) {
         Optional<Worker> cook = authenticationService.hasJobAndAuthenticate(t, Job.Cook);
@@ -66,9 +84,15 @@ public class CookController {
         return new ResponseEntity<>(new Orders(orders), HttpStatus.OK);
     }
 
+    /**
+     * Sets an order as InProgress or Cooking
+     * 
+     * @param t  token
+     * @param id order id
+     */
     @PostMapping("/cookingOrder")
     @Transactional
-    public ResponseEntity<String> cookingOrder(@RequestParam String t,
+    public ResponseEntity<Void> cookingOrder(@RequestParam String t,
             @RequestBody int id) {
         Optional<Worker> cook = authenticationService.hasJobAndAuthenticate(t, Job.Cook);
         if (cook.isEmpty())
@@ -84,9 +108,15 @@ public class CookController {
     @Autowired
     WaiterController waiterController;
 
+    /**
+     * Sets an order as cooked
+     * 
+     * @param t  token
+     * @param id order id
+     */
     @PostMapping("/completeOrder")
     @Transactional
-    public ResponseEntity<String> completeOrder(@RequestParam String t,
+    public ResponseEntity<Void> completeOrder(@RequestParam String t,
             @RequestBody int id) {
         Optional<Worker> cook = authenticationService.hasJobAndAuthenticate(t, Job.Cook);
         if (cook.isEmpty())
@@ -101,9 +131,15 @@ public class CookController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Sets an item as depleted or not in stock
+     * 
+     * @param t  token
+     * @param id item id
+     */
     @PostMapping("/itemDepleted")
     @Transactional
-    public ResponseEntity<String> itemDepleted(@RequestParam String t, @RequestBody int id) {
+    public ResponseEntity<Void> itemDepleted(@RequestParam String t, @RequestBody int id) {
         Optional<Worker> cook = authenticationService.hasJobAndAuthenticate(t, Job.Cook);
         if (cook.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -115,9 +151,15 @@ public class CookController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Sets an item as in stock
+     * 
+     * @param t  token
+     * @param id item id
+     */
     @PostMapping("/itemRestocked")
     @Transactional
-    public ResponseEntity<String> itemRestocked(@RequestParam String t, @RequestBody int id) {
+    public ResponseEntity<Void> itemRestocked(@RequestParam String t, @RequestBody int id) {
         Optional<Worker> cook = authenticationService.hasJobAndAuthenticate(t, Job.Cook);
         if (cook.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

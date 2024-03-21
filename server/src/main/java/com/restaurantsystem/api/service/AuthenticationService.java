@@ -23,6 +23,9 @@ import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
+/**
+ * A service that handles authentication
+ */
 @Service
 public class AuthenticationService {
     /**
@@ -30,11 +33,16 @@ public class AuthenticationService {
      */
     private static final long TOKEN_ACCESS_TIME = 60 * 60 * 24 * 1000; // 24 hours
 
-    // TODO put the key somewhere else
+    /**
+     * A secret key that encrypts the tokens
+     */
     private static final String SECRET_KEY = "noijgnweiuongqeonhOHIOUHEGIUEhgiuSHeghshoGSEBUIGsG";
 
     private static final SecretKey KEY = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
+    /**
+     * Parser for tokens
+     */
     private static final JwtParser JWT_PARSER = Jwts.parser().verifyWith(KEY).build();
 
     /**
@@ -49,6 +57,12 @@ public class AuthenticationService {
         return Jwts.builder().subject(username).expiration(expirationDate).signWith(KEY).compact();
     }
 
+    /**
+     * Checks if the token is valid
+     * 
+     * @param token
+     * @return if token is valid
+     */
     private static boolean isValidToken(String token) {
         try {
             Claims claims = JWT_PARSER.parseSignedClaims(token).getPayload();
@@ -63,11 +77,21 @@ public class AuthenticationService {
     @Autowired
     public WorkerRepository workerRepository;
 
+    /**
+     * Password hasher
+     */
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
     TableRepository tableRepository;
 
+    /**
+     * Login to the server
+     * 
+     * @param username
+     * @param password
+     * @return token
+     */
     @Transactional
     public Optional<String> login(String username, String password) {
         Optional<Worker> worker = workerRepository.findByUsername(username);
@@ -81,6 +105,13 @@ public class AuthenticationService {
         return Optional.of(token);
     }
 
+    /**
+     * Checks if token is valid and returns the worker Entity associated with it
+     * 
+     * @param token token
+     * @return Empty if token is invalid or no worker has that token. Otherwise, the
+     *         worker object
+     */
     @Transactional
     public Optional<Worker> authenticate(String token) {
         if (!isValidToken(token))
@@ -105,6 +136,11 @@ public class AuthenticationService {
         return worker;
     }
 
+    /**
+     * Logout the user
+     * 
+     * @param token
+     */
     @Transactional
     public void logout(String token) {
         Optional<Worker> worker = authenticate(token);
@@ -114,6 +150,12 @@ public class AuthenticationService {
         workerRepository.save(worker.get());
     }
 
+    /**
+     * Creates a worker
+     * 
+     * @param account account details
+     * @return created worker
+     */
     @Transactional
     public Optional<Worker> addWorker(PostCreateAccount account) {
         if (workerRepository.existsByUsername(account.username()))

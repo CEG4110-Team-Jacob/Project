@@ -19,6 +19,9 @@ import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.service.AuthenticationService;
 
+/**
+ * A controller for general stuff. i.e. login and logout
+ */
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 @RestController
 public class MainController {
@@ -45,6 +48,12 @@ public class MainController {
         return new ResponseEntity<String>(token.get(), HttpStatus.OK);
     }
 
+    /**
+     * Gets the Job of a worker
+     * 
+     * @param t token
+     * @return Job
+     */
     @GetMapping("/getJob")
     public ResponseEntity<Job> getJob(@RequestParam String t) {
         Optional<Worker> worker = authenticationService.authenticate(t);
@@ -53,6 +62,11 @@ public class MainController {
         return new ResponseEntity<Worker.Job>(worker.get().getJob(), HttpStatus.OK);
     }
 
+    /**
+     * Logs the user out
+     * 
+     * @param t token
+     */
     @PostMapping("/logout")
     public void logout(@RequestParam String t) {
         authenticationService.logout(t);
@@ -61,6 +75,9 @@ public class MainController {
     @Autowired
     DatabasePopulate databasePopulate;
 
+    /**
+     * Populates the database for testing purposes
+     */
     @GetMapping("/populate")
     public void populate() {
         databasePopulate.populate();

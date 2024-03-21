@@ -14,6 +14,9 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+/**
+ * A restaurant order
+ */
 @Table(name = "restaurant_order")
 @Entity
 public class Order {
@@ -22,18 +25,33 @@ public class Order {
     private int id;
     @ManyToMany
     @JoinTable(name = "orders_to_items", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "item_id"))
+    /**
+     * Items the order contains
+     */
     private List<Item> items;
     private Date timeOrdered;
     private Date timeCompleted;
     @Column(name = "order_status")
     private Status status;
+    /**
+     * Total price of all the items
+     */
     private int totalPrice;
     @ManyToOne
     @JoinColumn(name = "worker_id")
+    /**
+     * The waiter who placed the order
+     */
     private Worker waiter;
     @ManyToOne
+    /**
+     * The table where the order was placed
+     */
     private com.restaurantsystem.api.data.Table table;
 
+    /**
+     * Status of the order
+     */
     public enum Status {
         Cooked, Ordered, InProgress, Delivered, Canceled
     }
@@ -74,6 +92,9 @@ public class Order {
         return totalPrice;
     }
 
+    /**
+     * Sets the total price of the order using the items
+     */
     public void setTotalPrice() {
         totalPrice = 0;
         for (Item item : items) {

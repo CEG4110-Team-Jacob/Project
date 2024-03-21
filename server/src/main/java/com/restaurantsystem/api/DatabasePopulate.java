@@ -20,6 +20,9 @@ import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.repos.TableRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
 
+/**
+ * Populates the Database for testing
+ */
 @Service
 public class DatabasePopulate {
 

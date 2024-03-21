@@ -78,6 +78,7 @@ public class CookControllerTests extends ControllerParentTests {
         assertEquals(fail.getStatusCode(), HttpStatus.BAD_REQUEST);
     }
 
+    // TODO Figure out why this test fails
     // @Test
     // void completeOrder() {
     // ResponseEntity<String> response = restTemplate.postForEntity(getUrl() +

@@ -35,9 +35,15 @@ import com.restaurantsystem.api.shared.waiter.PostOrderWaiter;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+/**
+ * Controller for Waiters
+ */
 @RestController
 @RequestMapping(path = "/waiter")
 public class WaiterController {
+    /**
+     * Record that waiters get for all the orders
+     */
     public record Orders(List<GetOrderWaiter> orders) {
     }
 
@@ -51,6 +57,12 @@ public class WaiterController {
     @Autowired
     AuthenticationService authenticationService;
 
+    /**
+     * Gets all the current orders the waiter made
+     * 
+     * @param token token
+     * @return Orders
+     */
     @GetMapping("/order")
     public ResponseEntity<Orders> getOrder(@RequestParam(value = "t") String token) {
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(token, Job.Waiter);
@@ -64,6 +76,12 @@ public class WaiterController {
         return orders;
     }
 
+    /**
+     * Gets all the items on the menu
+     * 
+     * @param t token
+     * @return Items
+     */
     @GetMapping("/items")
     public ResponseEntity<ListOfItems> getItems(@RequestParam String t) {
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Waiter);
@@ -73,6 +91,13 @@ public class WaiterController {
         return new ResponseEntity<ListOfItems>(new ListOfItems(items), HttpStatus.OK);
     }
 
+    /**
+     * Creates an order
+     * 
+     * @param order order Details
+     * @param token
+     * @return id of the order
+     */
     @PostMapping("/addOrder")
     @Transactional
     public ResponseEntity<Integer> addOrder(@RequestBody PostOrderWaiter order,
@@ -97,9 +122,15 @@ public class WaiterController {
         return new ResponseEntity<>(o.getId(), HttpStatus.OK);
     }
 
+    /**
+     * Marks an order as complete
+     * 
+     * @param orderId
+     * @param token
+     */
     @PostMapping("/completeOrder")
     @Transactional
-    public ResponseEntity<String> completeOrder(@RequestBody Integer orderId, @RequestParam(value = "t") String token) {
+    public ResponseEntity<Void> completeOrder(@RequestBody Integer orderId, @RequestParam(value = "t") String token) {
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(token, Job.Waiter);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -111,9 +142,15 @@ public class WaiterController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Marks an order as cancelled
+     * 
+     * @param orderId
+     * @param token
+     */
     @PostMapping("/cancelOrder")
     @Transactional
-    public ResponseEntity<String> cancelOrder(@RequestBody Integer orderId, @RequestParam(value = "t") String token) {
+    public ResponseEntity<Void> cancelOrder(@RequestBody Integer orderId, @RequestParam(value = "t") String token) {
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(token, Job.Waiter);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -123,6 +160,14 @@ public class WaiterController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Websocket that tells the waiter that an order has been cooked or ready to
+     * serve
+     * 
+     * @param waiter_id
+     * @param order_id
+     * @return order id
+     */
     @SendTo("/{waiter_id}")
     public int orderCompleted(@PathVariable int waiter_id, int order_id) {
         return order_id;

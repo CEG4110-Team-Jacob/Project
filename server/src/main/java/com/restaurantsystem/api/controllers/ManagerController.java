@@ -26,6 +26,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+/**
+ * Controller for managers
+ */
 @RestController
 @RequestMapping("/manager")
 public class ManagerController {
@@ -37,6 +40,12 @@ public class ManagerController {
     @Autowired
     WorkerRepository workerRepository;
 
+    /**
+     * Gets all the items on the menu
+     * 
+     * @param t token
+     * @return Items
+     */
     @GetMapping("/items")
     public ResponseEntity<ListOfItems> getItems(@RequestParam String t) {
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Manager);
@@ -46,8 +55,14 @@ public class ManagerController {
         return new ResponseEntity<ListOfItems>(new ListOfItems(items), HttpStatus.OK);
     }
 
+    /**
+     * Creates a worker
+     * 
+     * @param accountDetails
+     * @param t              token
+     */
     @PostMapping("/createWorker")
-    public ResponseEntity<String> createWorker(@RequestBody PostCreateAccount accountDetails,
+    public ResponseEntity<Void> createWorker(@RequestBody PostCreateAccount accountDetails,
             @RequestParam String t) {
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Manager);
         if (worker.isEmpty())
@@ -58,9 +73,15 @@ public class ManagerController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Creates an item to add to the menu
+     * 
+     * @param itemDetails
+     * @param t           token
+     */
     @PostMapping("/addItem")
     @Transactional
-    public ResponseEntity<String> addItem(@RequestBody AddItem itemDetails,
+    public ResponseEntity<Void> addItem(@RequestBody AddItem itemDetails,
             @RequestParam String t) {
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Manager);
         if (worker.isEmpty())

@@ -9,15 +9,25 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
+/**
+ * A table in a restaurant
+ */
 @Entity(name = "restaurant_table")
 public class Table {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
+    // The table number staff will see
     private int number;
     @ManyToOne
+    /**
+     * The waiter who is assigned to the table
+     */
     private Worker waiter;
     @OneToMany
+    /**
+     * All the orders placed on the table
+     */
     private Set<Order> orders;
     private boolean isOccupied;
     private int numSeats;

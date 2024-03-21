@@ -9,6 +9,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
+/**
+ * A restaurant item
+ */
 @Table(name = "restaurant_item")
 @Entity
 public class Item {
@@ -21,12 +24,17 @@ public class Item {
     private int price; // Price in cents
     private boolean inStock;
 
+    /**
+     * The orders the item is in
+     */
     @ManyToMany(mappedBy = "items")
     private Set<Order> orders;
 
+    /**
+     * Generic type of the item (Food/Drink)
+     */
     public enum ItemType {
         Beverage, Food
-
     }
 
     public String getName() {
