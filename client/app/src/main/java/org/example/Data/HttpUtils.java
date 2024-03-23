@@ -3,7 +3,7 @@ package org.example.Data;
 import java.net.URI;
 import java.util.Optional;
 
-import org.example.Data.enums.Job;
+import org.example.Data.records.WorkerDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
@@ -45,10 +45,11 @@ public class HttpUtils {
         }
     }
 
-    public Optional<Job> getJob() {
+    public static Optional<WorkerDetails> getDetails() {
         String query = "t=" + Data.token;
         try {
-            ResponseEntity<Job> job = restClient.get().uri(URI + "/getJob?" + query).retrieve().toEntity(Job.class);
+            ResponseEntity<WorkerDetails> job = restClient.get().uri(URI + "/getDetails?" + query).retrieve()
+                    .toEntity(WorkerDetails.class);
             if (job.getStatusCode() != HttpStatus.OK)
                 return Optional.empty();
             if (!job.hasBody())

@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import org.example.Data.Data;
 import org.example.Data.HttpUtils;
+import org.example.Data.Waiters;
 
 public class MainFrame extends JFrame {
     private Waiters waiterGui = new Waiters();
@@ -13,7 +14,8 @@ public class MainFrame extends JFrame {
     private Cooks cookGui = new Cooks();
     private Login login = new Login(() -> {
         System.out.println("Logged in");
-        System.out.println(org.example.Data.Waiters.getOrders());
+        System.out.println(Waiters.getOrders());
+        System.out.println(HttpUtils.getDetails());
         // TODO What happens when login is successful
     });
 
