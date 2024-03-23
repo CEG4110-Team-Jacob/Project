@@ -18,6 +18,7 @@ import com.restaurantsystem.api.data.Worker.Job;
 import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.service.AuthenticationService;
+import com.restaurantsystem.api.shared.all.WorkerProjection;
 
 /**
  * A controller for general stuff. i.e. login and logout
@@ -54,12 +55,14 @@ public class MainController {
      * @param t token
      * @return Job
      */
-    @GetMapping("/getJob")
-    public ResponseEntity<Job> getJob(@RequestParam String t) {
+    @GetMapping("/getDetails")
+    public ResponseEntity<WorkerProjection> getDetails(@RequestParam String t) {
         Optional<Worker> worker = authenticationService.authenticate(t);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        return new ResponseEntity<Worker.Job>(worker.get().getJob(), HttpStatus.OK);
+        WorkerProjection workerProjection = workerRepository.findById(worker.get().getId(), WorkerProjection.class)
+                .get();
+        return new ResponseEntity<>(workerProjection, HttpStatus.OK);
     }
 
     /**

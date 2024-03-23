@@ -62,13 +62,20 @@ class MainControllerTests {
 		assertTrue(authenticationService.authenticate(t.get()).isEmpty());
 	}
 
+	/**
+	 * WorkerDetails
+	 */
+	record WorkerDetails(int id, String firstName, String lastName, int age, Job job) {
+	}
+
 	@Test
-	void getJob() {
+	void getDetails() {
 		Optional<String> t = authenticationService.login(DatabasePopulate.Waiter1.username(),
 				DatabasePopulate.Waiter1.password());
 		assertTrue(t.isPresent());
-		ResponseEntity<Job> job = restTemplate.getForEntity(getUrl() + "getJob?t=" + t.get(), Job.class);
+		ResponseEntity<WorkerDetails> job = restTemplate.getForEntity(getUrl() + "getDetails?t=" + t.get(),
+				WorkerDetails.class);
 		assertEquals(job.getStatusCode(), HttpStatus.OK);
-		assertEquals(job.getBody(), Job.Waiter);
+		assertEquals(job.getBody().job, Job.Waiter);
 	}
 }
