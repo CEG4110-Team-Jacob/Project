@@ -24,10 +24,10 @@ public class MainFrame extends JFrame {
 
         MainFrame frame = this;
 
-       // add(login);
+       add(login);
         // add(waiterGui);
         // add(cookGui);
-        add(managerWorkerView);
+      add(managerWorkerView);
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
