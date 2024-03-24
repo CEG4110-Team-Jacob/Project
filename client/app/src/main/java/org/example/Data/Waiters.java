@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.example.Data.Utils.GetMethods;
+import org.example.Data.Utils.PostMethods;
 import org.example.Data.Waiters.WaiterOrder.ListOrders;
 import org.example.Data.enums.Status;
 import org.example.Data.records.Item;
@@ -16,9 +17,18 @@ public class Waiters {
         };
     }
 
+    public record WaiterPostOrder(List<Integer> items) {
+    }
+
     private static GetMethods<WaiterOrder.ListOrders> orders = new GetMethods<>("/waiter/order",
             WaiterOrder.ListOrders.class);
     private static GetMethods<Item.ListItems> items = new GetMethods<>("/waiter/items", Item.ListItems.class);
+    private static PostMethods<WaiterPostOrder, Integer> addOrder = new PostMethods<>("/waiter/addOrder",
+            Integer.class);
+
+    public static Optional<Integer> addOrder(WaiterPostOrder body) {
+        return addOrder.post(body);
+    }
 
     public static Optional<ListItems> setItems() {
         return items.set();
