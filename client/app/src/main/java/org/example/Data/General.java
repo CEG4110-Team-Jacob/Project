@@ -3,8 +3,8 @@ package org.example.Data;
 import java.net.URI;
 import java.util.Optional;
 
+import org.example.Data.Utils.GetMethods;
 import org.example.Data.records.WorkerDetails;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
@@ -14,7 +14,7 @@ public class General {
     public static URI URI;
     public static final RestClient restClient = RestClient.create();
 
-    public static WorkerDetails details;
+    public static GetMethods<WorkerDetails> details = new GetMethods<>("/getDetails", WorkerDetails.class);
 
     static {
         try {
@@ -25,13 +25,7 @@ public class General {
     }
 
     public static void reset() {
-        details = null;
-    }
-
-    public static Optional<WorkerDetails> updateDetails() {
-        if (details != null)
-            return Optional.of(details);
-        return getDetails();
+        details.reset();
     }
 
     public static Optional<String> login(String uname, String password) {
@@ -58,17 +52,11 @@ public class General {
     }
 
     public static Optional<WorkerDetails> getDetails() {
-        String query = "t=" + Data.token;
-        try {
-            ResponseEntity<WorkerDetails> job = restClient.get().uri(URI + "/getDetails?" + query).retrieve()
-                    .toEntity(WorkerDetails.class);
-            if (job.getStatusCode() != HttpStatus.OK)
-                return Optional.empty();
-            if (!job.hasBody())
-                return Optional.empty();
-            return Optional.of(job.getBody());
-        } catch (Exception e) {
-            return Optional.empty();
-        }
+        return details.get();
     }
+
+    public static Optional<WorkerDetails> setDetails() {
+        return details.set();
+    }
+
 }
