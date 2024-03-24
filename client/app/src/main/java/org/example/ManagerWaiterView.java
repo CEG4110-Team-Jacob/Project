@@ -47,10 +47,12 @@ public class ManagerWaiterView extends JPanel {
 
         // Panel for sign out button
         JPanel signOutPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JButton signOutButton = new JButton("Sign Out");
+        JButton signOutButton = new JButton("Delete Account");
         signOutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // the code here is to remove the cname 
+                // exit the page 
                 
             }
         });
