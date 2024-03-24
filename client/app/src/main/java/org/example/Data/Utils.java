@@ -32,7 +32,7 @@ public class Utils {
                 setValue(response.getBody());
                 return Optional.of(response.getBody());
             } catch (Exception e) {
-                e.printStackTrace();
+                // e.printStackTrace();
             }
             return Optional.empty();
         }
@@ -91,7 +91,9 @@ public class Utils {
                         .retrieve().toEntity(returnType);
                 if (response.getStatusCode() != HttpStatus.OK)
                     return Optional.empty();
-                return Optional.of(response.getBody());
+                if (response.hasBody())
+                    return Optional.of(response.getBody());
+                return Optional.empty();
             } catch (Exception e) {
                 e.printStackTrace();
             }

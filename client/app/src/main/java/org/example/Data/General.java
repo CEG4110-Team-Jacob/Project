@@ -15,7 +15,7 @@ public class General {
 
     public static GetMethods<WorkerDetails> details = new GetMethods<>("/getDetails", WorkerDetails.class);
     public static GetMethods<String> token = new GetMethods<>("/login", String.class);
-    public static PostMethods<Void, Void> logout = new PostMethods<>("/logout", Void.class);
+    public static PostMethods<String, Void> logout = new PostMethods<>("/logout", Void.class);
 
     static {
         try {
@@ -40,8 +40,8 @@ public class General {
     public static void logout() {
         if (getToken().isEmpty())
             return;
+        logout.post("");
         Data.deleteData();
-        logout.post(null);
     }
 
     public static Optional<WorkerDetails> getDetails() {
