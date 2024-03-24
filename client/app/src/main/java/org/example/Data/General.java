@@ -3,14 +3,13 @@ package org.example.Data;
 import java.net.URI;
 import java.util.Optional;
 
-import org.example.Data.Waiters.WaiterOrder;
 import org.example.Data.records.WorkerDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 
-public class HttpUtils {
+public class General {
     public static final String SERVER_URL = "http://localhost:8080";
     public static URI URI;
     public static final RestClient restClient = RestClient.create();
@@ -50,7 +49,7 @@ public class HttpUtils {
         if (Data.token == null || Data.token.isEmpty())
             return;
         String query = "t=" + Data.token;
-        Data.token = "";
+        Data.deleteData();
         try {
             restClient.post().uri(URI + "/logout?" + query).retrieve();
         } catch (Exception e) {

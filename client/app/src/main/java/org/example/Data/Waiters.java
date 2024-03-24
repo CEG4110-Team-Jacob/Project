@@ -25,8 +25,8 @@ public class Waiters {
     public static Optional<List<WaiterOrder>> updateOrders() {
         String query = "t=" + Data.token;
         try {
-            ResponseEntity<WaiterOrder.ListOrders> ordersResponse = HttpUtils.restClient.get()
-                    .uri(HttpUtils.URI + "/waiter/order?" + query).retrieve().toEntity(WaiterOrder.ListOrders.class);
+            ResponseEntity<WaiterOrder.ListOrders> ordersResponse = General.restClient.get()
+                    .uri(General.URI + "/waiter/order?" + query).retrieve().toEntity(WaiterOrder.ListOrders.class);
             if (ordersResponse.getStatusCode() != HttpStatus.OK)
                 return Optional.empty();
             orders = ordersResponse.getBody().orders;
