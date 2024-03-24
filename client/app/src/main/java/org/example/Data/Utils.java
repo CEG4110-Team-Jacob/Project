@@ -5,17 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 public class Utils {
-    public static String DEFAULT_QUERY = "t=" + Data.token;
-
     public static class GetMethods<T> {
-
-        public interface SetFunc<T> {
-            public void set(T v);
-        }
-
-        public interface GetFunc<T> {
-            public T get();
-        }
 
         private String path;
 
@@ -84,4 +74,33 @@ public class Utils {
             this.value = value;
         }
     }
+
+    public static class PostMethods<T, V> {
+        private String path;
+        private Class<V> returnType;
+
+        public PostMethods(String path, Class<V> returnType) {
+            this.path = path;
+            this.returnType = returnType;
+        }
+
+        public Optional<V> post(T body, String query) {
+            try {
+                ResponseEntity<V> response = General.restClient.post().uri(General.URI + path + "?" + query).body(body)
+                        .retrieve().toEntity(returnType);
+                if (response.getStatusCode() != HttpStatus.OK)
+                    return Optional.empty();
+                return Optional.of(response.getBody());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return Optional.empty();
+        }
+
+        public Optional<V> post(T body) {
+            return post(body, DEFAULT_QUERY);
+        }
+    }
+
+    public static String DEFAULT_QUERY = "t=" + Data.token;
 }
