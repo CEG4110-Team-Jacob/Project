@@ -3,6 +3,7 @@ package org.example.Data;
 import java.net.URI;
 import java.util.Optional;
 
+import org.example.Data.Waiters.WaiterOrder;
 import org.example.Data.records.WorkerDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +15,24 @@ public class HttpUtils {
     public static URI URI;
     public static final RestClient restClient = RestClient.create();
 
+    public static WorkerDetails details;
+
     static {
         try {
             URI = new URI(SERVER_URL);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void reset() {
+        details = null;
+    }
+
+    public static Optional<WorkerDetails> updateDetails() {
+        if (details != null)
+            return Optional.of(details);
+        return getDetails();
     }
 
     public static Optional<String> login(String uname, String password) {
