@@ -12,6 +12,7 @@ public class MainFrame extends JFrame {
     private Waiters waiterGui = new Waiters();
     private ManagerWaiterView managerWorkerView = new ManagerWaiterView(Data.getWorkers().get(1));
     private Cooks cookGui = new Cooks();
+    private TableManagement TableManagement = new TableManagement();
     private StaffManagement staffManagement = new StaffManagement();
     private Login login = new Login(() -> {
         System.out.println("Logged in");
@@ -29,7 +30,8 @@ public class MainFrame extends JFrame {
         // add(waiterGui);
         // add(cookGui);
         // add(managerWorkerView);
-        add(staffManagement);
+        add(TableManagement);
+        //add(staffManagement);
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
