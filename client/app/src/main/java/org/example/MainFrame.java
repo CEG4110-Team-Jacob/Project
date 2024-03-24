@@ -5,7 +5,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 
 import org.example.Data.Data;
-import org.example.Data.HttpUtils;
+import org.example.Data.General;
 import org.example.Data.Waiters;
 
 public class MainFrame extends JFrame {
@@ -15,7 +15,7 @@ public class MainFrame extends JFrame {
     private Login login = new Login(() -> {
         System.out.println("Logged in");
         System.out.println(Waiters.getOrders());
-        System.out.println(HttpUtils.getDetails());
+        System.out.println(General.getDetails());
         // TODO What happens when login is successful
     });
 
@@ -33,7 +33,7 @@ public class MainFrame extends JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                HttpUtils.logout();
+                General.logout();
                 frame.dispose();
                 System.exit(0);
             }

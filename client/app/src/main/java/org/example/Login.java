@@ -3,7 +3,7 @@ package org.example;
 import javax.swing.*;
 
 import org.example.Data.Data;
-import org.example.Data.HttpUtils;
+import org.example.Data.General;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -59,7 +59,7 @@ public class Login extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
-                Optional<String> token = HttpUtils.login(username, password);
+                Optional<String> token = General.login(username, password);
                 if (token.isPresent()) {
                     Data.setToken(token.get());
                     login.login();

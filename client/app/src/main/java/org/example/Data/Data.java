@@ -26,6 +26,7 @@ public class Data {
     public static void deleteData() {
         token = null;
         Waiters.reset();
+        General.reset();
     }
 
     static {
