@@ -26,6 +26,7 @@ public class Utils {
             try {
                 ResponseEntity<T> response = General.restClient.get()
                         .uri(General.URI + path + "?" + query).retrieve().toEntity(type);
+
                 if (response.getStatusCode() != HttpStatus.OK)
                     return Optional.empty();
                 setValue(response.getBody());
@@ -43,11 +44,11 @@ public class Utils {
         }
 
         public Optional<T> set() {
-            return set(DEFAULT_QUERY);
+            return set(DEFAULT_QUERY());
         }
 
         public Optional<T> get() {
-            return get(DEFAULT_QUERY);
+            return get(DEFAULT_QUERY());
         }
 
         public void setPath(String path) {
@@ -98,9 +99,14 @@ public class Utils {
         }
 
         public Optional<V> post(T body) {
-            return post(body, DEFAULT_QUERY);
+            return post(body, DEFAULT_QUERY());
         }
     }
 
-    public static String DEFAULT_QUERY = "t=" + Data.token;
+    public static String DEFAULT_QUERY() {
+        Optional<String> token = General.getToken();
+        if (token.isEmpty())
+            return "t=false";
+        return "t=" + token.get();
+    }
 }
