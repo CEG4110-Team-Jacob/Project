@@ -1,10 +1,15 @@
 package org.example;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -17,13 +22,20 @@ public class ManagerWaiterView extends JPanel {
     ArrayList<Table> tables = new ArrayList<>();
 
     public ManagerWaiterView(Data.Worker worker) {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new BorderLayout());
+
+        // Panel for waiter information
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
         waiterInfo.add(new JLabel("Waiter: " + worker.name()));
         waiterInfo.add(new JLabel("ID: " + worker.id()));
-        add(waiterInfo);
+        topPanel.add(waiterInfo);
         times.add(new JLabel("Login Time: " + Date.from(Instant.ofEpochSecond(worker.login())).toString()));
         times.add(new JLabel("Work hours: Sometime"));
-        add(times);
+        topPanel.add(times);
+        add(topPanel, BorderLayout.CENTER);
+
+        // Panel for table list
         tableList.setLayout(new BoxLayout(tableList, BoxLayout.Y_AXIS));
         for (Integer t : worker.tables()) {
             Data.Table table = Data.getTables().get(t);
@@ -31,7 +43,19 @@ public class ManagerWaiterView extends JPanel {
             add(tableUi);
             tableList.add(tableUi);
         }
-        add(tableList);
+        add(tableList, BorderLayout.CENTER);
+
+        // Panel for sign out button
+        JPanel signOutPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JButton signOutButton = new JButton("Sign Out");
+        signOutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+        signOutPanel.add(signOutButton);
+        add(signOutPanel, BorderLayout.NORTH);
     }
 
     class Table extends JPanel {
