@@ -37,9 +37,9 @@ public class HttpUtils {
         if (Data.token == null || Data.token.isEmpty())
             return;
         String query = "t=" + Data.token;
+        Data.token = "";
         try {
             restClient.post().uri(URI + "/logout?" + query).retrieve();
-            Data.token = "";
         } catch (Exception e) {
             e.printStackTrace();
         }

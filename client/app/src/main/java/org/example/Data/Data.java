@@ -23,6 +23,11 @@ public class Data {
 
     public static String token = "";
 
+    public static void deleteData() {
+        token = null;
+        Waiters.reset();
+    }
+
     static {
         orders.put(1, new Order(1, "AS", Arrays.asList("Burger")));
         orders.put(2, new Order(2, "AS", Arrays.asList("Burger", "Fries")));

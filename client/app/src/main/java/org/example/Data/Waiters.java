@@ -1,5 +1,6 @@
 package org.example.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -15,17 +16,30 @@ public class Waiters {
         };
     }
 
-    public static Optional<WaiterOrder.ListOrders> getOrders() {
+    private static List<WaiterOrder> orders = new ArrayList<>();
+
+    public static void reset() {
+        orders = new ArrayList<>();
+    }
+
+    public static Optional<List<WaiterOrder>> updateOrders() {
         String query = "t=" + Data.token;
         try {
             ResponseEntity<WaiterOrder.ListOrders> ordersResponse = HttpUtils.restClient.get()
                     .uri(HttpUtils.URI + "/waiter/order?" + query).retrieve().toEntity(WaiterOrder.ListOrders.class);
             if (ordersResponse.getStatusCode() != HttpStatus.OK)
                 return Optional.empty();
-            return Optional.of(ordersResponse.getBody());
+            orders = ordersResponse.getBody().orders;
+            return Optional.of(ordersResponse.getBody().orders);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return Optional.empty();
+    }
+
+    public static Optional<List<WaiterOrder>> getOrders() {
+        if (!orders.isEmpty())
+            return Optional.of(orders);
+        return updateOrders();
     }
 }
