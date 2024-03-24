@@ -26,12 +26,13 @@ public class Utils {
             try {
                 ResponseEntity<T> response = General.restClient.get()
                         .uri(General.URI + path + "?" + query).retrieve().toEntity(type);
+
                 if (response.getStatusCode() != HttpStatus.OK)
                     return Optional.empty();
                 setValue(response.getBody());
                 return Optional.of(response.getBody());
             } catch (Exception e) {
-                e.printStackTrace();
+                // e.printStackTrace();
             }
             return Optional.empty();
         }
@@ -43,11 +44,11 @@ public class Utils {
         }
 
         public Optional<T> set() {
-            return set(DEFAULT_QUERY);
+            return set(DEFAULT_QUERY());
         }
 
         public Optional<T> get() {
-            return get(DEFAULT_QUERY);
+            return get(DEFAULT_QUERY());
         }
 
         public void setPath(String path) {
@@ -90,7 +91,9 @@ public class Utils {
                         .retrieve().toEntity(returnType);
                 if (response.getStatusCode() != HttpStatus.OK)
                     return Optional.empty();
-                return Optional.of(response.getBody());
+                if (response.hasBody())
+                    return Optional.of(response.getBody());
+                return Optional.empty();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -98,9 +101,14 @@ public class Utils {
         }
 
         public Optional<V> post(T body) {
-            return post(body, DEFAULT_QUERY);
+            return post(body, DEFAULT_QUERY());
         }
     }
 
-    public static String DEFAULT_QUERY = "t=" + Data.token;
+    public static String DEFAULT_QUERY() {
+        Optional<String> token = General.getToken();
+        if (token.isEmpty())
+            return "t=false";
+        return "t=" + token.get();
+    }
 }

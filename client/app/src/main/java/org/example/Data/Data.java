@@ -21,10 +21,7 @@ public class Data {
 
     private static HashMap<Integer, Table> tables = new HashMap<>();
 
-    public static String token = "";
-
     public static void deleteData() {
-        token = null;
         Waiters.reset();
         General.reset();
     }
@@ -39,10 +36,6 @@ public class Data {
         tables.put(2, new Table(2, orders.get(2)));
         tables.put(3, new Table(3, orders.get(10)));
         tables.put(4, new Table(4, orders.get(1)));
-    };
-
-    public static void setToken(String token) {
-        Data.token = token;
     };
 
     public static HashMap<Integer, Table> getTables() {

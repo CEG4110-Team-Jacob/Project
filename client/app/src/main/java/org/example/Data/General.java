@@ -4,9 +4,8 @@ import java.net.URI;
 import java.util.Optional;
 
 import org.example.Data.Utils.GetMethods;
+import org.example.Data.Utils.PostMethods;
 import org.example.Data.records.WorkerDetails;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 
 public class General {
@@ -15,6 +14,8 @@ public class General {
     public static final RestClient restClient = RestClient.create();
 
     public static GetMethods<WorkerDetails> details = new GetMethods<>("/getDetails", WorkerDetails.class);
+    public static GetMethods<String> token = new GetMethods<>("/login", String.class);
+    public static PostMethods<String, Void> logout = new PostMethods<>("/logout", Void.class);
 
     static {
         try {
@@ -26,29 +27,21 @@ public class General {
 
     public static void reset() {
         details.reset();
+        token.reset();
     }
 
     public static Optional<String> login(String uname, String password) {
-        String query = "uname=" + uname + "&passwd=" + password;
-        try {
-            ResponseEntity<String> response = restClient.get().uri(URI + "/login?" + query).retrieve()
-                    .toEntity(String.class);
-            return Optional.of(response.getBody());
-        } catch (HttpClientErrorException e) {
+        if (uname.isBlank() || password.isBlank())
             return Optional.empty();
-        }
+        String query = "uname=" + uname + "&passwd=" + password;
+        return token.set(query);
     }
 
     public static void logout() {
-        if (Data.token == null || Data.token.isEmpty())
+        if (getToken().isEmpty())
             return;
-        String query = "t=" + Data.token;
+        logout.post("");
         Data.deleteData();
-        try {
-            restClient.post().uri(URI + "/logout?" + query).retrieve();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public static Optional<WorkerDetails> getDetails() {
@@ -57,6 +50,10 @@ public class General {
 
     public static Optional<WorkerDetails> setDetails() {
         return details.set();
+    }
+
+    public static Optional<String> getToken() {
+        return token.get("t=false");
     }
 
 }

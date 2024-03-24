@@ -2,7 +2,6 @@ package org.example;
 
 import javax.swing.*;
 
-import org.example.Data.Data;
 import org.example.Data.General;
 
 import java.awt.*;
@@ -61,7 +60,6 @@ public class Login extends JPanel {
                 String password = new String(passwordField.getPassword());
                 Optional<String> token = General.login(username, password);
                 if (token.isPresent()) {
-                    Data.setToken(token.get());
                     login.login();
                 } else {
                     JOptionPane.showMessageDialog(Login.this, "Invalid username or password. Please try again.");
