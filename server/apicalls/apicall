@@ -1,1 +1,2 @@
-temp text
+// api call for order query
+GET https://localhost/restaurantsystem/{waiter_id}/orders
