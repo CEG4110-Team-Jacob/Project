@@ -67,4 +67,4 @@ Who makes the decisions?
   - 2/22 Minimum Design Specification
   - 3/29 Minimum Viable Product (Moved back because requirements are a bit much and busy with school.)
   - 4/5 Final Requirements and Design Specifications
-  - 4/9 Presentation Slides
+  - 4/8 Presentation Slides
