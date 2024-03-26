@@ -14,11 +14,14 @@ import jakarta.persistence.OneToMany;
  */
 @Entity(name = "restaurant_table")
 public class Table {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
+
     // The table number staff will see
     private int number;
+
     @ManyToOne
     /**
      * The waiter who is assigned to the table
@@ -31,6 +34,13 @@ public class Table {
     private Set<Order> orders;
     private boolean isOccupied;
     private int numSeats;
+
+    public Table() {
+    }
+
+    public Table(int id) {
+        this.id = id;
+    }
 
     public int getId() {
         return id;

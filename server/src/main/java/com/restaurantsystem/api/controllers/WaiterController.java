@@ -119,6 +119,8 @@ public class WaiterController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         o.setTable(table.get());
         o = orderRepository.save(o);
+        table.get().setOccupied(true);
+        tableRepository.save(table.get());
         return new ResponseEntity<>(o.getId(), HttpStatus.OK);
     }
 
@@ -139,7 +141,10 @@ public class WaiterController {
         if (order.isEmpty() || order.get().getStatus() != Status.Cooked)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         order.get().setStatus(Status.Delivered);
-        orderRepository.save(order.get());
+        order = Optional.of(orderRepository.save(order.get()));
+        Table table = order.get().getTable();
+        table.setOccupied(false);
+        tableRepository.save(table);
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
@@ -157,7 +162,10 @@ public class WaiterController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         Optional<Order> order = orderRepository.findById(orderId);
         order.get().setStatus(Status.Canceled);
-        orderRepository.save(order.get());
+        order = Optional.of(orderRepository.save(order.get()));
+        Table table = order.get().getTable();
+        table.setOccupied(false);
+        tableRepository.save(table);
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 

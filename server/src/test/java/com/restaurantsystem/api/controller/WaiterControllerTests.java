@@ -22,9 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.restaurantsystem.api.DatabasePopulate;
 import com.restaurantsystem.api.data.Item;
 import com.restaurantsystem.api.data.Order;
+import com.restaurantsystem.api.data.Table;
 import com.restaurantsystem.api.data.Worker;
 import com.restaurantsystem.api.data.Order.Status;
 import com.restaurantsystem.api.repos.OrderRepository;
+import com.restaurantsystem.api.repos.TableRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.shared.ListOfItems;
 import com.restaurantsystem.api.shared.TestSharedItem;
@@ -35,6 +37,8 @@ import com.restaurantsystem.api.shared.waiter.PostOrderWaiter;
 public class WaiterControllerTests extends ControllerParentTests {
     @Autowired
     private WorkerRepository workerRepository;
+    @Autowired
+    private TableRepository tableRepository;
 
     @Autowired
     private OrderRepository orderRepository;
@@ -89,6 +93,9 @@ public class WaiterControllerTests extends ControllerParentTests {
         assertEquals(items.get(1).getId(), 2);
         assertTrue(order.get().getTimeOrdered().before(new Date()));
         assertTrue(order.get().getTimeOrdered().after(new Date(new Date().getTime() - 10 * 1000)));
+        Optional<Table> table = tableRepository.findById(1);
+        assertTrue(table.isPresent());
+        assertTrue(table.get().isOccupied());
     }
 
     @Test
@@ -100,6 +107,9 @@ public class WaiterControllerTests extends ControllerParentTests {
         assertEquals(cookedOrder.getStatusCode(), HttpStatus.OK);
         assertTrue(orderRepository.existsById(cookedOrderId));
         assertEquals(orderRepository.findById(cookedOrderId).get().getStatus(), Status.Delivered);
+        Optional<Table> table = tableRepository.findById(4);
+        assertTrue(table.isPresent());
+        assertFalse(table.get().isOccupied());
         int orderedOrderId = 1;
         ResponseEntity<String> orderedOrder = restTemplate.postForEntity(getUrl() + "completeOrder?t=" + token,
                 orderedOrderId,
@@ -126,6 +136,7 @@ public class WaiterControllerTests extends ControllerParentTests {
                 String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertEquals(orderRepository.findById(1).get().getStatus(), Status.Canceled);
+        assertFalse(tableRepository.findById(2).get().isOccupied());
     }
 
     @Test

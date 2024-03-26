@@ -63,6 +63,26 @@ public class DatabasePopulate implements BeforeAllCallback {
         table1.setNumSeats(3);
         table1.setOccupied(false);
         tableRepository.save(table1);
+
+        Table table2 = new Table();
+        table2.setNumSeats(3);
+        table2.setOccupied(true);
+        tableRepository.save(table2);
+
+        Table table3 = new Table();
+        table3.setNumSeats(3);
+        table3.setOccupied(true);
+        tableRepository.save(table3);
+
+        Table table4 = new Table();
+        table4.setNumSeats(3);
+        table4.setOccupied(true);
+        tableRepository.save(table4);
+
+        Table table5 = new Table();
+        table5.setNumSeats(3);
+        table5.setOccupied(false);
+        tableRepository.save(table5);
     }
 
     public void populateItems() {
@@ -146,6 +166,7 @@ public class DatabasePopulate implements BeforeAllCallback {
         o1.setTimeOrdered(new Date());
         o1.setTimeCompleted(null);
         o1.setTotalPrice();
+        o1.setTable(new Table(2));
         o1.setWaiter(workerRepository.findByUsername(Waiter1.username).get());
         orderRepository.save(o1);
 
@@ -156,6 +177,7 @@ public class DatabasePopulate implements BeforeAllCallback {
         o2.setTimeOrdered(new Date());
         o2.setTimeCompleted(null);
         o2.setTotalPrice();
+        o2.setTable(new Table(3));
         o2.setWaiter(workerRepository.findByUsername(Waiter1.username).get());
         orderRepository.save(o2);
 
@@ -166,6 +188,7 @@ public class DatabasePopulate implements BeforeAllCallback {
         o3.setTimeOrdered(new Date());
         o3.setTimeCompleted(null);
         o3.setTotalPrice();
+        o3.setTable(new Table(4));
         o3.setWaiter(workerRepository.findByUsername(Waiter1.username).get());
         orderRepository.save(o3);
 
@@ -176,8 +199,20 @@ public class DatabasePopulate implements BeforeAllCallback {
         o4.setTimeOrdered(new Date());
         o4.setTimeCompleted(null);
         o4.setTotalPrice();
+        o4.setTable(new Table(5));
         o4.setWaiter(workerRepository.findByUsername(Waiter1.username).get());
         orderRepository.save(o4);
+
+        Order o5 = new Order();
+        o5.setItems(new ArrayList<>());
+        itemRepository.findAllById(Arrays.asList(2, 3)).forEach(o5.getItems()::add);
+        o5.setStatus(Status.Canceled);
+        o5.setTimeOrdered(new Date());
+        o5.setTimeCompleted(null);
+        o5.setTotalPrice();
+        o5.setTable(new Table(1));
+        o5.setWaiter(workerRepository.findByUsername(Waiter1.username).get());
+        orderRepository.save(o5);
     }
 
 }
