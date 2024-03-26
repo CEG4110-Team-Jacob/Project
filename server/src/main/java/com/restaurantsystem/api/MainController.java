@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restaurantsystem.api.data.Worker;
-import com.restaurantsystem.api.data.Worker.Job;
 import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.service.AuthenticationService;
@@ -73,17 +72,6 @@ public class MainController {
     @PostMapping("/logout")
     public void logout(@RequestParam String t) {
         authenticationService.logout(t);
-    }
-
-    @Autowired
-    DatabasePopulate databasePopulate;
-
-    /**
-     * Populates the database for testing purposes
-     */
-    @GetMapping("/populate")
-    public void populate() {
-        databasePopulate.populate();
     }
 
     /**
