@@ -20,8 +20,8 @@ public class Managers {
     }
 
     public record ManagerViewWorker(
-            String name,
-            int id, int age, Job job, int weekHours) {
+            String firstName, String lastName,
+            int id, int age, Job job) {
         public record ListWorkers(List<ManagerViewWorker> workers) {
         };
     }

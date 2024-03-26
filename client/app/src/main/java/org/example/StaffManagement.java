@@ -33,7 +33,7 @@ public class StaffManagement extends JPanel {
         ManagerViewWorker.ListWorkers workers = org.example.Data.controllers.Managers.getWorkers()
                 .get();
         for (ManagerViewWorker worker : workers.workers()) {
-            names.add(worker.name());
+            names.add(worker.firstName() + " " + worker.lastName());
         }
 
         // Create a JPanel for the right side of the screen

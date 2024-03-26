@@ -17,6 +17,7 @@ import com.restaurantsystem.api.repos.ItemRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.shared.ListOfItems;
 import com.restaurantsystem.api.shared.manager.AddItem;
+import com.restaurantsystem.api.shared.manager.ManagerViewWorker;
 import com.restaurantsystem.api.shared.manager.PostCreateAccount;
 
 public class ManagerControllerTests extends ControllerParentTests {
@@ -54,5 +55,13 @@ public class ManagerControllerTests extends ControllerParentTests {
                 new AddItem("asda", "gasd", 200, true, ItemType.Food), String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertTrue(itemRepository.existsByName("asda"));
+    }
+
+    @Test
+    void getWorkers() {
+        ResponseEntity<ManagerViewWorker.ListWorkers> response = restTemplate
+                .getForEntity(getUrl() + "workers?t=" + token, ManagerViewWorker.ListWorkers.class);
+        assertTrue(response.getStatusCode().is2xxSuccessful());
+        assertTrue(response.getBody().workers().size() > 2);
     }
 }
