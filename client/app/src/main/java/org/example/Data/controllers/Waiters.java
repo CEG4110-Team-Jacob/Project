@@ -17,7 +17,7 @@ public class Waiters {
         };
     }
 
-    public record WaiterPostOrder(List<Integer> items) {
+    public record WaiterPostOrder(List<Integer> items, int table) {
     }
 
     private static GetMethods<WaiterOrder.ListOrders> orders = new GetMethods<>("/waiter/order",
