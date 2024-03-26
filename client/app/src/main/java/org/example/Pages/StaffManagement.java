@@ -30,11 +30,7 @@ public class StaffManagement extends JPanel {
 
         // Example list of names
         ArrayList<String> names = new ArrayList<>();
-        ManagerViewWorker.ListWorkers workers = org.example.Data.controllers.Managers.getWorkers()
-                .get();
-        for (ManagerViewWorker worker : workers.workers()) {
-            names.add(worker.firstName() + " " + worker.lastName());
-        }
+        names.add("Test");
 
         // Create a JPanel for the right side of the screen
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));

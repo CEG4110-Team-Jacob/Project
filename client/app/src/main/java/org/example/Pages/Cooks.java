@@ -1,71 +1,83 @@
 package org.example.Pages;
 
-import javax.swing.*;
-
 import org.example.Data.Data;
-
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Cooks extends JPanel {
-    Heading heading;
-    Table tables;
+    private static final Color LIGHT_GRAY = new Color(240, 240, 240);
+    private Heading heading;
+    private Table tables;
 
     public Cooks() {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        setBackground(Color.WHITE);
+
         heading = new Heading();
-        add(heading);
+        add(heading, BorderLayout.NORTH);
+
         tables = new Table();
-        add(tables);
+        JScrollPane scrollPane = new JScrollPane(tables);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        add(scrollPane, BorderLayout.CENTER);
     }
 
     class Heading extends JPanel {
-        JLabel waiter;
-        JLabel assignTable;
+        private JLabel waiterLabel;
+        private JLabel assignTableLabel;
 
         public Heading() {
-            waiter = new JLabel();
-            waiter.setText("Waiter: ____");
-            waiter.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 1));
-            add(waiter);
+            setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
+            setBackground(Color.WHITE);
 
-            assignTable = new JLabel();
-            assignTable.setText("Tables Assigned: ____");
-            // assignTable.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 1));
-            add(assignTable);
+            waiterLabel = new JLabel("Waiter: ______");
+            waiterLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+            add(waiterLabel);
+
+            assignTableLabel = new JLabel("Tables Assigned: ______");
+            assignTableLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+            add(assignTableLabel);
         }
     }
 
     class OrderUi extends JPanel {
-        JPanel order;
-        JPanel status;
+        private JPanel orderPanel;
+        private JPanel statusPanel;
 
         public OrderUi(Data.Order orderData) {
-            setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+            setLayout(new BorderLayout());
             setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-            order = new JPanel();
-            order.setLayout(new BoxLayout(order, BoxLayout.Y_AXIS));
-            order.add(new JLabel("Order " + orderData.id()));
+            setBackground(LIGHT_GRAY);
+
+            orderPanel = new JPanel();
+            orderPanel.setLayout(new BoxLayout(orderPanel, BoxLayout.Y_AXIS));
+            orderPanel.setBackground(LIGHT_GRAY);
+            orderPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+            orderPanel.add(new JLabel("<html><b>Order " + orderData.id() + "</b></html>"));
             for (String item : orderData.items()) {
-                order.add(new JLabel(item));
+                orderPanel.add(new JLabel(item));
             }
-            add(order);
-            this.status = new JPanel();
-            this.status.setLayout(new BoxLayout(this.status, BoxLayout.Y_AXIS));
-            this.status.add(new JLabel("Status"));
-            this.status.add(new JLabel(orderData.status()));
-            add(this.status);
+            add(orderPanel, BorderLayout.CENTER);
+
+            statusPanel = new JPanel();
+            statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS));
+            statusPanel.setBackground(LIGHT_GRAY);
+            statusPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+            statusPanel.add(new JLabel("<html><b>Status</b></html>"));
+            statusPanel.add(new JLabel(orderData.status()));
+            add(statusPanel, BorderLayout.EAST);
         }
     }
 
     class Table extends JPanel {
-        ArrayList<OrderUi> orders;
+        private ArrayList<OrderUi> orders;
 
         public Table() {
-            orders = new ArrayList<>();
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            setBackground(Color.WHITE);
+            orders = new ArrayList<>();
             for (Data.Order order : Data.getOrders().values()) {
                 OrderUi orderUi = new OrderUi(order);
                 orders.add(orderUi);

@@ -1,79 +1,78 @@
 package org.example.Pages;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Date;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.util.Optional;
 
-import javax.swing.BoxLayout;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.example.Data.Data;
+import org.example.Data.controllers.Managers;
+import org.example.Data.controllers.Managers.ManagerViewWorker;
+import org.example.functions.Exit;
 
 public class ManagerWaiterView extends JPanel {
-    JPanel waiterInfo = new JPanel();
-    JPanel times = new JPanel();
-    JPanel tableList = new JPanel();
-    ArrayList<Table> tables = new ArrayList<>();
+    public ManagerWaiterView(int worker, Exit exit) throws Exception {
+        super(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        setBackground(Color.WHITE);
 
-    public ManagerWaiterView(Data.Worker worker) {
-        setLayout(new BorderLayout());
+        Optional<ManagerViewWorker.ListWorkers> workers = Managers.getWorkers();
+        if (workers.isEmpty())
+            throw new Exception("No workers found");
+        Optional<ManagerViewWorker> workerOption = workers.get().workers().stream()
+                .filter(w -> w.id() == worker)
+                .findAny();
+        if (workerOption.isEmpty())
+            throw new Exception("Worker not found");
+        ManagerViewWorker worker1 = workerOption.get();
 
-        // Panel for waiter information
-        JPanel topPanel = new JPanel();
-        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
-        waiterInfo.add(new JLabel("Waiter: " + worker.name()));
-        waiterInfo.add(new JLabel("ID: " + worker.id()));
-        topPanel.add(waiterInfo);
-        times.add(new JLabel("Login Time: " + Date.from(Instant.ofEpochSecond(worker.login())).toString()));
-        times.add(new JLabel("Work hours: Sometime"));
-        topPanel.add(times);
-        add(topPanel, BorderLayout.CENTER);
+        JPanel inputPanel = new JPanel(new GridBagLayout());
+        inputPanel.setBackground(Color.WHITE);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = GridBagConstraints.RELATIVE;
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.anchor = GridBagConstraints.WEST;
 
-        // Panel for table list
-        tableList.setLayout(new BoxLayout(tableList, BoxLayout.Y_AXIS));
-        for (Integer t : worker.tables()) {
-            Data.Table table = Data.getTables().get(t);
-            Table tableUi = new Table(table);
-            add(tableUi);
-            tableList.add(tableUi);
-        }
-        add(tableList, BorderLayout.CENTER);
+        inputPanel.add(createFieldLabel("Name:"), gbc);
+        inputPanel.add(createFieldValue(worker1.firstName() + " " + worker1.lastName()), gbc);
 
-        // Panel for sign out button
-        JPanel signOutPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JButton signOutButton = new JButton("Delete Account");
-        signOutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // the code here is to remove the cname
-                // exit the page
+        inputPanel.add(createFieldLabel("ID:"), gbc);
+        inputPanel.add(createFieldValue(Integer.toString(worker1.id())), gbc);
 
-            }
-        });
-        signOutPanel.add(signOutButton);
-        add(signOutPanel, BorderLayout.NORTH);
+        inputPanel.add(createFieldLabel("Age:"), gbc);
+        inputPanel.add(createFieldValue(Integer.toString(worker1.age())), gbc);
+
+        inputPanel.add(createFieldLabel("Job:"), gbc);
+        inputPanel.add(createFieldValue(worker1.job().toString()), gbc);
+
+        add(inputPanel, BorderLayout.CENTER);
+
+        // Create exit button panel
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JButton exitButton = new JButton("Exit");
+        exitButton.addActionListener(e -> exit.exit());
+        buttonPanel.add(exitButton);
+        add(buttonPanel, BorderLayout.SOUTH);
     }
 
-    class Table extends JPanel {
-        public Table(Data.Table table) {
-            JPanel info = new JPanel();
-            info.setLayout(new BoxLayout(info, BoxLayout.Y_AXIS));
-            info.add(new JLabel("Table " + table.id()));
-            info.add(new JLabel("Status"));
-            info.add(new JLabel(table.order().status()));
-            add(info);
-            JPanel order = new JPanel();
-            order.setLayout(new BoxLayout(order, BoxLayout.Y_AXIS));
-            for (String o : table.order().items()) {
-                order.add(new JLabel(o));
-            }
-            add(order);
-        }
+    private JLabel createFieldLabel(String labelText) {
+        JLabel label = new JLabel(labelText);
+        label.setFont(label.getFont().deriveFont(Font.BOLD));
+        return label;
+    }
+
+    private JLabel createFieldValue(String value) {
+        JLabel fieldValue = new JLabel(value);
+        fieldValue.setForeground(Color.BLUE);
+        return fieldValue;
     }
 }

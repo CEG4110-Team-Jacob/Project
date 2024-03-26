@@ -1,8 +1,10 @@
 package org.example;
 
+import java.awt.CardLayout;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import org.example.Data.Data;
 import org.example.Data.controllers.General;
@@ -14,8 +16,11 @@ import org.example.Pages.StaffManagement;
 import org.example.Pages.TableManagement;
 
 public class MainFrame extends JFrame {
+    private CardLayout layout = new CardLayout();
+    private JPanel main = new JPanel();
+
     private Waiters waiterGui = new Waiters();
-    private ManagerWaiterView managerWorkerView = new ManagerWaiterView(Data.getWorkers().get(1));
+    private ManagerWaiterView managerWorkerView;
     private Cooks cookGui = new Cooks();
     private TableManagement TableManagement = new TableManagement();
     private StaffManagement staffManagement = new StaffManagement();
@@ -23,25 +28,32 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         super("Restaurant");
+        main.setLayout(layout);
 
         MainFrame frame = this;
         // Observer Pattern
         login = new Login(() -> {
-            System.out.println("Logged in");
-            System.out.println(Waiters.getOrders());
-            System.out.println(General.getDetails());
             remove(this.login);
-            add(TableManagement);
+            try {
+                managerWorkerView = new ManagerWaiterView(1, () -> {
+                    System.out.println("Exited");
+                });
+                System.out.println("What");
+                main.add(managerWorkerView, "Manager View");
+                layout.show(main, "Manager View");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             // TODO What happens when login is successful
         });
 
-        add(login);
+        main.add(login, "LOGIN");
         // add(waiterGui);
         // add(cookGui);
-        // add(managerWorkerView);
         // add(TableManagement);
         // add(staffManagement);
 
+        add(main);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
