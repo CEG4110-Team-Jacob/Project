@@ -39,11 +39,13 @@ public class StaffManagement extends JPanel {
         names.add("Bob");
         names.add("Emily");
 
+        // Creating a center panel for worker information
         JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         // Add buttons for each name
         for (String name : names) {
-            JTextArea workerInfo = new JTextArea("Name: " + name, 20, 20);
+            JTextArea workerInfo = new JTextArea("Name: " + name + "\n", 20, 20);
+            // workerInfo.append(Id, age, job);
             workerInfo.setVisible(false);
             workerInfo.setEditable(false);
             centerPanel.add(workerInfo);
@@ -53,10 +55,9 @@ public class StaffManagement extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     Component[] oldText = centerPanel.getComponents();
                     for(Component c: oldText) {
-                        c.setVisible(false);
+                        c.setVisible(false); // Hides text from previous worker
                     }
-                    workerInfo.setVisible(true);
-                    //JOptionPane.showMessageDialog(null, "Worker information goes here");
+                    workerInfo.setVisible(true); // Shows text from worker that was clicked on
                 }
             });
             leftPanel.add(nameButton);
