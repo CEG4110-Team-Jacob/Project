@@ -39,39 +39,6 @@ public class StaffManagement extends JPanel {
         names.add("Bob");
         names.add("Emily");
 
-        // Creating a center panel for worker information
-        JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-
-        // Add buttons for each name
-        for (String name : names) {
-            JTextArea workerInfo = new JTextArea("Name: " + name + "\n", 20, 20);
-            // workerInfo.append(Id, age, job);
-            workerInfo.setVisible(false);
-            workerInfo.setEditable(false);
-            centerPanel.add(workerInfo);
-            JButton nameButton = new JButton(name);
-            nameButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    Component[] oldText = centerPanel.getComponents();
-                    for(Component c: oldText) {
-                        c.setVisible(false); // Hides text from previous worker
-                    }
-                    workerInfo.setVisible(true); // Shows text from worker that was clicked on
-                }
-            });
-            leftPanel.add(nameButton);
-        }
-
-        add(centerPanel);
-
-        // Create a JScrollPane to accommodate the list of names
-        JScrollPane scrollPane = new JScrollPane(leftPanel);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
-        add(scrollPane, BorderLayout.WEST);
-
-
         // Create a JPanel for the right side of the screen
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JLabel addAccountLabel = new JLabel("Add Account:");
@@ -87,7 +54,59 @@ public class StaffManagement extends JPanel {
         rightPanel.add(addAccountLabel);
         rightPanel.add(addButton);
 
+        JLabel deleteAccountLabel = new JLabel("Delete Account:");
+        JButton delButton = new JButton("Delete Account");
+        delButton.setVisible(false);
+        deleteAccountLabel.setVisible(false);
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Delete account functionality goes here
+                // For example, ask the user if they really want to delete the account
+                int wantToDelete= JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this account?");
+                // Do something with this information
+            }
+        });
+        rightPanel.add(deleteAccountLabel);
+        rightPanel.add(delButton);
+
         add(rightPanel, BorderLayout.EAST);
+        // Creating a center panel for worker information
+        JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        // Add buttons for each name
+        for (String name : names) {
+            JTextArea workerInfo = new JTextArea("Name: " + name + "\n", 20, 20);
+            // workerInfo.append(Id, age, job);
+            workerInfo.setVisible(false);
+            workerInfo.setFont(new Font("Times Roman", Font.PLAIN, 24));
+            workerInfo.setBackground(new Color(238, 238, 238)); // Color of application background
+            workerInfo.setEditable(false);
+            centerPanel.add(workerInfo);
+            JButton nameButton = new JButton(name);
+            nameButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Component[] oldText = centerPanel.getComponents();
+                    for(Component c: oldText) {
+                        c.setVisible(false); // Hides text from previous worker
+                    }
+                    workerInfo.setVisible(true); // Shows text from worker that was clicked on
+                    deleteAccountLabel.setVisible(true);
+                    delButton.setVisible(true);
+                }
+            });
+            leftPanel.add(nameButton);
+        }
+
+        add(centerPanel);
+
+        // Create a JScrollPane to accommodate the list of names
+        JScrollPane scrollPane = new JScrollPane(leftPanel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        add(scrollPane, BorderLayout.WEST);
+
     }
 
     public static void main(String[] args) {

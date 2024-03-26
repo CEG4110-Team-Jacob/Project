@@ -45,9 +45,9 @@ public class TableManagement extends JPanel {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Add table functionality goes here
-                // For example, show a dialog to input table details
-                JOptionPane.showMessageDialog(null, "Add table functionality goes here!");
+                String tableName = JOptionPane.showInputDialog("What number table would you like to add?");
+                // JButton newTable = new JButton(tableName); I'm unsure why this doesn't work
+                // leftPanel.add(newTable);
             }
         });
         rightPanel.add(addTableLabel);
