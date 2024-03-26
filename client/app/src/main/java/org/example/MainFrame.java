@@ -14,24 +14,28 @@ public class MainFrame extends JFrame {
     private Cooks cookGui = new Cooks();
     private TableManagement TableManagement = new TableManagement();
     private StaffManagement staffManagement = new StaffManagement();
-    private Login login = new Login(() -> {
-        System.out.println("Logged in");
-        System.out.println(Waiters.getOrders());
-        System.out.println(General.getDetails());
-        // TODO What happens when login is successful
-    });
+    private Login login;
 
     public MainFrame() {
         super("Restaurant");
 
         MainFrame frame = this;
+        // Observer Pattern
+        login = new Login(() -> {
+            System.out.println("Logged in");
+            System.out.println(Waiters.getOrders());
+            System.out.println(General.getDetails());
+            remove(this.login);
+            add(TableManagement);
+            // TODO What happens when login is successful
+        });
 
-        // add(login);
+        add(login);
         // add(waiterGui);
         // add(cookGui);
         // add(managerWorkerView);
         // add(TableManagement);
-        add(staffManagement);
+        // add(staffManagement);
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
