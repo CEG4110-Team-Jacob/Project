@@ -11,6 +11,7 @@ import com.restaurantsystem.api.service.AuthenticationService;
 import com.restaurantsystem.api.shared.all.ListOfItems;
 import com.restaurantsystem.api.shared.all.SharedItem;
 import com.restaurantsystem.api.shared.manager.AddItem;
+import com.restaurantsystem.api.shared.manager.ManagerViewWorker;
 import com.restaurantsystem.api.shared.manager.PostCreateAccount;
 
 import java.util.List;
@@ -96,4 +97,12 @@ public class ManagerController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/workers")
+    public ResponseEntity<ManagerViewWorker.ListWorkers> getWorkers(@RequestParam String t) {
+        Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Manager);
+        if (worker.isEmpty())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        List<ManagerViewWorker> workers = workerRepository.findAllBy(ManagerViewWorker.class);
+        return new ResponseEntity<>(new ManagerViewWorker.ListWorkers(workers), HttpStatus.OK);
+    }
 }

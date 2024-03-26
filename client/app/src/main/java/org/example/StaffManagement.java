@@ -5,26 +5,22 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Date;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.example.Data.Data;
+import org.example.Data.controllers.Managers;
+import org.example.Data.controllers.Managers.ManagerViewWorker;
 
 public class StaffManagement extends JPanel {
 
     public StaffManagement() {
         setLayout(new BorderLayout());
-
 
         // Create a JPanel for the left side of the screen
         JPanel leftPanel = new JPanel();
@@ -34,10 +30,11 @@ public class StaffManagement extends JPanel {
 
         // Example list of names
         ArrayList<String> names = new ArrayList<>();
-        names.add("John");
-        names.add("Alice");
-        names.add("Bob");
-        names.add("Emily");
+        ManagerViewWorker.ListWorkers workers = org.example.Data.controllers.Managers.getWorkers()
+                .get();
+        for (ManagerViewWorker worker : workers.workers()) {
+            names.add(worker.name());
+        }
 
         // Create a JPanel for the right side of the screen
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -63,7 +60,7 @@ public class StaffManagement extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // Delete account functionality goes here
                 // For example, ask the user if they really want to delete the account
-                int wantToDelete= JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this account?");
+                int wantToDelete = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this account?");
                 // Do something with this information
             }
         });
@@ -88,7 +85,7 @@ public class StaffManagement extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Component[] oldText = centerPanel.getComponents();
-                    for(Component c: oldText) {
+                    for (Component c : oldText) {
                         c.setVisible(false); // Hides text from previous worker
                     }
                     workerInfo.setVisible(true); // Shows text from worker that was clicked on

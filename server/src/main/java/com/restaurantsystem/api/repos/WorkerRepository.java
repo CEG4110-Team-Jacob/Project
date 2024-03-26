@@ -1,5 +1,6 @@
 package com.restaurantsystem.api.repos;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
@@ -14,6 +15,8 @@ public interface WorkerRepository extends CrudRepository<Worker, Integer> {
     public Optional<Worker> findByToken(String token);
 
     public <T> Optional<T> findById(int id, Class<T> type);
+
+    public <T> List<T> findAllBy(Class<T> type);
 
     public boolean existsByUsername(String username);
 

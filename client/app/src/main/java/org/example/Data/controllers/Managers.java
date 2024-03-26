@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.example.Data.Utils.GetMethods;
 import org.example.Data.Utils.PostMethods;
+import org.example.Data.controllers.Managers.ManagerViewWorker.ListWorkers;
 import org.example.Data.enums.ItemType;
 import org.example.Data.enums.Job;
 import org.example.Data.records.Item;
@@ -18,10 +19,21 @@ public class Managers {
     public record PostAddItem(String name, String description, int price, boolean inStock, ItemType type) {
     }
 
+    public record ManagerViewWorker(
+            String name,
+            int id, int age, Job job, int weekHours) {
+        public record ListWorkers(List<ManagerViewWorker> workers) {
+        };
+    }
+
     private static GetMethods<Item.ListItems> items = new GetMethods<>("/manager/items", Item.ListItems.class);
     private static PostMethods<PostCreateWorker, Void> createWorker = new PostMethods<>("/manager/createWorker",
             Void.class);
+
     private static PostMethods<PostAddItem, Void> addItem = new PostMethods<>("/manager/addItem", Void.class);
+
+    private static GetMethods<ManagerViewWorker.ListWorkers> getWorkers = new GetMethods<>("/manager/workers",
+            ManagerViewWorker.ListWorkers.class);
 
     public static Optional<ListItems> setItems() {
         return items.set();
@@ -35,8 +47,16 @@ public class Managers {
         return createWorker.post(body);
     }
 
-    public Optional<Void> addItem(PostAddItem body) {
+    public static Optional<Void> addItem(PostAddItem body) {
         return addItem.post(body);
+    }
+
+    public static Optional<ListWorkers> setWorkers() {
+        return getWorkers.set();
+    }
+
+    public static Optional<ListWorkers> getWorkers() {
+        return getWorkers.get();
     }
 
 }
