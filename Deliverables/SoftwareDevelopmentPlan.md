@@ -54,6 +54,10 @@ Who makes the decisions?
 - Vote by Majority within 6 hours in Discord (in a tie choose a random one)
   - If someone posts a vote at night, the deadline would be until 10 A.M.
 
+## Changes
+
+- 3/26: Added Presentation Slides to the Milestones.
+
 ## Milestones
 
 - Important Milestones that some combine the development methodology with constraints you cannot change (e.g., how long the course is).  They all should be done by 11:59 P.M. of the day.
@@ -63,3 +67,4 @@ Who makes the decisions?
   - 2/22 Minimum Design Specification
   - 3/29 Minimum Viable Product (Moved back because requirements are a bit much and busy with school.)
   - 4/5 Final Requirements and Design Specifications
+  - 4/9 Presentation Slides
