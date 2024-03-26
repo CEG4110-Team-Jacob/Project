@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Pages;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -51,9 +51,9 @@ public class ManagerWaiterView extends JPanel {
         signOutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // the code here is to remove the cname 
-                // exit the page 
-                
+                // the code here is to remove the cname
+                // exit the page
+
             }
         });
         signOutPanel.add(signOutButton);

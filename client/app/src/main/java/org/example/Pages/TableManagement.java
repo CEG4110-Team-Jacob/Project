@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Pages;
 
 import javax.swing.*;
 import java.awt.*;

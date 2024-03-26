@@ -7,6 +7,11 @@ import javax.swing.JFrame;
 import org.example.Data.Data;
 import org.example.Data.controllers.General;
 import org.example.Data.controllers.Waiters;
+import org.example.Pages.Cooks;
+import org.example.Pages.Login;
+import org.example.Pages.ManagerWaiterView;
+import org.example.Pages.StaffManagement;
+import org.example.Pages.TableManagement;
 
 public class MainFrame extends JFrame {
     private Waiters waiterGui = new Waiters();
