@@ -25,6 +25,7 @@ public class StaffManagement extends JPanel {
     public StaffManagement() {
         setLayout(new BorderLayout());
 
+
         // Create a JPanel for the left side of the screen
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
@@ -38,17 +39,37 @@ public class StaffManagement extends JPanel {
         names.add("Bob");
         names.add("Emily");
 
+        JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
         // Add buttons for each name
         for (String name : names) {
+            JTextArea workerInfo = new JTextArea("Name: " + name, 20, 20);
+            workerInfo.setVisible(false);
+            workerInfo.setEditable(false);
+            centerPanel.add(workerInfo);
             JButton nameButton = new JButton(name);
+            nameButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Component[] oldText = centerPanel.getComponents();
+                    for(Component c: oldText) {
+                        c.setVisible(false);
+                    }
+                    workerInfo.setVisible(true);
+                    //JOptionPane.showMessageDialog(null, "Worker information goes here");
+                }
+            });
             leftPanel.add(nameButton);
         }
+
+        add(centerPanel);
 
         // Create a JScrollPane to accommodate the list of names
         JScrollPane scrollPane = new JScrollPane(leftPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         add(scrollPane, BorderLayout.WEST);
+
 
         // Create a JPanel for the right side of the screen
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
