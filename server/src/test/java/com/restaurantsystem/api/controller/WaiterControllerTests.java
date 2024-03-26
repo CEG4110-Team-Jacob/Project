@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.restaurantsystem.api.DatabasePopulate;
+import com.restaurantsystem.api.controller.WaiterControllerTests.WaiterTable.ListTables;
 import com.restaurantsystem.api.data.Item;
 import com.restaurantsystem.api.data.Order;
 import com.restaurantsystem.api.data.Table;
@@ -73,6 +74,25 @@ public class WaiterControllerTests extends ControllerParentTests {
         ResponseEntity<ListOfOrders> hostReponse = restTemplate
                 .getForEntity(getUrl() + "order?t=" + hostToken, ListOfOrders.class);
         assertEquals(hostReponse.getStatusCode(), HttpStatus.UNAUTHORIZED);
+    }
+
+    public record WaiterTable(
+            int id,
+            int number, WaiterDetails waiter, boolean isOccupied, int numSeats) {
+        public record WaiterDetails(String firstName, String lastName) {
+        }
+
+        public record ListTables(List<WaiterTable> tables) {
+        }
+    }
+
+    @Test
+    void getTables() {
+        ResponseEntity<ListTables> response = restTemplate.getForEntity(getUrl() + "tables?t=" + token,
+                ListTables.class);
+        assertTrue(response.getStatusCode().is2xxSuccessful());
+        assertNotNull(response.getBody());
+        assertTrue(response.getBody().tables.size() > 3);
     }
 
     @Test

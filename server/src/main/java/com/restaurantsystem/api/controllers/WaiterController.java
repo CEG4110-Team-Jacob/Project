@@ -31,6 +31,7 @@ import com.restaurantsystem.api.shared.all.ListOfItems;
 import com.restaurantsystem.api.shared.all.SharedItem;
 import com.restaurantsystem.api.shared.waiter.GetOrderWaiter;
 import com.restaurantsystem.api.shared.waiter.PostOrderWaiter;
+import com.restaurantsystem.api.shared.waiter.TableProjection;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,10 +48,17 @@ public class WaiterController {
     public record Orders(List<GetOrderWaiter> orders) {
     }
 
+    /**
+     * TableList
+     */
+    public record TableList(List<TableProjection> tables) {
+    }
+
     @Autowired
     OrderRepository orderRepository;
     @Autowired
     ItemRepository itemRepository;
+
     @Autowired
     TableRepository tableRepository;
 
@@ -167,6 +175,21 @@ public class WaiterController {
         table.setOccupied(false);
         tableRepository.save(table);
         return new ResponseEntity<>(true, HttpStatus.OK);
+    }
+
+    /**
+     * Gets the tables
+     * 
+     * @param t token
+     * @return list of tables
+     */
+    @GetMapping("/tables")
+    public ResponseEntity<TableList> getTables(@RequestParam String t) {
+        Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Waiter);
+        if (worker.isEmpty())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        List<TableProjection> tables = tableRepository.findAllBy(TableProjection.class);
+        return new ResponseEntity<>(new TableList(tables), HttpStatus.OK);
     }
 
     /**
