@@ -1,25 +1,31 @@
 package org.example.Pages;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
+import org.example.Components.ManagerWaiterView;
 import org.example.Data.controllers.Managers;
-import org.example.Data.controllers.Managers.ManagerViewWorker;
+import org.example.functions.Exit;
 
+// ChatGPT Modified Code
 public class StaffManagement extends JPanel {
 
-    public StaffManagement() {
+    public StaffManagement(Exit exit) throws Exception {
         setLayout(new BorderLayout());
 
         // Create a JPanel for the left side of the screen
@@ -28,15 +34,17 @@ public class StaffManagement extends JPanel {
         JLabel nameLabel = new JLabel("List of Names:");
         leftPanel.add(nameLabel);
 
-        // Example list of names
-        ArrayList<String> names = new ArrayList<>();
-        names.add("Test");
+        var workersOptional = Managers.getWorkers();
+        if (workersOptional.isEmpty())
+            throw new Exception();
+        var workers = workersOptional.get();
 
         // Create a JPanel for the right side of the screen
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JLabel addAccountLabel = new JLabel("Add Account:");
         JButton addButton = new JButton("Add Account");
         addButton.addActionListener(new ActionListener() {
+            // TODO ADD CREATION
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Add account functionality goes here
@@ -51,7 +59,8 @@ public class StaffManagement extends JPanel {
         JButton delButton = new JButton("Delete Account");
         delButton.setVisible(false);
         deleteAccountLabel.setVisible(false);
-        addButton.addActionListener(new ActionListener() {
+        delButton.addActionListener(new ActionListener() {
+            // TODO ADD DELETION
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Delete account functionality goes here
@@ -66,25 +75,22 @@ public class StaffManagement extends JPanel {
         add(rightPanel, BorderLayout.EAST);
         // Creating a center panel for worker information
         JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        ManagerWaiterView workerInfo = new ManagerWaiterView();
+        centerPanel.add(workerInfo);
 
         // Add buttons for each name
-        for (String name : names) {
-            JTextArea workerInfo = new JTextArea("Name: " + name + "\n", 20, 20);
+        for (var worker : workers.workers()) {
+            String name = worker.firstName() + " " + worker.lastName();
             // workerInfo.append(Id, age, job);
-            workerInfo.setVisible(false);
-            workerInfo.setFont(new Font("Times Roman", Font.PLAIN, 24));
-            workerInfo.setBackground(new Color(238, 238, 238)); // Color of application background
-            workerInfo.setEditable(false);
-            centerPanel.add(workerInfo);
             JButton nameButton = new JButton(name);
             nameButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Component[] oldText = centerPanel.getComponents();
-                    for (Component c : oldText) {
-                        c.setVisible(false); // Hides text from previous worker
+                    try {
+                        workerInfo.update(worker);
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
                     }
-                    workerInfo.setVisible(true); // Shows text from worker that was clicked on
                     deleteAccountLabel.setVisible(true);
                     delButton.setVisible(true);
                 }
@@ -102,11 +108,4 @@ public class StaffManagement extends JPanel {
 
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Staff Management");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(new StaffManagement());
-        frame.setSize(600, 400);
-        frame.setVisible(true);
-    }
 }

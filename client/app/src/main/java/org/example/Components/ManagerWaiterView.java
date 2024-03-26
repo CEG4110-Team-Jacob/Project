@@ -1,40 +1,32 @@
-package org.example.Pages;
+package org.example.Components;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.Optional;
-
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.example.Data.controllers.Managers;
 import org.example.Data.controllers.Managers.ManagerViewWorker;
-import org.example.functions.Exit;
 
+// ChatGPT Modified Code
 public class ManagerWaiterView extends JPanel {
-    public ManagerWaiterView(int worker, Exit exit) throws Exception {
+    JPanel inputPanel;
+
+    public ManagerWaiterView() {
         super(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         setBackground(Color.WHITE);
+    }
 
-        Optional<ManagerViewWorker.ListWorkers> workers = Managers.getWorkers();
-        if (workers.isEmpty())
-            throw new Exception("No workers found");
-        Optional<ManagerViewWorker> workerOption = workers.get().workers().stream()
-                .filter(w -> w.id() == worker)
-                .findAny();
-        if (workerOption.isEmpty())
-            throw new Exception("Worker not found");
-        ManagerViewWorker worker1 = workerOption.get();
+    public void update(ManagerViewWorker worker) throws Exception {
+        if (inputPanel != null)
+            remove(inputPanel);
 
-        JPanel inputPanel = new JPanel(new GridBagLayout());
+        inputPanel = new JPanel(new GridBagLayout());
         inputPanel.setBackground(Color.WHITE);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -43,25 +35,20 @@ public class ManagerWaiterView extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
 
         inputPanel.add(createFieldLabel("Name:"), gbc);
-        inputPanel.add(createFieldValue(worker1.firstName() + " " + worker1.lastName()), gbc);
+        inputPanel.add(createFieldValue(worker.firstName() + " " + worker.lastName()), gbc);
 
         inputPanel.add(createFieldLabel("ID:"), gbc);
-        inputPanel.add(createFieldValue(Integer.toString(worker1.id())), gbc);
+        inputPanel.add(createFieldValue(Integer.toString(worker.id())), gbc);
 
         inputPanel.add(createFieldLabel("Age:"), gbc);
-        inputPanel.add(createFieldValue(Integer.toString(worker1.age())), gbc);
+        inputPanel.add(createFieldValue(Integer.toString(worker.age())), gbc);
 
         inputPanel.add(createFieldLabel("Job:"), gbc);
-        inputPanel.add(createFieldValue(worker1.job().toString()), gbc);
+        inputPanel.add(createFieldValue(worker.job().toString()), gbc);
 
         add(inputPanel, BorderLayout.CENTER);
-
-        // Create exit button panel
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JButton exitButton = new JButton("Exit");
-        exitButton.addActionListener(e -> exit.exit());
-        buttonPanel.add(exitButton);
-        add(buttonPanel, BorderLayout.SOUTH);
+        revalidate();
+        repaint();
     }
 
     private JLabel createFieldLabel(String labelText) {

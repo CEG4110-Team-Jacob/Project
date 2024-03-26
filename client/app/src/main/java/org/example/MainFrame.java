@@ -6,12 +6,12 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.example.Components.ManagerWaiterView;
 import org.example.Data.Data;
 import org.example.Data.controllers.General;
 import org.example.Data.controllers.Waiters;
 import org.example.Pages.Cooks;
 import org.example.Pages.Login;
-import org.example.Pages.ManagerWaiterView;
 import org.example.Pages.StaffManagement;
 import org.example.Pages.TableManagement;
 
@@ -23,7 +23,7 @@ public class MainFrame extends JFrame {
     private ManagerWaiterView managerWorkerView;
     private Cooks cookGui = new Cooks();
     private TableManagement TableManagement = new TableManagement();
-    private StaffManagement staffManagement = new StaffManagement();
+    private StaffManagement staffManagement;
     private Login login;
 
     public MainFrame() {
@@ -35,12 +35,10 @@ public class MainFrame extends JFrame {
         login = new Login(() -> {
             remove(this.login);
             try {
-                managerWorkerView = new ManagerWaiterView(1, () -> {
-                    System.out.println("Exited");
+                staffManagement = new StaffManagement(() -> {
                 });
-                System.out.println("What");
-                main.add(managerWorkerView, "Manager View");
-                layout.show(main, "Manager View");
+                main.add(staffManagement, "Staffing");
+                layout.show(main, "Staffing");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -48,10 +46,9 @@ public class MainFrame extends JFrame {
         });
 
         main.add(login, "LOGIN");
-        // add(waiterGui);
-        // add(cookGui);
-        // add(TableManagement);
-        // add(staffManagement);
+        // main.add(waiterGui);
+        // main.add(cookGui);
+        // main.add(TableManagement);
 
         add(main);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
