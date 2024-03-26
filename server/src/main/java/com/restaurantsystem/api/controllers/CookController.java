@@ -92,7 +92,7 @@ public class CookController {
      */
     @PostMapping("/cookingOrder")
     @Transactional
-    public ResponseEntity<Void> cookingOrder(@RequestParam String t,
+    public ResponseEntity<Boolean> cookingOrder(@RequestParam String t,
             @RequestBody int id) {
         Optional<Worker> cook = authenticationService.hasJobAndAuthenticate(t, Job.Cook);
         if (cook.isEmpty())
@@ -102,7 +102,7 @@ public class CookController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         order.get().setStatus(Status.InProgress);
         orderRepository.save(order.get());
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     @Autowired
@@ -116,7 +116,7 @@ public class CookController {
      */
     @PostMapping("/completeOrder")
     @Transactional
-    public ResponseEntity<Void> completeOrder(@RequestParam String t,
+    public ResponseEntity<Boolean> completeOrder(@RequestParam String t,
             @RequestBody int id) {
         Optional<Worker> cook = authenticationService.hasJobAndAuthenticate(t, Job.Cook);
         if (cook.isEmpty())
@@ -128,7 +128,7 @@ public class CookController {
         Order orderNew = orderRepository.save(order.get());
         int waiterId = orderNew.getWaiter().getId();
         waiterController.orderCompleted(waiterId, id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     /**
@@ -139,7 +139,7 @@ public class CookController {
      */
     @PostMapping("/itemDepleted")
     @Transactional
-    public ResponseEntity<Void> itemDepleted(@RequestParam String t, @RequestBody int id) {
+    public ResponseEntity<Boolean> itemDepleted(@RequestParam String t, @RequestBody int id) {
         Optional<Worker> cook = authenticationService.hasJobAndAuthenticate(t, Job.Cook);
         if (cook.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -148,7 +148,7 @@ public class CookController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         item.get().setInStock(false);
         itemRepository.save(item.get());
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     /**
@@ -159,7 +159,7 @@ public class CookController {
      */
     @PostMapping("/itemRestocked")
     @Transactional
-    public ResponseEntity<Void> itemRestocked(@RequestParam String t, @RequestBody int id) {
+    public ResponseEntity<Boolean> itemRestocked(@RequestParam String t, @RequestBody int id) {
         Optional<Worker> cook = authenticationService.hasJobAndAuthenticate(t, Job.Cook);
         if (cook.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -168,7 +168,7 @@ public class CookController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         item.get().setInStock(true);
         itemRepository.save(item.get());
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
 }

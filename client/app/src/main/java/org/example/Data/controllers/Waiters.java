@@ -1,4 +1,4 @@
-package org.example.Data;
+package org.example.Data.controllers;
 
 import java.util.Date;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import org.example.Data.Utils.GetMethods;
 import org.example.Data.Utils.PostMethods;
-import org.example.Data.Waiters.WaiterOrder.ListOrders;
+import org.example.Data.controllers.Waiters.WaiterOrder.ListOrders;
 import org.example.Data.enums.Status;
 import org.example.Data.records.Item;
 import org.example.Data.records.Item.ListItems;
@@ -25,6 +25,10 @@ public class Waiters {
     private static GetMethods<Item.ListItems> items = new GetMethods<>("/waiter/items", Item.ListItems.class);
     private static PostMethods<WaiterPostOrder, Integer> addOrder = new PostMethods<>("/waiter/addOrder",
             Integer.class);
+    private static PostMethods<Integer, Boolean> completeOrder = new PostMethods<>("/water/completeOrder",
+            Boolean.class);
+    private static PostMethods<Integer, Boolean> cancelOrder = new PostMethods<>("/water/cancelOrder",
+            Boolean.class);
 
     public static Optional<Integer> addOrder(WaiterPostOrder body) {
         return addOrder.post(body);
@@ -49,6 +53,14 @@ public class Waiters {
 
     public static Optional<ListOrders> getOrders() {
         return orders.get();
+    }
+
+    public static Optional<Boolean> completeOrder(Integer body) {
+        return completeOrder.post(body);
+    }
+
+    public static Optional<Boolean> cancelOrder(Integer body) {
+        return cancelOrder.post(body);
     }
 
 }

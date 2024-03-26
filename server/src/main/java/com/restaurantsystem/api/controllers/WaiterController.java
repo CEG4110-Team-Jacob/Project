@@ -130,7 +130,8 @@ public class WaiterController {
      */
     @PostMapping("/completeOrder")
     @Transactional
-    public ResponseEntity<Void> completeOrder(@RequestBody Integer orderId, @RequestParam(value = "t") String token) {
+    public ResponseEntity<Boolean> completeOrder(@RequestBody Integer orderId,
+            @RequestParam(value = "t") String token) {
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(token, Job.Waiter);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -139,7 +140,7 @@ public class WaiterController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         order.get().setStatus(Status.Delivered);
         orderRepository.save(order.get());
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     /**
@@ -150,14 +151,14 @@ public class WaiterController {
      */
     @PostMapping("/cancelOrder")
     @Transactional
-    public ResponseEntity<Void> cancelOrder(@RequestBody Integer orderId, @RequestParam(value = "t") String token) {
+    public ResponseEntity<Boolean> cancelOrder(@RequestBody Integer orderId, @RequestParam(value = "t") String token) {
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(token, Job.Waiter);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         Optional<Order> order = orderRepository.findById(orderId);
         order.get().setStatus(Status.Canceled);
         orderRepository.save(order.get());
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     /**

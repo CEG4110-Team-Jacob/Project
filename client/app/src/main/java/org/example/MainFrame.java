@@ -5,8 +5,8 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 
 import org.example.Data.Data;
-import org.example.Data.General;
-import org.example.Data.Waiters;
+import org.example.Data.controllers.General;
+import org.example.Data.controllers.Waiters;
 
 public class MainFrame extends JFrame {
     private Waiters waiterGui = new Waiters();
