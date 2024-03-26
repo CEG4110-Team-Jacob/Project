@@ -2,7 +2,7 @@ package org.example;
 
 import javax.swing.*;
 
-import org.example.Data.General;
+import org.example.Data.controllers.General;
 
 import java.awt.*;
 import java.awt.event.*;

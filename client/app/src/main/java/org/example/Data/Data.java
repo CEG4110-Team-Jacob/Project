@@ -5,6 +5,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import org.example.Data.controllers.Cooks;
+import org.example.Data.controllers.General;
+import org.example.Data.controllers.Waiters;
+
 public class Data {
     public record Order(int id, String status, List<String> items) {
     }
@@ -24,6 +28,7 @@ public class Data {
     public static void deleteData() {
         Waiters.reset();
         General.reset();
+        Cooks.reset();
     }
 
     static {

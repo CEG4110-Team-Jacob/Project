@@ -1,4 +1,4 @@
-package org.example.Data;
+package org.example.Data.controllers;
 
 import java.util.Date;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import org.example.Data.Utils.GetMethods;
 import org.example.Data.Utils.PostMethods;
-import org.example.Data.Waiters.WaiterOrder.ListOrders;
+import org.example.Data.controllers.Waiters.WaiterOrder.ListOrders;
 import org.example.Data.enums.Status;
 import org.example.Data.records.Item;
 import org.example.Data.records.Item.ListItems;
@@ -55,11 +55,11 @@ public class Waiters {
         return orders.get();
     }
 
-    public Optional<Boolean> completeOrder(Integer body) {
+    public static Optional<Boolean> completeOrder(Integer body) {
         return completeOrder.post(body);
     }
 
-    public Optional<Boolean> cancelOrder(Integer body) {
+    public static Optional<Boolean> cancelOrder(Integer body) {
         return cancelOrder.post(body);
     }
 

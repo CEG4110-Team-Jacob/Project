@@ -1,14 +1,14 @@
-package org.example.Data;
+package org.example.Data.controllers;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.example.Data.Cooks.CookOrder.ListCookOrders;
-import org.example.Data.Utils.GetMethods;
-import org.example.Data.Utils.PostMethods;
 import org.example.Data.records.Item;
 import org.example.Data.records.Item.ListItems;
+import org.example.Data.Utils.GetMethods;
+import org.example.Data.Utils.PostMethods;
+import org.example.Data.controllers.Cooks.CookOrder.ListCookOrders;
 import org.example.Data.enums.Status;
 
 public class Cooks {
@@ -30,35 +30,40 @@ public class Cooks {
     private static PostMethods<Integer, Boolean> itemRestocked = new PostMethods<>("/cook/itemRestocked",
             Boolean.class);
 
-    public Optional<Boolean> completeOrder(Integer body) {
+    public static void reset() {
+        items.reset();
+        orders.reset();
+    }
+
+    public static Optional<Boolean> completeOrder(Integer body) {
         return completeOrder.post(body);
     }
 
-    public Optional<Boolean> cookingOrder(Integer body) {
+    public static Optional<Boolean> cookingOrder(Integer body) {
         return cookingOrder.post(body);
     }
 
-    public Optional<Boolean> itemDepleted(Integer body) {
+    public static Optional<Boolean> itemDepleted(Integer body) {
         return itemDepleted.post(body);
     }
 
-    public Optional<Boolean> itemRestocked(Integer body) {
+    public static Optional<Boolean> itemRestocked(Integer body) {
         return itemRestocked.post(body);
     }
 
-    public Optional<ListCookOrders> setOrders() {
+    public static Optional<ListCookOrders> setOrders() {
         return orders.set();
     }
 
-    public Optional<ListCookOrders> getOrders() {
+    public static Optional<ListCookOrders> getOrders() {
         return orders.get();
     }
 
-    public Optional<ListItems> setItems() {
+    public static Optional<ListItems> setItems() {
         return items.set();
     }
 
-    public Optional<ListItems> getItems() {
+    public static Optional<ListItems> getItems() {
         return items.get();
     }
 

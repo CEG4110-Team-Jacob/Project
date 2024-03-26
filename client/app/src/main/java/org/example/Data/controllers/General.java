@@ -1,8 +1,9 @@
-package org.example.Data;
+package org.example.Data.controllers;
 
 import java.net.URI;
 import java.util.Optional;
 
+import org.example.Data.Data;
 import org.example.Data.Utils.GetMethods;
 import org.example.Data.Utils.PostMethods;
 import org.example.Data.records.WorkerDetails;
