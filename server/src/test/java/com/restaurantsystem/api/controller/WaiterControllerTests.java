@@ -9,21 +9,15 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.restaurantsystem.api.DatabasePopulate;
 import com.restaurantsystem.api.controller.WaiterControllerTests.WaiterTable.ListTables;
-import com.restaurantsystem.api.data.Item;
-import com.restaurantsystem.api.data.Order;
 import com.restaurantsystem.api.data.Table;
-import com.restaurantsystem.api.data.Worker;
 import com.restaurantsystem.api.data.Order.Status;
 import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.repos.TableRepository;
@@ -32,7 +26,6 @@ import com.restaurantsystem.api.shared.ListOfItems;
 import com.restaurantsystem.api.shared.TestSharedItem;
 import com.restaurantsystem.api.shared.waiter.PostOrderWaiter;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class WaiterControllerTests extends ControllerParentTests {
     @Autowired
     private WorkerRepository workerRepository;
@@ -44,7 +37,7 @@ public class WaiterControllerTests extends ControllerParentTests {
 
     public WaiterControllerTests() {
         login = DatabasePopulate.Waiter1;
-        path = "waiter";
+        path = "/waiter";
     }
 
     @Test
@@ -60,18 +53,14 @@ public class WaiterControllerTests extends ControllerParentTests {
     }
 
     @Test
-    void getOrder() {
-        ResponseEntity<ListOfOrders> response = restTemplate
-                .getForEntity(getUrl() + "order?t=" + token, ListOfOrders.class);
-        assertEquals(response.getStatusCode(), HttpStatus.OK);
-        assertNotNull(response.getBody());
-        assertFalse(response.getBody().orders.isEmpty());
+    void getOrder() throws Exception {
+        var orders = getMockMvcResultType("/order", ListOfOrders.class);
+        assertTrue(orders.orders.size() > 0);
         Optional<String> hostToken = authenticationService.login(DatabasePopulate.Host1.username(),
                 DatabasePopulate.Host1.password());
         assertTrue(hostToken.isPresent());
-        ResponseEntity<ListOfOrders> hostReponse = restTemplate
-                .getForEntity(getUrl() + "order?t=" + hostToken, ListOfOrders.class);
-        assertEquals(hostReponse.getStatusCode(), HttpStatus.UNAUTHORIZED);
+        getMockMvcBuilderWithToken("/order", hostToken.get())
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
     }
 
     public record WaiterTable(
@@ -85,66 +74,49 @@ public class WaiterControllerTests extends ControllerParentTests {
     }
 
     @Test
-    void getTables() {
-        ResponseEntity<ListTables> response = restTemplate.getForEntity(getUrl() + "tables?t=" + token,
-                ListTables.class);
-        assertTrue(response.getStatusCode().is2xxSuccessful());
-        assertNotNull(response.getBody());
-        assertTrue(response.getBody().tables.size() > 3);
+    void getTables() throws Exception {
+        var tables = getMockMvcResultType("/tables", ListTables.class);
+        assertTrue(tables.tables.size() > 3);
     }
 
     @Test
-    @Transactional
-    void addOrder() {
-        ResponseEntity<Integer> response = restTemplate.postForEntity(
-                getUrl() + "addOrder?t=" + token, new PostOrderWaiter(Arrays.asList(1, 2), 1),
-                Integer.class);
-        assertEquals(response.getStatusCode(), HttpStatus.OK);
-        assertTrue(response.getBody() > 0);
-        Optional<Worker> waiter = workerRepository.findByToken(token);
+    void addOrder() throws Exception {
+        String orderDetails = objectMapper.writeValueAsString(new PostOrderWaiter(Arrays.asList(1, 2), 1));
+        var orderId = postMockMvcResultType("/addOrder", orderDetails, Integer.class);
+        assertTrue(orderId > 0);
+        var waiter = workerRepository.findByToken(token);
         assertTrue(waiter.isPresent());
-        Optional<Order> order = orderRepository.findById(response.getBody());
+        var order = orderRepository.findById(orderId);
         assertTrue(order.isPresent());
         assertEquals(order.get().getStatus(), Status.Ordered);
-        List<Item> items = order.get().getItems();
+        var items = order.get().getItems();
         assertEquals(items.get(0).getId(), 1);
         assertEquals(items.get(1).getId(), 2);
         assertTrue(order.get().getTimeOrdered().before(new Date()));
         assertTrue(order.get().getTimeOrdered().after(new Date(new Date().getTime() - 10 * 1000)));
-        Optional<Table> table = tableRepository.findById(1);
+        var table = tableRepository.findById(1);
         assertTrue(table.isPresent());
         assertTrue(table.get().isOccupied());
     }
 
     @Test
-    void completeOrder() {
+    void completeOrder() throws Exception {
         int cookedOrderId = 3;
-        ResponseEntity<String> cookedOrder = restTemplate.postForEntity(getUrl() + "completeOrder?t=" + token,
-                cookedOrderId,
-                String.class);
-        assertEquals(cookedOrder.getStatusCode(), HttpStatus.OK);
+        postMockMvcResult("/completeOrder", Integer.toString(cookedOrderId));
         assertTrue(orderRepository.existsById(cookedOrderId));
         assertEquals(orderRepository.findById(cookedOrderId).get().getStatus(), Status.Delivered);
         Optional<Table> table = tableRepository.findById(4);
         assertTrue(table.isPresent());
         assertFalse(table.get().isOccupied());
         int orderedOrderId = 1;
-        ResponseEntity<String> orderedOrder = restTemplate.postForEntity(getUrl() + "completeOrder?t=" + token,
-                orderedOrderId,
-                String.class);
-        assertEquals(orderedOrder.getStatusCode(), HttpStatus.BAD_REQUEST);
+        postMockMvcBuilder("/completeOrder", Integer.toString(orderedOrderId))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
         int inProgressOrderId = 2;
-        ResponseEntity<String> inProgressOrder = restTemplate.postForEntity(
-                getUrl() + "completeOrder?t=" + token,
-                inProgressOrderId,
-                String.class);
-        assertEquals(inProgressOrder.getStatusCode(), HttpStatus.BAD_REQUEST);
+        postMockMvcBuilder("/completeOrder", Integer.toString(inProgressOrderId))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
         int deliveredOrderId = 4;
-        ResponseEntity<String> deliveredOrder = restTemplate.postForEntity(
-                getUrl() + "completeOrder?t=" + token,
-                deliveredOrderId,
-                String.class);
-        assertEquals(deliveredOrder.getStatusCode(), HttpStatus.BAD_REQUEST);
+        postMockMvcBuilder("/completeOrder", Integer.toString(deliveredOrderId))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
     @Test

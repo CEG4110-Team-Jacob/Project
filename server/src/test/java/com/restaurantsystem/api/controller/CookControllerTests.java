@@ -11,8 +11,6 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -24,7 +22,6 @@ import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.shared.ListOfItems;
 import com.restaurantsystem.api.shared.TestSharedItem;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class CookControllerTests extends ControllerParentTests {
     record Orders(List<Order> orders) {
         record Order(List<TestSharedItem> items, Date timeOrdered, Status status, int id) {
@@ -39,7 +36,7 @@ public class CookControllerTests extends ControllerParentTests {
 
     public CookControllerTests() {
         login = DatabasePopulate.Cook1;
-        path = "cook";
+        path = "/cook";
     }
 
     @Test

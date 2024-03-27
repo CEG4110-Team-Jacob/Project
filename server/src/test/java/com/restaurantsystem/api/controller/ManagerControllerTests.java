@@ -29,7 +29,7 @@ public class ManagerControllerTests extends ControllerParentTests {
 
     public ManagerControllerTests() {
         this.login = DatabasePopulate.Manager1;
-        this.path = "manager";
+        this.path = "/manager";
     }
 
     @Test
