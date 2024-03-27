@@ -56,6 +56,8 @@ Who makes the decisions?
 
 ## Changes
 
+- 3/5: Changed the deadline for MVP and added final Requirements and Design.
+- 3/19 Added an A.I. policy due to it being used.
 - 3/26: Added Presentation Slides to the Milestones.
 
 ## Milestones
