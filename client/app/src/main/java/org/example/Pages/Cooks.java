@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+// Modified ChatGPT Code
 public class Cooks extends JPanel {
     private static final Color LIGHT_GRAY = new Color(240, 240, 240);
     private Heading heading;

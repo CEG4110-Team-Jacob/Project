@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+// Modified ChatGPT Code
 public class TableManagement extends JPanel {
 
     public TableManagement() {
