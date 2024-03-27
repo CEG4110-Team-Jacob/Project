@@ -34,4 +34,5 @@ tasks.named('test') {
 test {
     dependsOn cleanTest
     testLogging.showStandardStreams = true
+    systemProperty "spring.profiles.active", "test"
 }

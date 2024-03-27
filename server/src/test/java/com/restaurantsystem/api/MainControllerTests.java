@@ -1,81 +1,56 @@
 package com.restaurantsystem.api;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Optional;
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.restaurantsystem.api.data.Worker.Job;
-import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.service.AuthenticationService;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@ExtendWith({ DatabasePopulate.class })
-class MainControllerTests {
-	@LocalServerPort
-	private int port;
+@SpringBootTest
+@AutoConfigureMockMvc
+public class MainControllerTests extends BaseTests {
 
-	@Autowired
-	private TestRestTemplate restTemplate;
+    @Autowired
+    AuthenticationService authenticationService;
 
-	@Autowired
-	private WorkerRepository workerRepository;
+    String token;
 
-	@Autowired
-	private AuthenticationService authenticationService;
+    @BeforeEach
+    void start() throws Exception {
+        token = authenticationService.login(DatabasePopulate.Waiter1.username(), DatabasePopulate.Waiter1.password())
+                .get();
+    }
 
-	@Test
-	void contextLoads() {
-		assertNotNull(restTemplate);
-		assertNotNull(workerRepository);
-	}
+    @Test
+    void login() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/login").param("uname", DatabasePopulate.Waiter1.username())
+                .param("passwd", DatabasePopulate.Waiter1.password()))
+                .andExpectAll(MockMvcResultMatchers.status().isOk());
+    }
 
-	private String getUrl() {
-		return "http://localhost:" + port + "/";
-	}
+    @Test
+    void logout() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/logout").param("t", token))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+        assertTrue(authenticationService.authenticate(token).isEmpty());
+    }
 
-	@Test
-	void login() {
-		String query = "?uname=" + DatabasePopulate.Waiter1.username() + "&passwd="
-				+ DatabasePopulate.Waiter1.password();
-		ResponseEntity<String> response = restTemplate.getForEntity(getUrl() + "login" + query, String.class);
-		assertEquals(response.getStatusCode(), HttpStatus.OK);
-	}
+    record WorkerDetails(int id, String firstName, String lastName, int age, Job job) {
+    }
 
-	@Test
-	void logout() {
-		Optional<String> t = authenticationService.login(DatabasePopulate.Waiter1.username(),
-				DatabasePopulate.Waiter1.password());
-		assertTrue(t.isPresent());
-		restTemplate.postForEntity(getUrl() + "logout?t=" + t.get(), null, null);
-		assertTrue(authenticationService.authenticate(t.get()).isEmpty());
-	}
-
-	/**
-	 * WorkerDetails
-	 */
-	record WorkerDetails(int id, String firstName, String lastName, int age, Job job) {
-	}
-
-	@Test
-	void getDetails() {
-		Optional<String> t = authenticationService.login(DatabasePopulate.Waiter1.username(),
-				DatabasePopulate.Waiter1.password());
-		assertTrue(t.isPresent());
-		ResponseEntity<WorkerDetails> job = restTemplate.getForEntity(getUrl() + "getDetails?t=" + t.get(),
-				WorkerDetails.class);
-		assertEquals(job.getStatusCode(), HttpStatus.OK);
-		assertEquals(job.getBody().job, Job.Waiter);
-	}
+    @Test
+    void getDetails() throws Exception {
+        var response = mockMvc.perform(MockMvcRequestBuilders.get("/getDetails").param("t", token))
+                .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+        var details = objectMapper.readValue(response.getResponse().getContentAsString(), WorkerDetails.class);
+        assertEquals(details.job, Job.Waiter);
+    }
 }

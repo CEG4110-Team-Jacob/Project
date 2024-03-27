@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
-import org.junit.jupiter.api.extension.BeforeAllCallback;
-import org.junit.jupiter.api.extension.ExtensionContext;
-
-import org.springframework.context.ApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-
+import org.springframework.stereotype.Component;
 import com.restaurantsystem.api.data.Item;
 import com.restaurantsystem.api.data.Order;
 import com.restaurantsystem.api.data.Table;
@@ -23,7 +21,9 @@ import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.repos.TableRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
 
-public class DatabasePopulate implements BeforeAllCallback {
+@Profile("test")
+@Component
+public class DatabasePopulate implements CommandLineRunner {
 
     public record Login(String username, String password) {
     }
@@ -35,28 +35,14 @@ public class DatabasePopulate implements BeforeAllCallback {
     public static final Login Cook1 = new Login("TimCook", "Apple");
     public static final Login Manager1 = new Login("OrangeGuy", "Wall");
 
-    private static boolean first = true;
+    @Autowired
     ItemRepository itemRepository;
+    @Autowired
     OrderRepository orderRepository;
-
+    @Autowired
     WorkerRepository workerRepository;
+    @Autowired
     TableRepository tableRepository;
-
-    @Override
-    public void beforeAll(ExtensionContext context) throws Exception {
-        if (!first)
-            return;
-        first = false;
-        ApplicationContext context2 = SpringExtension.getApplicationContext(context);
-        itemRepository = context2.getBean(ItemRepository.class);
-        orderRepository = context2.getBean(OrderRepository.class);
-        workerRepository = context2.getBean(WorkerRepository.class);
-        tableRepository = context2.getBean(TableRepository.class);
-        populateWorkers();
-        populateTables();
-        populateItems();
-        populateOrders();
-    }
 
     public void populateTables() {
         Table table1 = new Table();
@@ -213,6 +199,14 @@ public class DatabasePopulate implements BeforeAllCallback {
         o5.setTable(new Table(1));
         o5.setWaiter(workerRepository.findByUsername(Waiter1.username).get());
         orderRepository.save(o5);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        populateWorkers();
+        populateTables();
+        populateItems();
+        populateOrders();
     }
 
 }

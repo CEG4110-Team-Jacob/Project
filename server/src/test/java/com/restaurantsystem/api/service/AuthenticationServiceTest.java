@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -22,7 +21,6 @@ import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.shared.manager.PostCreateAccount;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@ExtendWith({ DatabasePopulate.class })
 public class AuthenticationServiceTest {
     @Autowired
     WorkerRepository workerRepository;

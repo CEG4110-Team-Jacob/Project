@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -26,20 +25,22 @@ import com.restaurantsystem.api.shared.ListOfItems;
 import com.restaurantsystem.api.shared.TestSharedItem;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@ExtendWith({ DatabasePopulate.class })
 public class CookControllerTests extends ControllerParentTests {
     record Orders(List<Order> orders) {
         record Order(List<TestSharedItem> items, Date timeOrdered, Status status, int id) {
         }
     }
 
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    ItemRepository itemRepository;
+
     public CookControllerTests() {
         login = DatabasePopulate.Cook1;
         path = "cook";
     }
-
-    @Autowired
-    private OrderRepository orderRepository;
 
     @Test
     void contextLoads() {
@@ -97,9 +98,6 @@ public class CookControllerTests extends ControllerParentTests {
         assertEquals(items.getStatusCode(), HttpStatus.OK);
         assertTrue(items.getBody().items().size() > 0);
     }
-
-    @Autowired
-    ItemRepository itemRepository;
 
     @Test
     void itemsDepleted() {

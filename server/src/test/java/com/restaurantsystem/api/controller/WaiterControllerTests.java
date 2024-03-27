@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -34,7 +33,6 @@ import com.restaurantsystem.api.shared.TestSharedItem;
 import com.restaurantsystem.api.shared.waiter.PostOrderWaiter;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@ExtendWith({ DatabasePopulate.class })
 public class WaiterControllerTests extends ControllerParentTests {
     @Autowired
     private WorkerRepository workerRepository;
