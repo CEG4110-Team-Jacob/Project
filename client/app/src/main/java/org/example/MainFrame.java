@@ -11,6 +11,7 @@ import org.example.Data.Data;
 import org.example.Data.controllers.General;
 import org.example.Data.controllers.Waiters;
 import org.example.Pages.Cooks;
+import org.example.Pages.CreateAccount;
 import org.example.Pages.Login;
 import org.example.Pages.StaffManagement;
 import org.example.Pages.TableManagement;
@@ -24,6 +25,7 @@ public class MainFrame extends JFrame {
     private Cooks cookGui = new Cooks();
     private TableManagement TableManagement = new TableManagement();
     private StaffManagement staffManagement;
+    private CreateAccount createAccount;
     private Login login;
 
     public MainFrame() {
@@ -35,9 +37,9 @@ public class MainFrame extends JFrame {
         login = new Login(() -> {
             remove(this.login);
             try {
-                staffManagement = new StaffManagement(() -> {
+                createAccount = new CreateAccount(() -> {
                 });
-                main.add(staffManagement, "Staffing");
+                main.add(createAccount, "Staffing");
                 layout.show(main, "Staffing");
             } catch (Exception e) {
                 e.printStackTrace();

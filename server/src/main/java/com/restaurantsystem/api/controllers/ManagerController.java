@@ -63,15 +63,17 @@ public class ManagerController {
      * @param t              token
      */
     @PostMapping("/createWorker")
-    public ResponseEntity<Void> createWorker(@RequestBody PostCreateAccount accountDetails,
+    public ResponseEntity<Boolean> createWorker(@RequestBody PostCreateAccount accountDetails,
             @RequestParam String t) {
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Manager);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        System.out.println("WHAT");
         Optional<Worker> newWorker = authenticationService.addWorker(accountDetails);
         if (newWorker.isEmpty())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(HttpStatus.OK);
+        System.out.println(":-;");
+        return ResponseEntity.ok(true);
     }
 
     /**
@@ -82,7 +84,7 @@ public class ManagerController {
      */
     @PostMapping("/addItem")
     @Transactional
-    public ResponseEntity<Void> addItem(@RequestBody AddItem itemDetails,
+    public ResponseEntity<Boolean> addItem(@RequestBody AddItem itemDetails,
             @RequestParam String t) {
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Manager);
         if (worker.isEmpty())
@@ -94,7 +96,7 @@ public class ManagerController {
         item.setPrice(itemDetails.price());
         item.setType(itemDetails.type());
         item = itemRepository.save(item);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     @GetMapping("/workers")

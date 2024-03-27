@@ -2,6 +2,7 @@ package org.example.Data.controllers;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.example.Data.Utils.GetMethods;
 import org.example.Data.Utils.PostMethods;
@@ -13,7 +14,7 @@ import org.example.Data.records.Item.ListItems;
 
 public class Managers {
     public record PostCreateWorker(String firstName, String lastName, int age, Job job, String username,
-            String password, List<Integer> tables) {
+            String password, Set<Integer> tableIds) {
     }
 
     public record PostAddItem(String name, String description, int price, boolean inStock, ItemType type) {
@@ -27,10 +28,10 @@ public class Managers {
     }
 
     private static GetMethods<Item.ListItems> items = new GetMethods<>("/manager/items", Item.ListItems.class);
-    private static PostMethods<PostCreateWorker, Void> createWorker = new PostMethods<>("/manager/createWorker",
-            Void.class);
+    private static PostMethods<PostCreateWorker, Boolean> createWorker = new PostMethods<>("/manager/createWorker",
+            Boolean.class);
 
-    private static PostMethods<PostAddItem, Void> addItem = new PostMethods<>("/manager/addItem", Void.class);
+    private static PostMethods<PostAddItem, Boolean> addItem = new PostMethods<>("/manager/addItem", Boolean.class);
 
     private static GetMethods<ManagerViewWorker.ListWorkers> getWorkers = new GetMethods<>("/manager/workers",
             ManagerViewWorker.ListWorkers.class);
@@ -43,11 +44,11 @@ public class Managers {
         return items.get();
     }
 
-    public static Optional<Void> createWorker(PostCreateWorker body) {
+    public static Optional<Boolean> createWorker(PostCreateWorker body) {
         return createWorker.post(body);
     }
 
-    public static Optional<Void> addItem(PostAddItem body) {
+    public static Optional<Boolean> addItem(PostAddItem body) {
         return addItem.post(body);
     }
 

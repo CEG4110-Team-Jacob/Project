@@ -1,10 +1,12 @@
 package org.example.Data;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import org.example.Data.controllers.General;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestClient.RequestBodySpec;
 
 public class Utils {
     public static class GetMethods<T> {
@@ -88,10 +90,16 @@ public class Utils {
         }
 
         public Optional<V> post(T body, String query) {
+            RequestBodySpec responseInit = General.restClient.post()
+                    .uri(General.URI + path + "?" + query)
+                    .body(body);
             try {
-                ResponseEntity<V> response = General.restClient.post().uri(General.URI + path + "?" + query).body(body)
-                        .retrieve().toEntity(returnType);
-                if (response.getStatusCode() != HttpStatus.OK)
+                ResponseEntity<V> response = responseInit
+                        .retrieve().onStatus((status) -> status.isError(), (a, b) -> {
+                            throw new IOException();
+                        })
+                        .toEntity(returnType);
+                if (!response.getStatusCode().is2xxSuccessful())
                     return Optional.empty();
                 if (response.hasBody())
                     return Optional.of(response.getBody());
