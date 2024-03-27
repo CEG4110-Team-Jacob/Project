@@ -11,8 +11,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.restaurantsystem.api.DatabasePopulate;
 import com.restaurantsystem.api.data.Order;
@@ -42,74 +41,54 @@ public class CookControllerTests extends ControllerParentTests {
     @Test
     void contextLoads() {
         assertNotNull(authenticationService);
-        assertNotNull(restTemplate);
     }
 
     @Test
-    void getOrders() {
-        ResponseEntity<Orders> orders = restTemplate.getForEntity(getUrl() + "getOrders?t=" + token, Orders.class);
-        assertEquals(orders.getStatusCode(), HttpStatus.OK);
-        assertTrue(orders.getBody().orders.size() > 1);
+    void getOrders() throws Exception {
+        var orders = getMockMvcResultType("/getOrders", Orders.class);
+        assertTrue(orders.orders.size() > 1);
     }
 
     @Test
-    void cookingOrder() {
-        ResponseEntity<String> response = restTemplate.postForEntity(getUrl() +
-                "cookingOrder?t=" + token, 1,
-                String.class);
-        assertEquals(response.getStatusCode(), HttpStatus.OK);
+    void cookingOrder() throws Exception {
+        postMockMvcResult("/cookingOrder", "1");
         Optional<Order> order = orderRepository.findById(1);
         assertTrue(order.isPresent());
         assertEquals(order.get().getStatus(), Status.InProgress);
         order.get().setStatus(Status.Ordered);
         orderRepository.save(order.get());
 
-        ResponseEntity<String> fail = restTemplate.postForEntity(getUrl() +
-                "cookingOrder?t=" + token, 2,
-                String.class);
-        assertEquals(fail.getStatusCode(), HttpStatus.BAD_REQUEST);
+        postMockMvcBuilder("/cookingOrder", "2").andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
     @Test
-    void completeOrder() {
-        ResponseEntity<String> response = restTemplate.postForEntity(getUrl() +
-                "completeOrder?t=" + token, 2,
-                String.class);
-        assertEquals(response.getStatusCode(), HttpStatus.OK);
+    void completeOrder() throws Exception {
+        postMockMvcResult("/completeOrder", "2");
         Optional<Order> order = orderRepository.findById(2);
         assertTrue(order.isPresent());
         assertEquals(order.get().getStatus(), Status.Cooked);
         order.get().setStatus(Status.InProgress);
         orderRepository.save(order.get());
 
-        ResponseEntity<String> fail = restTemplate.postForEntity(getUrl() +
-                "completeOrder?t=" + token, 1,
-                String.class);
-        assertEquals(fail.getStatusCode(), HttpStatus.BAD_REQUEST);
+        postMockMvcBuilder("/completeOrder", "1").andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
     @Test
-    void getItems() {
-        ResponseEntity<ListOfItems> items = restTemplate.getForEntity(getUrl() + "items?t=" + token,
-                ListOfItems.class);
-        assertEquals(items.getStatusCode(), HttpStatus.OK);
-        assertTrue(items.getBody().items().size() > 0);
+    void getItems() throws Exception {
+        var items = getMockMvcResultType("/items", ListOfItems.class);
+        assertTrue(items.items().size() > 0);
     }
 
     @Test
-    void itemsDepleted() {
-        ResponseEntity<String> response = restTemplate.postForEntity(getUrl() + "itemDepleted?t=" + token, 1,
-                String.class);
-        assertEquals(response.getStatusCode(), HttpStatus.OK);
+    void itemsDepleted() throws Exception {
+        postMockMvcResult("/itemDepleted", "1");
         assertTrue(itemRepository.findById(1).isPresent());
         assertFalse(itemRepository.findById(1).get().isInStock());
         itemRestocked();
     }
 
-    void itemRestocked() {
-        ResponseEntity<String> response = restTemplate.postForEntity(getUrl() + "itemRestocked?t=" + token, 1,
-                String.class);
-        assertEquals(response.getStatusCode(), HttpStatus.OK);
+    void itemRestocked() throws Exception {
+        postMockMvcResult("/itemRestocked", "1");
         assertTrue(itemRepository.findById(1).isPresent());
         assertTrue(itemRepository.findById(1).get().isInStock());
     }

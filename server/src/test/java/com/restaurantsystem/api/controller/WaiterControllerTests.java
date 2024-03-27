@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.restaurantsystem.api.DatabasePopulate;
@@ -120,20 +118,15 @@ public class WaiterControllerTests extends ControllerParentTests {
     }
 
     @Test
-    void cancelOrder() {
-        ResponseEntity<String> response = restTemplate.postForEntity(getUrl() + "cancelOrder?t=" + token,
-                1,
-                String.class);
-        assertEquals(response.getStatusCode(), HttpStatus.OK);
+    void cancelOrder() throws Exception {
+        postMockMvcResult("/cancelOrder", "1");
         assertEquals(orderRepository.findById(1).get().getStatus(), Status.Canceled);
         assertFalse(tableRepository.findById(2).get().isOccupied());
     }
 
     @Test
-    void getItems() {
-        ResponseEntity<ListOfItems> items = restTemplate.getForEntity(getUrl() + "items?t=" + token,
-                ListOfItems.class);
-        assertEquals(items.getStatusCode(), HttpStatus.OK);
-        assertTrue(items.getBody().items().size() > 0);
+    void getItems() throws Exception {
+        var items = getMockMvcResultType("/items", ListOfItems.class);
+        assertTrue(items.items().size() > 0);
     }
 }

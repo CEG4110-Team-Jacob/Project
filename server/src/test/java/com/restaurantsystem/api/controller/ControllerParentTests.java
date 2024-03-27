@@ -2,10 +2,6 @@ package com.restaurantsystem.api.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
@@ -16,16 +12,10 @@ import com.restaurantsystem.api.BaseTests;
 import com.restaurantsystem.api.DatabasePopulate.Login;
 import com.restaurantsystem.api.service.AuthenticationService;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class ControllerParentTests extends BaseTests {
-    @LocalServerPort
-    protected int port;
 
     @Autowired
     protected AuthenticationService authenticationService;
-
-    @Autowired
-    protected TestRestTemplate restTemplate;
 
     protected String token;
 
@@ -33,13 +23,13 @@ public class ControllerParentTests extends BaseTests {
 
     protected Login login;
 
-    protected String getUrl() {
-        return "http://localhost:" + port + path + "/";
-    }
-
     @BeforeEach
     void login() {
         token = authenticationService.login(login.username(), login.password()).get();
+    }
+
+    protected String toJson(Object o) throws Exception {
+        return objectMapper.writeValueAsString(o);
     }
 
     protected ResultActions getMockMvcBuilder(String path2) throws Exception {
