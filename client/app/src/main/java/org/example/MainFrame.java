@@ -47,10 +47,10 @@ public class MainFrame extends JFrame {
             // TODO What happens when login is successful
         });
 
-        main.add(login, "LOGIN");
+        // main.add(login, "LOGIN");
         // main.add(waiterGui);
         // main.add(cookGui);
-        // main.add(TableManagement);
+        main.add(TableManagement);
 
         add(main);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
