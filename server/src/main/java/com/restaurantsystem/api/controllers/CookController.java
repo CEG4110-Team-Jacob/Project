@@ -125,9 +125,7 @@ public class CookController {
         if (order.isEmpty() || order.get().getStatus() != Status.InProgress)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         order.get().setStatus(Status.Cooked);
-        Order orderNew = orderRepository.save(order.get());
-        int waiterId = orderNew.getWaiter().getId();
-        waiterController.orderCompleted(waiterId, id);
+        orderRepository.save(order.get());
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 

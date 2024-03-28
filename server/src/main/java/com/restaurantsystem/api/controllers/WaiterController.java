@@ -9,10 +9,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -190,19 +188,6 @@ public class WaiterController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         List<TableProjection> tables = tableRepository.findAllBy(TableProjection.class);
         return new ResponseEntity<>(new TableList(tables), HttpStatus.OK);
-    }
-
-    /**
-     * Websocket that tells the waiter that an order has been cooked or ready to
-     * serve
-     * 
-     * @param waiter_id
-     * @param order_id
-     * @return order id
-     */
-    @SendTo("/{waiter_id}")
-    public int orderCompleted(@PathVariable int waiter_id, int order_id) {
-        return order_id;
     }
 
 }
