@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.restaurantsystem.api.DatabasePopulate;
 import com.restaurantsystem.api.data.Worker;
@@ -20,6 +22,8 @@ import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.shared.manager.PostCreateAccount;
 
 @SpringBootTest
+@Transactional
+@Rollback(true)
 public class AuthenticationServiceTest {
     @Autowired
     WorkerRepository workerRepository;

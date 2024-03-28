@@ -11,7 +11,9 @@ import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.restaurantsystem.api.DatabasePopulate;
 import com.restaurantsystem.api.controller.WaiterControllerTests.WaiterTable.ListTables;
@@ -24,6 +26,8 @@ import com.restaurantsystem.api.shared.ListOfItems;
 import com.restaurantsystem.api.shared.TestSharedItem;
 import com.restaurantsystem.api.shared.waiter.PostOrderWaiter;
 
+@Transactional
+@Rollback(true)
 public class WaiterControllerTests extends ControllerParentTests {
     @Autowired
     private WorkerRepository workerRepository;

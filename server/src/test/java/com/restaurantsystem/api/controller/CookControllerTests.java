@@ -11,7 +11,9 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.restaurantsystem.api.DatabasePopulate;
 import com.restaurantsystem.api.data.Order;
@@ -21,6 +23,8 @@ import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.shared.ListOfItems;
 import com.restaurantsystem.api.shared.TestSharedItem;
 
+@Transactional
+@Rollback(true)
 public class CookControllerTests extends ControllerParentTests {
     record Orders(List<Order> orders) {
         record Order(List<TestSharedItem> items, Date timeOrdered, Status status, int id) {
@@ -55,8 +59,6 @@ public class CookControllerTests extends ControllerParentTests {
         Optional<Order> order = orderRepository.findById(1);
         assertTrue(order.isPresent());
         assertEquals(order.get().getStatus(), Status.InProgress);
-        order.get().setStatus(Status.Ordered);
-        orderRepository.save(order.get());
 
         postMockMvcBuilder("/cookingOrder", "2").andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
@@ -67,9 +69,6 @@ public class CookControllerTests extends ControllerParentTests {
         Optional<Order> order = orderRepository.findById(2);
         assertTrue(order.isPresent());
         assertEquals(order.get().getStatus(), Status.Cooked);
-        order.get().setStatus(Status.InProgress);
-        orderRepository.save(order.get());
-
         postMockMvcBuilder("/completeOrder", "1").andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 

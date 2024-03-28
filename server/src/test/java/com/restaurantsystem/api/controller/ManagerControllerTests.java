@@ -6,6 +6,9 @@ import java.util.HashSet;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.restaurantsystem.api.DatabasePopulate;
 import com.restaurantsystem.api.data.Item.ItemType;
 import com.restaurantsystem.api.data.Worker.Job;
@@ -16,6 +19,8 @@ import com.restaurantsystem.api.shared.manager.AddItem;
 import com.restaurantsystem.api.shared.manager.PostCreateAccount;
 import com.restaurantsystem.api.shared.manager.ManagerViewWorker.ListWorkers;
 
+@Transactional
+@Rollback(true)
 public class ManagerControllerTests extends ControllerParentTests {
     @Autowired
     WorkerRepository workerRepository;
