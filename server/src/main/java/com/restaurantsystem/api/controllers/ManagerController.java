@@ -68,11 +68,9 @@ public class ManagerController {
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Manager);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        System.out.println("WHAT");
         Optional<Worker> newWorker = authenticationService.addWorker(accountDetails);
         if (newWorker.isEmpty())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        System.out.println(":-;");
         return ResponseEntity.ok(true);
     }
 

@@ -14,4 +14,9 @@ public class BaseTests {
     protected MockMvc mockMvc;
     @Autowired
     protected ObjectMapper objectMapper;
+
+    protected String toJson(Object o) throws Exception {
+        return objectMapper.writeValueAsString(o);
+    }
+
 }

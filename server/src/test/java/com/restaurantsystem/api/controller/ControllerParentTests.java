@@ -28,10 +28,6 @@ public class ControllerParentTests extends BaseTests {
         token = authenticationService.login(login.username(), login.password()).get();
     }
 
-    protected String toJson(Object o) throws Exception {
-        return objectMapper.writeValueAsString(o);
-    }
-
     protected ResultActions getMockMvcBuilder(String path2) throws Exception {
         return getMockMvcBuilderWithToken(path2, token);
     }
