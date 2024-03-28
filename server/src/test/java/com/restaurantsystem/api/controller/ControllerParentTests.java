@@ -7,7 +7,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
 import com.restaurantsystem.api.BaseTests;
 import com.restaurantsystem.api.DatabasePopulate.Login;
 import com.restaurantsystem.api.service.AuthenticationService;

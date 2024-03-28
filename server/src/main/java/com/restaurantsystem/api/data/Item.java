@@ -15,6 +15,13 @@ import jakarta.persistence.Table;
 @Table(name = "restaurant_item")
 @Entity
 public class Item {
+    /**
+     * Generic type of the item (Food/Drink)
+     */
+    public enum ItemType {
+        Beverage, Food
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
@@ -22,6 +29,7 @@ public class Item {
     private String description;
     private ItemType type;
     private int price; // Price in cents
+
     private boolean inStock;
 
     /**
@@ -29,13 +37,6 @@ public class Item {
      */
     @ManyToMany(mappedBy = "items")
     private Set<Order> orders;
-
-    /**
-     * Generic type of the item (Food/Drink)
-     */
-    public enum ItemType {
-        Beverage, Food
-    }
 
     public String getName() {
         return name;
