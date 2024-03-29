@@ -26,9 +26,6 @@ public class Cooks {
     private static GetMethods<CookOrder.ListCookOrders> orders = new GetMethods<>("/cook/getOrders",
             CookOrder.ListCookOrders.class);
 
-    private static PostMethods<Integer, Boolean> cookingOrder = new PostMethods<>("/cook/cookingOrder", Boolean.class);
-    private static PostMethods<Integer, Boolean> completeOrder = new PostMethods<>("/cook/completeOrder",
-            Boolean.class);
     private static PostMethods<Integer, Boolean> itemDepleted = new PostMethods<>("/cook/itemDepleted", Boolean.class);
     private static PostMethods<Integer, Boolean> itemRestocked = new PostMethods<>("/cook/itemRestocked",
             Boolean.class);
@@ -42,14 +39,6 @@ public class Cooks {
     public static void reset() {
         items.reset();
         orders.reset();
-    }
-
-    public static Optional<Boolean> completeOrder(Integer body) {
-        return completeOrder.post(body);
-    }
-
-    public static Optional<Boolean> cookingOrder(Integer body) {
-        return cookingOrder.post(body);
     }
 
     public static Optional<Boolean> itemDepleted(Integer body) {
