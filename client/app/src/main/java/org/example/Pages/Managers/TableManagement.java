@@ -13,7 +13,7 @@ public class TableManagement extends JPanel {
     private ArrayList<JButton> editButtons;
     private ArrayList<Boolean> tableCheck;
 
-    public TableManagement() {
+    public TableManagement(Runnable exit) {
         setLayout(new BorderLayout());
 
         tableButtons = new ArrayList<>(); // Buttons for the tables, empty slots will not be enabled
@@ -103,10 +103,14 @@ public class TableManagement extends JPanel {
                 showTableButtons();
             }
         });
+        JButton exitButton = new JButton("Exit");
+        exitButton.addActionListener(e -> exit.run());
+
         rightPanel.add(editTableLabel);
         rightPanel.add(editButton);
         rightPanel.add(doneEditLabel);
         rightPanel.add(doneEditButton);
+        rightPanel.add(exitButton);
 
         add(rightPanel, BorderLayout.EAST);
     }
@@ -190,13 +194,5 @@ public class TableManagement extends JPanel {
         });
         tableCheck.remove(index);
         tableCheck.add(index, Boolean.FALSE);
-    }
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Table Management");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(new TableManagement());
-        frame.setSize(600, 400);
-        frame.setVisible(true);
     }
 }

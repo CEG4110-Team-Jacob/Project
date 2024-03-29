@@ -1,57 +1,53 @@
 package org.example;
 
-import java.awt.CardLayout;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 
-import org.example.Components.ManagerWaiterView;
 import org.example.Data.controllers.General;
-import org.example.Data.controllers.Waiters;
 import org.example.Pages.Login;
-import org.example.Pages.Cooks.Cooks;
-import org.example.Pages.Managers.CreateAccount;
-import org.example.Pages.Managers.StaffManagement;
-import org.example.Pages.Managers.TableManagement;
+import org.example.Pages.Managers.ManagerOptionsMenu;
 
 public class MainFrame extends JFrame {
-    private CardLayout layout = new CardLayout();
-    private JPanel main = new JPanel();
 
-    private Waiters waiterGui = new Waiters();
-    private ManagerWaiterView managerWorkerView;
-    private Cooks cookGui = new Cooks();
-    private TableManagement TableManagement = new TableManagement();
-    private StaffManagement staffManagement;
-    private CreateAccount createAccount;
     private Login login;
+
+    public void logout() {
+        setContentPane(login);
+        revalidate();
+        repaint();
+    }
 
     public MainFrame() {
         super("Restaurant");
-        main.setLayout(layout);
 
         MainFrame frame = this;
         // Observer Pattern
         login = new Login(() -> {
-            remove(this.login);
-            try {
-                createAccount = new CreateAccount(() -> {
-                });
-                main.add(createAccount, "Staffing");
-                layout.show(main, "Staffing");
-            } catch (Exception e) {
-                e.printStackTrace();
+            var workerDetails = General.getDetails();
+            if (workerDetails.isEmpty())
+                JOptionPane.showMessageDialog(login, "Something went wrong with getDetails");
+            switch (workerDetails.get().job()) {
+                case Cook:
+                    break;
+                case Host:
+                    break;
+                case Manager:
+                    var options = new ManagerOptionsMenu(() -> {
+                        logout();
+                    });
+                    setContentPane(options);
+                    break;
+                case Waiter:
+                    break;
             }
-            // TODO What happens when login is successful
+            revalidate();
+            repaint();
         });
 
-        // main.add(login, "LOGIN");
-        // main.add(waiterGui);
-        // main.add(cookGui);
-        main.add(TableManagement);
+        setContentPane(login);
 
-        add(main);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override

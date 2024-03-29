@@ -65,8 +65,11 @@ public class StaffManagement extends JPanel {
                 }
             }
         });
+        var exitButton = new JButton("Exit");
+        exitButton.addActionListener(e -> exit.exit());
         rightPanel.add(deleteAccountLabel);
         rightPanel.add(delButton);
+        rightPanel.add(exitButton);
 
         add(rightPanel, BorderLayout.EAST);
         // Creating a center panel for worker information
