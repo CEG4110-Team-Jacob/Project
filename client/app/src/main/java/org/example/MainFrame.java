@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 import org.example.Data.controllers.General;
 import org.example.Pages.Login;
-import org.example.Pages.Cooks.OrdersUI;
+import org.example.Pages.Cooks.CookOptions;
 import org.example.Pages.Managers.ManagerOptionsMenu;
 import org.example.Pages.Managers.TableManagement;
 
@@ -33,7 +33,7 @@ public class MainFrame extends JFrame {
                 JOptionPane.showMessageDialog(login, "Something went wrong with getDetails");
             switch (workerDetails.get().job()) {
                 case Cook:
-                    var cookUI = new OrdersUI(() -> setMainContentPane(login));
+                    var cookUI = new CookOptions(() -> setMainContentPane(login));
                     setMainContentPane(cookUI);
                     break;
                 case Host:

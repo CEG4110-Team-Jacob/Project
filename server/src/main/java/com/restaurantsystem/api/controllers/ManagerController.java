@@ -8,8 +8,6 @@ import com.restaurantsystem.api.data.Worker.Job;
 import com.restaurantsystem.api.repos.ItemRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.service.AuthenticationService;
-import com.restaurantsystem.api.shared.all.ListOfItems;
-import com.restaurantsystem.api.shared.all.SharedItem;
 import com.restaurantsystem.api.shared.manager.AddItem;
 import com.restaurantsystem.api.shared.manager.ManagerViewWorker;
 import com.restaurantsystem.api.shared.manager.PostCreateAccount;
@@ -40,21 +38,6 @@ public class ManagerController {
     ItemRepository itemRepository;
     @Autowired
     WorkerRepository workerRepository;
-
-    /**
-     * Gets all the items on the menu
-     * 
-     * @param t token
-     * @return Items
-     */
-    @GetMapping("/items")
-    public ResponseEntity<ListOfItems> getItems(@RequestParam String t) {
-        Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Manager);
-        if (worker.isEmpty())
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        List<SharedItem> items = itemRepository.findAllBy(SharedItem.class);
-        return new ResponseEntity<ListOfItems>(new ListOfItems(items), HttpStatus.OK);
-    }
 
     /**
      * Creates a worker

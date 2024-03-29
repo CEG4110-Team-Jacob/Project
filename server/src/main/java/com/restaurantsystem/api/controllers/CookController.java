@@ -12,8 +12,6 @@ import com.restaurantsystem.api.repos.ItemRepository;
 import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.service.AuthenticationService;
-import com.restaurantsystem.api.shared.all.ListOfItems;
-import com.restaurantsystem.api.shared.all.SharedItem;
 import com.restaurantsystem.api.shared.cooks.GetOrderCook;
 
 import java.util.Arrays;
@@ -52,21 +50,6 @@ public class CookController {
 
     @Autowired
     WorkerRepository workerRepository;
-
-    /**
-     * Gets all items' details
-     * 
-     * @param t token
-     * @return items
-     */
-    @GetMapping("/items")
-    public ResponseEntity<ListOfItems> getItems(@RequestParam String t) {
-        Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Cook);
-        if (worker.isEmpty())
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        List<SharedItem> items = itemRepository.findAllBy(SharedItem.class);
-        return new ResponseEntity<ListOfItems>(new ListOfItems(items), HttpStatus.OK);
-    }
 
     /**
      * Gets all the orders with status InProgress or Ordered

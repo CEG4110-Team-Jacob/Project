@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.example.Data.records.Item;
-import org.example.Data.records.Item.ListItems;
 import org.example.Data.Utils.GetMethods;
 import org.example.Data.Utils.PostMethods;
 import org.example.Data.controllers.Cooks.CookOrder.ListCookOrders;
@@ -21,8 +20,6 @@ public class Cooks {
     public record PostSetStatus(int orderId, Status status) {
     }
 
-    private static GetMethods<Item.ListItems> items = new GetMethods<>("/cook/items", Item.ListItems.class);
-
     private static GetMethods<CookOrder.ListCookOrders> orders = new GetMethods<>("/cook/getOrders",
             CookOrder.ListCookOrders.class);
 
@@ -37,7 +34,6 @@ public class Cooks {
     }
 
     public static void reset() {
-        items.reset();
         orders.reset();
     }
 
@@ -55,14 +51,6 @@ public class Cooks {
 
     public static Optional<ListCookOrders> getOrders() {
         return orders.get();
-    }
-
-    public static Optional<ListItems> setItems() {
-        return items.set();
-    }
-
-    public static Optional<ListItems> getItems() {
-        return items.get();
     }
 
 }

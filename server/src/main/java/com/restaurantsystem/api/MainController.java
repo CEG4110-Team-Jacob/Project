@@ -1,5 +1,6 @@
 package com.restaurantsystem.api;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restaurantsystem.api.data.Worker;
+import com.restaurantsystem.api.repos.ItemRepository;
 import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.service.AuthenticationService;
+import com.restaurantsystem.api.shared.all.ListOfItems;
+import com.restaurantsystem.api.shared.all.SharedItem;
 import com.restaurantsystem.api.shared.all.WorkerProjection;
 
 /**
@@ -72,6 +76,18 @@ public class MainController {
     @PostMapping("/logout")
     public void logout(@RequestParam String t) {
         authenticationService.logout(t);
+    }
+
+    @Autowired
+    ItemRepository itemRepository;
+
+    @GetMapping("/items")
+    public ResponseEntity<ListOfItems> getItems(@RequestParam String t) {
+        Optional<Worker> worker = authenticationService.authenticate(t);
+        if (worker.isEmpty())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        List<SharedItem> items = itemRepository.findAllBy(SharedItem.class);
+        return new ResponseEntity<ListOfItems>(new ListOfItems(items), HttpStatus.OK);
     }
 
     /**

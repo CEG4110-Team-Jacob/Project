@@ -8,8 +8,6 @@ import org.example.Data.Utils.PostMethods;
 import org.example.Data.controllers.Managers.ManagerViewWorker.ListWorkers;
 import org.example.Data.enums.ItemType;
 import org.example.Data.enums.Job;
-import org.example.Data.records.Item;
-import org.example.Data.records.Item.ListItems;
 
 public class Managers {
     public record PostCreateWorker(String firstName, String lastName, int age, Job job, String username,
@@ -26,7 +24,6 @@ public class Managers {
         };
     }
 
-    private static GetMethods<Item.ListItems> items = new GetMethods<>("/manager/items", Item.ListItems.class);
     private static PostMethods<PostCreateWorker, Boolean> createWorker = new PostMethods<>("/manager/createWorker",
             Boolean.class);
 
@@ -40,14 +37,6 @@ public class Managers {
 
     public static Optional<Boolean> deleteWorker(Integer body) {
         return deleteWorker.post(body);
-    }
-
-    public static Optional<ListItems> setItems() {
-        return items.set();
-    }
-
-    public static Optional<ListItems> getItems() {
-        return items.get();
     }
 
     public static Optional<Boolean> createWorker(PostCreateWorker body) {
