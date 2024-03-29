@@ -16,7 +16,6 @@ public class TableManagement extends JPanel {
     public TableManagement() {
         setLayout(new BorderLayout());
 
-        numTables = 0;
         tableButtons = new ArrayList<>(); //Buttons for the tables, empty slots will not be enabled
         editButtons = new ArrayList<>(); //Buttons for editing the tables
         tableCheck = new ArrayList<>(); //If a slot in the tableCheck is true, that spot contains a table
@@ -138,7 +137,11 @@ public class TableManagement extends JPanel {
         ActionListener tableAction = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Display Table Information Here Please");
+                if(JOptionPane.showConfirmDialog(null, "Is the Table in Use?", "Table status", JOptionPane.YES_NO_OPTION) == 0) {
+                    tableButtons.get(index).setBackground(Color.RED);
+                } else {
+                    tableButtons.get(index).setBackground(Color.GREEN);
+                }
             }
         };
         for(ActionListener action : tableButtons.get(index).getActionListeners()) {
@@ -159,7 +162,7 @@ public class TableManagement extends JPanel {
         for(ActionListener action : editButtons.get(index).getActionListeners()) {
             editButtons.get(index).removeActionListener(action);
         }
-        editButtons.get(index).setBackground(Color.RED);
+        editButtons.get(index).setBackground(Color.DARK_GRAY);
         editButtons.get(index).addActionListener(editButtonAction);
     }
 
