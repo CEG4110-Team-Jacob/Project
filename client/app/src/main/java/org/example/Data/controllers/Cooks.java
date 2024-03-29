@@ -20,7 +20,7 @@ public class Cooks {
 
     private static GetMethods<Item.ListItems> items = new GetMethods<>("/cook/items", Item.ListItems.class);
 
-    private static GetMethods<CookOrder.ListCookOrders> orders = new GetMethods<>("/getOrders",
+    private static GetMethods<CookOrder.ListCookOrders> orders = new GetMethods<>("/cook/getOrders",
             CookOrder.ListCookOrders.class);
 
     private static PostMethods<Integer, Boolean> cookingOrder = new PostMethods<>("/cook/cookingOrder", Boolean.class);

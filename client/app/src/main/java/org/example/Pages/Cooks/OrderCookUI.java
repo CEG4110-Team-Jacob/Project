@@ -6,12 +6,12 @@ import java.awt.*;
 import java.util.ArrayList;
 
 // Modified ChatGPT Code
-public class Cooks extends JPanel {
+public class OrderCookUI extends JPanel {
     private static final Color LIGHT_GRAY = new Color(240, 240, 240);
     private Heading heading;
     private Table tables;
 
-    public Cooks() {
+    public OrderCookUI() {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setBackground(Color.WHITE);

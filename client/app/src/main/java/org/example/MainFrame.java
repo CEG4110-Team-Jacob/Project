@@ -4,17 +4,19 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import org.example.Data.controllers.General;
 import org.example.Pages.Login;
+import org.example.Pages.Cooks.OrdersUI;
 import org.example.Pages.Managers.ManagerOptionsMenu;
 
 public class MainFrame extends JFrame {
 
     private Login login;
 
-    public void logout() {
-        setContentPane(login);
+    void setMainContentPane(JPanel panel) {
+        setContentPane(panel);
         revalidate();
         repaint();
     }
@@ -30,23 +32,21 @@ public class MainFrame extends JFrame {
                 JOptionPane.showMessageDialog(login, "Something went wrong with getDetails");
             switch (workerDetails.get().job()) {
                 case Cook:
+                    var cookUI = new OrdersUI(() -> setMainContentPane(login));
+                    setMainContentPane(cookUI);
                     break;
                 case Host:
                     break;
                 case Manager:
-                    var options = new ManagerOptionsMenu(() -> {
-                        logout();
-                    });
-                    setContentPane(options);
+                    var options = new ManagerOptionsMenu(() -> setMainContentPane(login));
+                    setMainContentPane(options);
                     break;
                 case Waiter:
                     break;
             }
-            revalidate();
-            repaint();
         });
 
-        setContentPane(login);
+        setMainContentPane(login);
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
