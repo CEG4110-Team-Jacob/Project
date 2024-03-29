@@ -1,6 +1,10 @@
 package org.example.Pages.Managers;
 
 import javax.swing.*;
+
+import org.example.Data.controllers.General;
+import org.example.Pages.Cooks.OrdersUI;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -72,6 +76,25 @@ public class TableManagement extends JPanel {
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JLabel editTableLabel = new JLabel("Edit Tables:");
         JButton editButton = new JButton("Edit Tables");
+        var workerDetails = General.getDetails();
+        switch (workerDetails.get().job()) {
+            case Cook:
+                editButton.setVisible(false);
+                editTableLabel.setVisible(false);
+                break;
+            case Host:
+                editButton.setVisible(false);
+                editTableLabel.setVisible(false);
+                break;
+            case Manager:
+                editButton.setVisible(true);
+                editTableLabel.setVisible(true);
+                break;
+            case Waiter:
+                editButton.setVisible(false);
+                editTableLabel.setVisible(false);
+                break;
+        }
         JLabel doneEditLabel = new JLabel("Done Editing:");
         doneEditLabel.setVisible(false);
         JButton doneEditButton = new JButton("Done Editing");

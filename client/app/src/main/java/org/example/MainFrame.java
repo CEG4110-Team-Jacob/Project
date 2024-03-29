@@ -10,6 +10,7 @@ import org.example.Data.controllers.General;
 import org.example.Pages.Login;
 import org.example.Pages.Cooks.OrdersUI;
 import org.example.Pages.Managers.ManagerOptionsMenu;
+import org.example.Pages.Managers.TableManagement;
 
 public class MainFrame extends JFrame {
 
@@ -36,6 +37,8 @@ public class MainFrame extends JFrame {
                     setMainContentPane(cookUI);
                     break;
                 case Host:
+                    var tableUI = new TableManagement(() -> setMainContentPane(login));
+                    setMainContentPane(tableUI);
                     break;
                 case Manager:
                     var options = new ManagerOptionsMenu(() -> setMainContentPane(login));
