@@ -35,6 +35,10 @@ public class Managers {
     private static PostMethods<Integer, Boolean> deleteWorker = new PostMethods<>("/manager/deleteWorker",
             Boolean.class);
 
+    public static void reset() {
+        getWorkers.reset();
+    }
+
     public static Optional<Boolean> deleteWorker(Integer body) {
         return deleteWorker.post(body);
     }

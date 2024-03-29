@@ -33,10 +33,9 @@ public class OrdersUI extends JPanel {
         public OrdersStuff() throws Exception {
             setLayout(new BorderLayout());
 
-            grid = new JPanel(new GridLayout(0, 3, 10, 10));
+            grid = new JPanel(new GridLayout(0, 5, 10, 10));
 
             JScrollPane scrollPane = new JScrollPane(grid);
-            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             add(scrollPane, BorderLayout.CENTER);
             update();
         }

@@ -29,13 +29,14 @@ public class General {
         }
     }
 
-    public Optional<ListItems> setItems() {
+    public static Optional<ListItems> setItems() {
         return items.set();
     }
 
     public static void reset() {
         details.reset();
         token.reset();
+        items.reset();
     }
 
     public static Optional<String> login(String uname, String password) {
