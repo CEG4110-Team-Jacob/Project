@@ -1,23 +1,15 @@
-package org.example.Pages;
+package org.example.Pages.Managers;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Optional;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-
 import org.example.Components.ManagerWaiterView;
 import org.example.Data.controllers.Managers;
 import org.example.functions.Exit;
@@ -49,8 +41,9 @@ public class StaffManagement extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // Add account functionality goes here
                 // For example, show a dialog to input account details
-                if(JOptionPane.showConfirmDialog(null, "Do you want to add an account?", "Add Account", JOptionPane.YES_NO_OPTION) == 0) {
-                    //addAccount(worker)
+                if (JOptionPane.showConfirmDialog(null, "Do you want to add an account?", "Add Account",
+                        JOptionPane.YES_NO_OPTION) == 0) {
+                    // addAccount(worker)
                 }
             }
         });
@@ -66,8 +59,9 @@ public class StaffManagement extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Delete account functionality goes here
-                if(JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this account?", "Delete Account", JOptionPane.YES_NO_OPTION) == 0) {
-                    //deleteAccount(worker);
+                if (JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this account?",
+                        "Delete Account", JOptionPane.YES_NO_OPTION) == 0) {
+                    // deleteAccount(worker);
                 }
             }
         });

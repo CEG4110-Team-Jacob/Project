@@ -7,14 +7,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.example.Components.ManagerWaiterView;
-import org.example.Data.Data;
 import org.example.Data.controllers.General;
 import org.example.Data.controllers.Waiters;
-import org.example.Pages.Cooks;
-import org.example.Pages.CreateAccount;
 import org.example.Pages.Login;
-import org.example.Pages.StaffManagement;
-import org.example.Pages.TableManagement;
+import org.example.Pages.Cooks.Cooks;
+import org.example.Pages.Managers.CreateAccount;
+import org.example.Pages.Managers.StaffManagement;
+import org.example.Pages.Managers.TableManagement;
 
 public class MainFrame extends JFrame {
     private CardLayout layout = new CardLayout();

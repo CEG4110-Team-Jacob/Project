@@ -1,4 +1,4 @@
-package org.example.Pages;
+package org.example.Pages.Waiters;
 
 import javax.swing.*;
 import java.awt.*;

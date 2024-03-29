@@ -1,4 +1,4 @@
-package org.example.Pages;
+package org.example.Pages.Cooks;
 
 import org.example.Data.Data;
 import javax.swing.*;

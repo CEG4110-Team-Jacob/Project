@@ -1,4 +1,4 @@
-package org.example.Pages;
+package org.example.Pages.Managers;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,9 +16,9 @@ public class TableManagement extends JPanel {
     public TableManagement() {
         setLayout(new BorderLayout());
 
-        tableButtons = new ArrayList<>(); //Buttons for the tables, empty slots will not be enabled
-        editButtons = new ArrayList<>(); //Buttons for editing the tables
-        tableCheck = new ArrayList<>(); //If a slot in the tableCheck is true, that spot contains a table
+        tableButtons = new ArrayList<>(); // Buttons for the tables, empty slots will not be enabled
+        editButtons = new ArrayList<>(); // Buttons for editing the tables
+        tableCheck = new ArrayList<>(); // If a slot in the tableCheck is true, that spot contains a table
 
         // Create a JPanel for the left side of the screen
         JPanel leftPanel = new JPanel();
@@ -45,9 +45,9 @@ public class TableManagement extends JPanel {
 
         add(scrollPane, BorderLayout.WEST);
 
-        //Creates a JPanel to accommodate the layout of tables
-        JPanel centerPanel = new JPanel(new GridLayout(10,10, -20, 5));
-        for(int i = 0; i < 100; i++) {
+        // Creates a JPanel to accommodate the layout of tables
+        JPanel centerPanel = new JPanel(new GridLayout(10, 10, -20, 5));
+        for (int i = 0; i < 100; i++) {
             final int index = i;
             tableButtons.add(new JButton());
             tableButtons.get(i).setBackground(Color.LIGHT_GRAY);
@@ -94,8 +94,8 @@ public class TableManagement extends JPanel {
                 doneEditLabel.setVisible(false);
                 doneEditButton.setVisible(false);
                 int n = 1;
-                for(int i = 0; i < 100; i++) {
-                    if(tableCheck.get(i)) {
+                for (int i = 0; i < 100; i++) {
+                    if (tableCheck.get(i)) {
                         tableButtons.get(i).setText("" + n);
                         n++;
                     }
@@ -111,12 +111,13 @@ public class TableManagement extends JPanel {
         add(rightPanel, BorderLayout.EAST);
     }
 
-    //Shows the buttons meant for getting information about a table, and hides the buttons meant for editing
+    // Shows the buttons meant for getting information about a table, and hides the
+    // buttons meant for editing
     private void showTableButtons() {
-        for(int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             editButtons.get(i).setVisible(false);
             tableButtons.get(i).setVisible(true);
-            if(tableCheck.get(i).booleanValue()) {
+            if (tableCheck.get(i).booleanValue()) {
                 tableButtons.get(i).setEnabled(true);
             } else {
                 tableButtons.get(i).setEnabled(false);
@@ -124,27 +125,29 @@ public class TableManagement extends JPanel {
         }
     }
 
-    //Hides the table buttons and shows the buttons made for editing
+    // Hides the table buttons and shows the buttons made for editing
     private void showEditButtons() {
-        for(int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             tableButtons.get(i).setVisible(false);
             editButtons.get(i).setVisible(true);
         }
     }
 
-    //Creates a table at the given position, 61 is the 6th row 2nd column, 85 is the 8th row 6th column, etc.
+    // Creates a table at the given position, 61 is the 6th row 2nd column, 85 is
+    // the 8th row 6th column, etc.
     private void createTable(int index) {
         ActionListener tableAction = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(JOptionPane.showConfirmDialog(null, "Is the Table in Use?", "Table status", JOptionPane.YES_NO_OPTION) == 0) {
+                if (JOptionPane.showConfirmDialog(null, "Is the Table in Use?", "Table status",
+                        JOptionPane.YES_NO_OPTION) == 0) {
                     tableButtons.get(index).setBackground(Color.RED);
                 } else {
                     tableButtons.get(index).setBackground(Color.GREEN);
                 }
             }
         };
-        for(ActionListener action : tableButtons.get(index).getActionListeners()) {
+        for (ActionListener action : tableButtons.get(index).getActionListeners()) {
             tableButtons.get(index).removeActionListener(action);
         }
         tableButtons.get(index).addActionListener(tableAction);
@@ -154,27 +157,28 @@ public class TableManagement extends JPanel {
         ActionListener editButtonAction = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(JOptionPane.showConfirmDialog(null, "Delete Table?", "Delete Table", JOptionPane.YES_NO_OPTION) == 0) {
+                if (JOptionPane.showConfirmDialog(null, "Delete Table?", "Delete Table",
+                        JOptionPane.YES_NO_OPTION) == 0) {
                     deleteTable(index);
                 }
             }
         };
-        for(ActionListener action : editButtons.get(index).getActionListeners()) {
+        for (ActionListener action : editButtons.get(index).getActionListeners()) {
             editButtons.get(index).removeActionListener(action);
         }
         editButtons.get(index).setBackground(Color.DARK_GRAY);
         editButtons.get(index).addActionListener(editButtonAction);
     }
 
-    //Deletes the table, reverts the buttons back to the way they started
+    // Deletes the table, reverts the buttons back to the way they started
     private void deleteTable(int index) {
-        for(ActionListener action : tableButtons.get(index).getActionListeners()) {
+        for (ActionListener action : tableButtons.get(index).getActionListeners()) {
             tableButtons.get(index).removeActionListener(action);
         }
         tableButtons.get(index).setBackground(Color.LIGHT_GRAY);
         tableButtons.get(index).setEnabled(false);
         tableButtons.get(index).setText("");
-        for(ActionListener action : editButtons.get(index).getActionListeners()) {
+        for (ActionListener action : editButtons.get(index).getActionListeners()) {
             editButtons.get(index).removeActionListener(action);
         }
         editButtons.get(index).setBackground(Color.LIGHT_GRAY);

@@ -1,4 +1,4 @@
-package org.example.Pages;
+package org.example.Pages.Managers;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
