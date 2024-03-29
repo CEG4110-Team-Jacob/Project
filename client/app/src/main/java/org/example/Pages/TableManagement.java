@@ -50,15 +50,17 @@ public class TableManagement extends JPanel {
         //Creates a JPanel to accommodate the layout of tables
         JPanel centerPanel = new JPanel(new GridLayout(10,10, -20, 5));
         for(int i = 0; i < 100; i++) {
+            final int index = i;
             tableButtons.add(new JButton());
+            tableButtons.get(i).setBackground(Color.LIGHT_GRAY);
             tableButtons.get(i).setEnabled(false);
             editButtons.add(new JButton());
+            editButtons.get(i).setBackground(Color.LIGHT_GRAY);
             editButtons.get(i).setVisible(false);
             editButtons.get(i).addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(null, "Hey! This should let you add a table, maybe with the createTable method");
-                    // createTable(i); // Need i to "be final or effectively final"
+                    createTable(index);
                 }
             });
             tableCheck.add(Boolean.FALSE);
@@ -133,19 +135,50 @@ public class TableManagement extends JPanel {
                 JOptionPane.showMessageDialog(null, "Display Table Information Here Please");
             }
         };
-        tableButtons.get(index).removeActionListener(tableButtons.get(index).getActionListeners()[0]);
-        tableButtons.get(index).addActionListener(tableAction);
+        for(ActionListener action : tableButtons.get(index).getActionListeners()) {
+            tableButtons.get(index).removeActionListener(action);
+        }
         numTables++;
+        tableButtons.get(index).setText("" + numTables);
+        tableButtons.get(index).addActionListener(tableAction);
+        tableButtons.get(index).setBackground(Color.GREEN);
         tableCheck.remove(index);
         tableCheck.add(index, Boolean.TRUE);
         ActionListener editButtonAction = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Hey! This should be a confirmation on deleting the table!");
+                if(JOptionPane.showConfirmDialog(null, "Delete Table?", "Delete Table", JOptionPane.YES_NO_OPTION) == 0) {
+                    deleteTable(index);
+                }
             }
         };
-        editButtons.get(index).removeActionListener(editButtons.get(index).getActionListeners()[0]);
+        for(ActionListener action : editButtons.get(index).getActionListeners()) {
+            editButtons.get(index).removeActionListener(action);
+        }
+        editButtons.get(index).setBackground(Color.RED);
         editButtons.get(index).addActionListener(editButtonAction);
+    }
+
+    private void deleteTable(int index) {
+        numTables--;
+        for(ActionListener action : tableButtons.get(index).getActionListeners()) {
+            tableButtons.get(index).removeActionListener(action);
+        }
+        tableButtons.get(index).setBackground(Color.LIGHT_GRAY);
+        tableButtons.get(index).setEnabled(false);
+        tableButtons.get(index).setText("");
+        for(ActionListener action : editButtons.get(index).getActionListeners()) {
+            editButtons.get(index).removeActionListener(action);
+        }
+        editButtons.get(index).setBackground(Color.LIGHT_GRAY);
+        editButtons.get(index).addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createTable(index);
+            }
+        });
+        tableCheck.remove(index);
+        tableCheck.add(index, Boolean.FALSE);
     }
 
     public static void main(String[] args) {
