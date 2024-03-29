@@ -2,8 +2,6 @@ package com.restaurantsystem.api.controller;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.HashSet;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -41,7 +39,7 @@ public class ManagerControllerTests extends ControllerParentTests {
 
     @Test
     void createAccount() throws Exception {
-        var data = toJson(new PostCreateAccount("baba", "Not", 30, Job.Host, "hsdagai", "asdfhuas", new HashSet<>()));
+        var data = toJson(new PostCreateAccount("baba", "Not", 30, Job.Host, "hsdagai", "asdfhuas"));
         postMockMvcResult("/createWorker", data);
         assertTrue(workerRepository.existsByUsername("hsdagai"));
     }

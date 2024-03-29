@@ -1,11 +1,9 @@
 package com.restaurantsystem.api.shared.manager;
 
-import java.util.Set;
-
 import com.restaurantsystem.api.data.Worker.Job;
 
 public record PostCreateAccount(
         String firstName, String lastName,
-        int age, Job job, String username, String password, Set<Integer> tableIds) {
+        int age, Job job, String username, String password) {
 
 }

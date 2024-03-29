@@ -2,7 +2,6 @@ package org.example.Data.controllers;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.example.Data.Utils.GetMethods;
 import org.example.Data.Utils.PostMethods;
@@ -14,7 +13,7 @@ import org.example.Data.records.Item.ListItems;
 
 public class Managers {
     public record PostCreateWorker(String firstName, String lastName, int age, Job job, String username,
-            String password, Set<Integer> tableIds) {
+            String password) {
     }
 
     public record PostAddItem(String name, String description, int price, boolean inStock, ItemType type) {

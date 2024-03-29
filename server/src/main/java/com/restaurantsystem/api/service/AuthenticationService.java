@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.restaurantsystem.api.data.Table;
 import com.restaurantsystem.api.data.Worker;
 import com.restaurantsystem.api.data.Worker.Job;
 import com.restaurantsystem.api.repos.TableRepository;
@@ -168,9 +166,7 @@ public class AuthenticationService {
         worker.setLastName(account.lastName());
         worker.setJob(account.job());
         worker.setUsername(account.username());
-        Iterable<Table> tables = tableRepository.findAllById(account.tableIds());
         worker.setTables(new HashSet<>());
-        tables.forEach(worker.getTables()::add);
         worker.setPasswordHash(passwordEncoder.encode(account.password()));
         worker = workerRepository.save(worker);
         return Optional.of(worker);
