@@ -18,6 +18,9 @@ public class Cooks {
         }
     }
 
+    public record PostSetStatus(int orderId, Status status) {
+    }
+
     private static GetMethods<Item.ListItems> items = new GetMethods<>("/cook/items", Item.ListItems.class);
 
     private static GetMethods<CookOrder.ListCookOrders> orders = new GetMethods<>("/cook/getOrders",
@@ -29,6 +32,12 @@ public class Cooks {
     private static PostMethods<Integer, Boolean> itemDepleted = new PostMethods<>("/cook/itemDepleted", Boolean.class);
     private static PostMethods<Integer, Boolean> itemRestocked = new PostMethods<>("/cook/itemRestocked",
             Boolean.class);
+
+    private static PostMethods<PostSetStatus, Boolean> setStatus = new PostMethods<>("/cook/setStatus", Boolean.class);
+
+    public static Optional<Boolean> setStatus(PostSetStatus body) {
+        return setStatus.post(body);
+    }
 
     public static void reset() {
         items.reset();

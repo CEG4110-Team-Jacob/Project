@@ -79,9 +79,30 @@ public class CookController {
         Optional<Worker> cook = authenticationService.hasJobAndAuthenticate(t, Job.Cook);
         if (cook.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        List<GetOrderCook> orders = orderRepository.findAllByStatusIn(Arrays.asList(Status.InProgress, Status.Ordered),
+        List<GetOrderCook> orders = orderRepository.findAllByStatusIn(
+                Arrays.asList(Status.InProgress, Status.Ordered, Status.Cooked),
                 GetOrderCook.class);
         return new ResponseEntity<>(new Orders(orders), HttpStatus.OK);
+    }
+
+    /**
+     * PostSetStatus
+     */
+    public record PostSetStatus(Status status, int orderId) {
+    }
+
+    @PostMapping("/setStatus")
+    @Transactional
+    public ResponseEntity<Boolean> setOrderStatus(@RequestParam String t, @RequestBody PostSetStatus body) {
+        Optional<Worker> cook = authenticationService.hasJobAndAuthenticate(t, Job.Cook);
+        if (cook.isEmpty())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        Optional<Order> order = orderRepository.findById(body.orderId());
+        if (order.isEmpty() || !Status.cook(body.status()))
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        order.get().setStatus(body.status());
+        orderRepository.save(order.get());
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     /**

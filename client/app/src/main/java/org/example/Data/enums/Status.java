@@ -1,5 +1,7 @@
 package org.example.Data.enums;
 
 public enum Status {
-    Cooked, Ordered, InProgress, Delivered, Canceled
+    Ordered, InProgress, Cooked, Delivered, Canceled;
+
+    public static Status[] cooks = new Status[] { Ordered, InProgress, Cooked };
 }

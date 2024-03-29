@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.example.Data.controllers.General;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestClient.RequestBodySpec;
 
 public class Utils {
@@ -104,8 +105,7 @@ public class Utils {
                 if (response.hasBody())
                     return Optional.of(response.getBody());
                 return Optional.empty();
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (RestClientException e) {
             }
             return Optional.empty();
         }
