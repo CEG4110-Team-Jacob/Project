@@ -103,6 +103,15 @@ public class AuthenticationService {
         return Optional.of(token);
     }
 
+    @Transactional
+    public void deleteWorker(int id) {
+        Optional<Worker> worker = workerRepository.findById(id);
+        if (worker.isEmpty())
+            return;
+        worker.get().setActive(false);
+        workerRepository.save(worker.get());
+    }
+
     /**
      * Checks if token is valid and returns the worker Entity associated with it
      * 

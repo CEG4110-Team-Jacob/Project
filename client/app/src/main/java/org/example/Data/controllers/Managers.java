@@ -35,6 +35,13 @@ public class Managers {
     private static GetMethods<ManagerViewWorker.ListWorkers> getWorkers = new GetMethods<>("/manager/workers",
             ManagerViewWorker.ListWorkers.class);
 
+    private static PostMethods<Integer, Boolean> deleteWorker = new PostMethods<>("/manager/deleteWorker",
+            Boolean.class);
+
+    public static Optional<Boolean> deleteWorker(Integer body) {
+        return deleteWorker.post(body);
+    }
+
     public static Optional<ListItems> setItems() {
         return items.set();
     }

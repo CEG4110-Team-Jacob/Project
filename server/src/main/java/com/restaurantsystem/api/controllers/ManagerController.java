@@ -74,6 +74,15 @@ public class ManagerController {
         return ResponseEntity.ok(true);
     }
 
+    @PostMapping("/deleteWorker")
+    public ResponseEntity<Boolean> deleteWorker(@RequestParam String t, @RequestBody Integer workerId) {
+        Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Manager);
+        if (worker.isEmpty())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        authenticationService.deleteWorker(workerId);
+        return ResponseEntity.ok().body(true);
+    }
+
     /**
      * Creates an item to add to the menu
      * 
@@ -102,7 +111,7 @@ public class ManagerController {
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Manager);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        List<ManagerViewWorker> workers = workerRepository.findAllBy(ManagerViewWorker.class);
+        List<ManagerViewWorker> workers = workerRepository.findAllByIsActive(true, ManagerViewWorker.class);
         return new ResponseEntity<>(new ManagerViewWorker.ListWorkers(workers), HttpStatus.OK);
     }
 }

@@ -38,7 +38,7 @@ public class Table {
     private int x;
     private int y;
 
-    private boolean isActive;
+    private boolean isActive = true;
 
     public boolean isActive() {
         return isActive;

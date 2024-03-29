@@ -30,6 +30,7 @@ public class Worker {
     private String passwordHash;
     private int age;
     private Job job;
+    private boolean isActive = true;
     /**
      * Token used to use APIs
      */
@@ -124,6 +125,14 @@ public class Worker {
 
     public void setTables(Set<Table> tables) {
         this.tables = tables;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
     }
 
 }

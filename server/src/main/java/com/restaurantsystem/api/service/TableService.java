@@ -25,10 +25,8 @@ public class TableService {
             tableOld.setNumSeats(table.getNumSeats());
             tableOld.setNumber(table.getNumber());
             tableOld.setWaiter(table.getWaiter());
-            System.out.println("Table Changed");
             tableRepository.save(tableOld);
         } else {
-            System.out.println("Table Added");
             tableRepository.save(table);
         }
     }

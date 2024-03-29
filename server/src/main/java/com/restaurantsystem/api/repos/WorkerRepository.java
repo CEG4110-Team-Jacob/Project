@@ -18,6 +18,8 @@ public interface WorkerRepository extends CrudRepository<Worker, Integer> {
 
     public <T> List<T> findAllBy(Class<T> type);
 
+    public <T> List<T> findAllByIsActive(boolean isActive, Class<T> type);
+
     public boolean existsByUsername(String username);
 
 }

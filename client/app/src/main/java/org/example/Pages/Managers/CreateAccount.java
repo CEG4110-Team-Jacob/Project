@@ -69,6 +69,7 @@ public class CreateAccount extends JPanel {
                     var success = Managers.createWorker(details);
                     if (success.isEmpty())
                         throw new Exception();
+                    exit.run();
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Invalid User Account.");

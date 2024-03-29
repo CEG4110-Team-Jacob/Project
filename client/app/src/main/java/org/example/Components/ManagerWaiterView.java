@@ -15,6 +15,11 @@ import org.example.Data.controllers.Managers.ManagerViewWorker;
 // ChatGPT Modified Code
 public class ManagerWaiterView extends JPanel {
     JPanel inputPanel;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
 
     public ManagerWaiterView() {
         super(new BorderLayout());
@@ -25,6 +30,7 @@ public class ManagerWaiterView extends JPanel {
     public void update(ManagerViewWorker worker) throws Exception {
         if (inputPanel != null)
             remove(inputPanel);
+        id = worker.id();
 
         inputPanel = new JPanel(new GridBagLayout());
         inputPanel.setBackground(Color.WHITE);
