@@ -34,8 +34,11 @@ public class StaffManagement extends JPanel {
                 staffManagement.timer.stop();
                 exit.run();
             },
-                    () -> setContent(new CreateAccount(() -> setContent(staffManagement))));
-            add(staffManagement);
+                    () -> setContent(new CreateAccount(() -> {
+                        setContent(staffManagement);
+                        staffManagement.update();
+                    })));
+            setContent(staffManagement);
         } catch (Exception e) {
             e.printStackTrace();
             exit.run();
@@ -101,6 +104,7 @@ public class StaffManagement extends JPanel {
                     if (JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this account?",
                             "Delete Account", JOptionPane.YES_NO_OPTION) == 0) {
                         Managers.deleteWorker(workerInfo.getId());
+                        update();
                     }
                 }
             });
@@ -155,6 +159,8 @@ public class StaffManagement extends JPanel {
                 });
                 leftPanel.add(nameButton);
             }
+            revalidate();
+            repaint();
         }
     }
 
