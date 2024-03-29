@@ -59,6 +59,7 @@ Who makes the decisions?
 - 3/5: Changed the deadline for MVP and added final Requirements and Design.
 - 3/19 Added an A.I. policy due to it being used.
 - 3/26: Added Presentation Slides to the Milestones.
+- 3/29: Pushed Back Deadline for MVP due to creating UIs and to give a weekend to finish up most of the remaining requirements.
 
 ## Milestones
 
@@ -67,6 +68,6 @@ Who makes the decisions?
   - 2/14 Software Development Plan
   - 2/18 Minimum Viable Product Requirements
   - 2/22 Minimum Design Specification
-  - 3/29 Minimum Viable Product (Moved back because requirements are a bit much and busy with school.)
+  - 3/31 Minimum Viable Product (Moved back because requirements are a bit much and busy with school.)
   - 4/5 Final Requirements and Design Specifications
   - 4/8 Presentation Slides
