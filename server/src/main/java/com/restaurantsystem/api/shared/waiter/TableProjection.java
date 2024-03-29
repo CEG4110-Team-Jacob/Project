@@ -16,4 +16,8 @@ public interface TableProjection {
     boolean getIsOccupied();
 
     int getNumSeats();
+
+    int getX();
+
+    int getY();
 }

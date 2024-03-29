@@ -67,7 +67,7 @@ public class WaiterControllerTests extends ControllerParentTests {
 
     public record WaiterTable(
             int id,
-            int number, WaiterDetails waiter, boolean isOccupied, int numSeats) {
+            int number, WaiterDetails waiter, boolean isOccupied, int numSeats, int x, int y) {
         public record WaiterDetails(String firstName, String lastName) {
         }
 

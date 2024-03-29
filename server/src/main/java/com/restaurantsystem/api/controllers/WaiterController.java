@@ -186,7 +186,7 @@ public class WaiterController {
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Waiter);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        List<TableProjection> tables = tableRepository.findAllBy(TableProjection.class);
+        List<TableProjection> tables = tableRepository.findAllByIsActive(true, TableProjection.class);
         return new ResponseEntity<>(new TableList(tables), HttpStatus.OK);
     }
 
