@@ -106,51 +106,6 @@ public class CookController {
     }
 
     /**
-     * Sets an order as InProgress or Cooking
-     * 
-     * @param t  token
-     * @param id order id
-     */
-    @PostMapping("/cookingOrder")
-    @Transactional
-    public ResponseEntity<Boolean> cookingOrder(@RequestParam String t,
-            @RequestBody int id) {
-        Optional<Worker> cook = authenticationService.hasJobAndAuthenticate(t, Job.Cook);
-        if (cook.isEmpty())
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        Optional<Order> order = orderRepository.findById(id);
-        if (order.isEmpty() || order.get().getStatus() != Status.Ordered)
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        order.get().setStatus(Status.InProgress);
-        orderRepository.save(order.get());
-        return new ResponseEntity<>(true, HttpStatus.OK);
-    }
-
-    @Autowired
-    WaiterController waiterController;
-
-    /**
-     * Sets an order as cooked
-     * 
-     * @param t  token
-     * @param id order id
-     */
-    @PostMapping("/completeOrder")
-    @Transactional
-    public ResponseEntity<Boolean> completeOrder(@RequestParam String t,
-            @RequestBody int id) {
-        Optional<Worker> cook = authenticationService.hasJobAndAuthenticate(t, Job.Cook);
-        if (cook.isEmpty())
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        Optional<Order> order = orderRepository.findById(id);
-        if (order.isEmpty() || order.get().getStatus() != Status.InProgress)
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        order.get().setStatus(Status.Cooked);
-        orderRepository.save(order.get());
-        return new ResponseEntity<>(true, HttpStatus.OK);
-    }
-
-    /**
      * Sets an item as depleted or not in stock
      * 
      * @param t  token

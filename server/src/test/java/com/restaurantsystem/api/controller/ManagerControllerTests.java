@@ -1,5 +1,6 @@
 package com.restaurantsystem.api.controller;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -55,5 +56,11 @@ public class ManagerControllerTests extends ControllerParentTests {
     void getWorkers() throws Exception {
         var workers = getMockMvcResultType("/workers", ListWorkers.class);
         assertTrue(workers.workers().size() > 2);
+    }
+
+    @Test
+    void deleteWorker() throws Exception {
+        postMockMvcResult("/deleteWorker", "1");
+        assertFalse(workerRepository.findById(1).get().isActive());
     }
 }

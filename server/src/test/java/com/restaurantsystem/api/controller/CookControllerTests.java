@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.restaurantsystem.api.DatabasePopulate;
+import com.restaurantsystem.api.controllers.CookController.PostSetStatus;
 import com.restaurantsystem.api.data.Order;
 import com.restaurantsystem.api.data.Order.Status;
 import com.restaurantsystem.api.repos.ItemRepository;
@@ -54,22 +55,17 @@ public class CookControllerTests extends ControllerParentTests {
     }
 
     @Test
-    void cookingOrder() throws Exception {
-        postMockMvcResult("/cookingOrder", "1");
+    void setStatus() throws Exception {
+        postMockMvcBuilder("/setStatus", toJson(new PostSetStatus(Status.Delivered, 1)))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+        postMockMvcResult("/setStatus", toJson(new PostSetStatus(Status.InProgress, 1)));
         Optional<Order> order = orderRepository.findById(1);
         assertTrue(order.isPresent());
         assertEquals(order.get().getStatus(), Status.InProgress);
-
-        postMockMvcBuilder("/cookingOrder", "2").andExpect(MockMvcResultMatchers.status().isBadRequest());
-    }
-
-    @Test
-    void completeOrder() throws Exception {
-        postMockMvcResult("/completeOrder", "2");
-        Optional<Order> order = orderRepository.findById(2);
-        assertTrue(order.isPresent());
-        assertEquals(order.get().getStatus(), Status.Cooked);
-        postMockMvcBuilder("/completeOrder", "1").andExpect(MockMvcResultMatchers.status().isBadRequest());
+        postMockMvcResult("/setStatus", toJson(new PostSetStatus(Status.Cooked, 2)));
+        Optional<Order> order2 = orderRepository.findById(2);
+        assertTrue(order2.isPresent());
+        assertEquals(order2.get().getStatus(), Status.Cooked);
     }
 
     @Test
