@@ -9,7 +9,6 @@ import java.util.ArrayList;
 // Modified ChatGPT Code
 public class TableManagement extends JPanel {
 
-    private int numTables;
     private ArrayList<JButton> tableButtons;
     private ArrayList<JButton> editButtons;
     private ArrayList<Boolean> tableCheck;
@@ -95,6 +94,13 @@ public class TableManagement extends JPanel {
                 editTableLabel.setVisible(true);
                 doneEditLabel.setVisible(false);
                 doneEditButton.setVisible(false);
+                int n = 1;
+                for(int i = 0; i < 100; i++) {
+                    if(tableCheck.get(i)) {
+                        tableButtons.get(i).setText("" + n);
+                        n++;
+                    }
+                }
                 showTableButtons();
             }
         });
@@ -127,7 +133,7 @@ public class TableManagement extends JPanel {
         }
     }
 
-    //Should create a table at the given position, 61 is the 6th row 2nd column, 85 is the 8th row 6th column, etc.
+    //Creates a table at the given position, 61 is the 6th row 2nd column, 85 is the 8th row 6th column, etc.
     private void createTable(int index) {
         ActionListener tableAction = new ActionListener() {
             @Override
@@ -138,8 +144,6 @@ public class TableManagement extends JPanel {
         for(ActionListener action : tableButtons.get(index).getActionListeners()) {
             tableButtons.get(index).removeActionListener(action);
         }
-        numTables++;
-        tableButtons.get(index).setText("" + numTables);
         tableButtons.get(index).addActionListener(tableAction);
         tableButtons.get(index).setBackground(Color.GREEN);
         tableCheck.remove(index);
@@ -159,8 +163,8 @@ public class TableManagement extends JPanel {
         editButtons.get(index).addActionListener(editButtonAction);
     }
 
+    //Deletes the table, reverts the buttons back to the way they started
     private void deleteTable(int index) {
-        numTables--;
         for(ActionListener action : tableButtons.get(index).getActionListeners()) {
             tableButtons.get(index).removeActionListener(action);
         }

@@ -49,7 +49,9 @@ public class StaffManagement extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // Add account functionality goes here
                 // For example, show a dialog to input account details
-                JOptionPane.showMessageDialog(null, "Add account functionality goes here!");
+                if(JOptionPane.showConfirmDialog(null, "Do you want to add an account?", "Add Account", JOptionPane.YES_NO_OPTION) == 0) {
+                    //addAccount(worker)
+                }
             }
         });
         rightPanel.add(addAccountLabel);
@@ -64,9 +66,9 @@ public class StaffManagement extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Delete account functionality goes here
-                // For example, ask the user if they really want to delete the account
-                int wantToDelete = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this account?");
-                // Do something with this information
+                if(JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this account?", "Delete Account", JOptionPane.YES_NO_OPTION) == 0) {
+                    //deleteAccount(worker);
+                }
             }
         });
         rightPanel.add(deleteAccountLabel);
