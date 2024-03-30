@@ -1,5 +1,6 @@
 package com.restaurantsystem.api.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -55,5 +56,23 @@ public class ManagerControllerTests extends ControllerParentTests {
     void deleteWorker() throws Exception {
         postMockMvcResult("/deleteWorker", "1");
         assertFalse(workerRepository.findById(1).get().isActive());
+    }
+
+    /**
+     * PostChangeItem
+     */
+    public record PostChangeItem(int id, AddItem details) {
+    }
+
+    @Test
+    void changeItem() throws Exception {
+        var data = toJson(new PostChangeItem(1, new AddItem("guhd", "inasgf", 37825, false, ItemType.Food)));
+        postMockMvcResult("/changeItem", data);
+        var newItem = itemRepository.findById(1).get();
+        assertEquals(newItem.getName(), "guhd");
+        assertEquals(newItem.getDescription(), "inasgf");
+        assertEquals(newItem.getPrice(), 37825);
+        assertFalse(newItem.isInStock());
+        assertEquals(newItem.getType(), ItemType.Food);
     }
 }

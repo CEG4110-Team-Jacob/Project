@@ -89,6 +89,27 @@ public class ManagerController {
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
+    public record ChangeItem(int id, AddItem details) {
+    }
+
+    @PostMapping("/changeItem")
+    @Transactional
+    public ResponseEntity<Boolean> changeItem(@RequestBody ChangeItem details, @RequestParam String t) {
+        Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Manager);
+        if (worker.isEmpty())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        var itemOptional = itemRepository.findById(details.id());
+        if (itemOptional.isEmpty())
+            return ResponseEntity.badRequest().body(false);
+        var item = itemOptional.get();
+        item.setDescription(details.details().description());
+        item.setInStock(details.details().inStock());
+        item.setName(details.details().name());
+        item.setPrice(details.details().price());
+        item.setType(details.details().type());
+        return ResponseEntity.ok().body(true);
+    }
+
     @GetMapping("/workers")
     public ResponseEntity<ManagerViewWorker.ListWorkers> getWorkers(@RequestParam String t) {
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Manager);

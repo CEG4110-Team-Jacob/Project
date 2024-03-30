@@ -17,6 +17,12 @@ public class Managers {
     public record PostAddItem(String name, String description, int price, boolean inStock, ItemType type) {
     }
 
+    /**
+     * PostChangeItem
+     */
+    public record PostChangeItem(int id, PostAddItem details) {
+    }
+
     public record ManagerViewWorker(
             String firstName, String lastName,
             int id, int age, Job job) {
@@ -34,6 +40,13 @@ public class Managers {
 
     private static PostMethods<Integer, Boolean> deleteWorker = new PostMethods<>("/manager/deleteWorker",
             Boolean.class);
+
+    private static PostMethods<PostChangeItem, Boolean> changeItem = new PostMethods<>("/manager/changeItem",
+            Boolean.class);
+
+    public static Optional<Boolean> changeItem(PostChangeItem body) {
+        return changeItem.post(body);
+    }
 
     public static void reset() {
         getWorkers.reset();

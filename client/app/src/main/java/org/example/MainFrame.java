@@ -17,6 +17,8 @@ public class MainFrame extends JFrame {
     private Login login;
 
     void setMainContentPane(JPanel panel) {
+        if (panel == login)
+            General.logout();
         setContentPane(panel);
         revalidate();
         repaint();
