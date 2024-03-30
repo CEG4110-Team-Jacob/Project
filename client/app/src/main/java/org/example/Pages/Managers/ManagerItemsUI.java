@@ -1,7 +1,11 @@
 package org.example.Pages.Managers;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,14 +24,23 @@ import org.example.Data.enums.ItemType;
 import org.example.Pages.ItemsUI;
 
 public class ManagerItemsUI extends ItemsUI {
-    public ManagerItemsUI(Runnable exit) {
+    public ManagerItemsUI(Runnable exit, Runnable createItemF) {
         super(exit, getCreator());
+        topBar.remove(exitButton);
+        JPanel buttons = new JPanel();
+        var createItem = new JButton("Create Item");
+        createItem.addActionListener(e -> createItemF.run());
+
+        buttons.add(createItem);
+        buttons.add(exitButton);
+        topBar.add(buttons, BorderLayout.EAST);
     }
 
     // Modified UI Code by ChatGPT
     public static ElementCreator getCreator() {
         ElementCreator creator = (item, update) -> {
             JPanel panel = new JPanel();
+            panel.setBorder(BorderFactory.createLineBorder(Color.black));
             panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // Set layout to vertical BoxLayout
 
             // Create labels for order information
@@ -45,7 +58,8 @@ public class ManagerItemsUI extends ItemsUI {
             descriptionArea.setFont(UIManager.getFont("Label.font")); // Match font
 
             JScrollPane descriptionScrollPane = new JScrollPane(descriptionArea);
-            descriptionScrollPane.setPreferredSize(new Dimension(200, 2)); // Adjust size as needed
+            // descriptionScrollPane.setPreferredSize(new Dimension(200, 2)); // Adjust size
+            // as needed
 
             var typePanel = new JPanel();
             typePanel.add(new JLabel("Type: "));
@@ -87,7 +101,6 @@ public class ManagerItemsUI extends ItemsUI {
             panel.add(descriptionScrollPane);
             panel.add(typePanel);
             panel.add(pricePanel);
-            panel.add(new JLabel("In Stock: "));
             panel.add(inStockPanel);
             panel.add(applyButton);
             panel.setPreferredSize(new Dimension(100, 100));

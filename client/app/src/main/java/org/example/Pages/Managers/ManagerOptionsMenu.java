@@ -30,7 +30,9 @@ public class ManagerOptionsMenu extends OptionsUI {
                 setContent(optionsMenu);
             }
         };
-        Runnable createItems = () -> setContent(new ManagerItemsUI(() -> setContent(optionsMenu)));
+        Runnable createItems = () -> setContent(
+                new ManagerItemsUI(() -> setContent(optionsMenu),
+                        () -> setContent(new CreateItem(() -> setContent(optionsMenu)))));
         optionsMenu = new Options(exit, createTable,
                 createStaff, createItems);
         setContent(optionsMenu);
