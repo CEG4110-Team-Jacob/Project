@@ -1,45 +1,38 @@
 package org.example.Pages.Managers;
 
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class ManagerOptionsMenu extends JPanel {
+import org.example.Pages.Utils.OptionsUI;
+
+public class ManagerOptionsMenu extends OptionsUI {
     Options optionsMenu;
 
-    public void setPane(JPanel panel) {
-        removeAll();
-        add(panel, BorderLayout.CENTER);
-        revalidate();
-        repaint();
-    }
-
     public ManagerOptionsMenu(Runnable exit) {
-        setLayout(new BorderLayout());
         Runnable createStaff = () -> {
             try {
-                setPane(new StaffManagement(() -> {
-                    setPane(optionsMenu);
+                setContent(new StaffManagement(() -> {
+                    setContent(optionsMenu);
                 }));
             } catch (Exception e) {
                 e.printStackTrace();
-                setPane(optionsMenu);
+                setContent(optionsMenu);
             }
         };
         Runnable createTable = () -> {
             try {
-                setPane(new TableManagement(() -> setPane(optionsMenu)));
+                setContent(new TableManagement(() -> setContent(optionsMenu)));
             } catch (Exception e) {
                 e.printStackTrace();
-                setPane(optionsMenu);
+                setContent(optionsMenu);
             }
         };
         optionsMenu = new Options(exit, createTable::run,
                 createStaff::run);
-        setPane(optionsMenu);
+        setContent(optionsMenu);
     }
 
     /**

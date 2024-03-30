@@ -21,11 +21,43 @@ import org.example.Pages.ItemsUI.ElementCreator;
 import org.example.Pages.Utils.OptionsUI;
 
 public class CookOptions extends OptionsUI {
+    public class Options extends JPanel {
+        public Options(Runnable exit, Runnable items, Runnable orders) {
+            setLayout(new FlowLayout());
+            var itemsUI = new JButton("Items");
+            itemsUI.addActionListener(e -> {
+                items.run();
+            });
+            var ordersUI = new JButton("Orders");
+            ordersUI.addActionListener(e -> {
+                orders.run();
+            });
+
+            var logoutButton = new JButton("Logout");
+            logoutButton.addActionListener(e -> {
+                exit.run();
+            });
+
+            add(itemsUI);
+            add(ordersUI);
+            add(Box.createVerticalBox());
+            add(logoutButton);
+        }
+    }
+
     Options options;
 
     public CookOptions(Runnable exit) {
         super();
-        // UI Created By ChatGPT (And it sucks)
+        ElementCreator creator = getCreator();
+        Runnable addItems = () -> setContent(new ItemsUI(() -> setContent(options), creator));
+        Runnable addOrders = () -> setContent(new OrdersUI(() -> setContent(options)));
+        options = new Options(exit, addItems, addOrders);
+        setContent(options);
+    }
+
+    // Modified UI Code by ChatGPT
+    private ElementCreator getCreator() {
         ElementCreator creator = (item, update) -> {
             JPanel panel = new JPanel();
             panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // Set layout to vertical BoxLayout
@@ -38,7 +70,7 @@ public class CookOptions extends OptionsUI {
             descriptionArea.setEditable(false);
             descriptionArea.setLineWrap(true);
             descriptionArea.setWrapStyleWord(true);
-            descriptionArea.setBackground(this.getBackground()); // Match background color
+            descriptionArea.setBackground(this.getBackground());
             descriptionArea.setFont(UIManager.getFont("Label.font")); // Match font
 
             JScrollPane descriptionScrollPane = new JScrollPane(descriptionArea);
@@ -75,33 +107,6 @@ public class CookOptions extends OptionsUI {
             panel.setPreferredSize(new Dimension(100, 100));
             return panel;
         };
-        Runnable addItems = () -> setContent(new ItemsUI(() -> setContent(options), creator));
-        Runnable addOrders = () -> setContent(new OrdersUI(() -> setContent(options)));
-        options = new Options(exit, addItems, addOrders);
-        setContent(options);
-    }
-
-    public class Options extends JPanel {
-        public Options(Runnable exit, Runnable items, Runnable orders) {
-            setLayout(new FlowLayout());
-            var itemsUI = new JButton("Items");
-            itemsUI.addActionListener(e -> {
-                items.run();
-            });
-            var ordersUI = new JButton("Orders");
-            ordersUI.addActionListener(e -> {
-                orders.run();
-            });
-
-            var logoutButton = new JButton("Logout");
-            logoutButton.addActionListener(e -> {
-                exit.run();
-            });
-
-            add(itemsUI);
-            add(ordersUI);
-            add(Box.createVerticalBox());
-            add(logoutButton);
-        }
+        return creator;
     }
 }
