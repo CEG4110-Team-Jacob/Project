@@ -47,6 +47,7 @@ public class CookOptions extends OptionsUI {
             JLabel typeLabel = new JLabel("Type: " + item.type());
             JLabel priceLabel = new JLabel("Price: " + item.price());
 
+            var inStockPanel = new JPanel(new FlowLayout());
             // Create a JComboBox for inStock status
             JComboBox<Boolean> inStockComboBox = new JComboBox<>(new Boolean[] { true, false });
             inStockComboBox.setSelectedItem(item.inStock());
@@ -61,6 +62,8 @@ public class CookOptions extends OptionsUI {
                     update.run();
                 }
             });
+            inStockPanel.add(new JLabel("In Stock: "));
+            inStockPanel.add(inStockComboBox);
 
             // Add components to the panel
             panel.add(nameLabel);
@@ -68,7 +71,7 @@ public class CookOptions extends OptionsUI {
             panel.add(typeLabel);
             panel.add(priceLabel);
             panel.add(new JLabel("In Stock: "));
-            panel.add(inStockComboBox);
+            panel.add(inStockPanel);
             panel.setPreferredSize(new Dimension(100, 100));
             return panel;
         };

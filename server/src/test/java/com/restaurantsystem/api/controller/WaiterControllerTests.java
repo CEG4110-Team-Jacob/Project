@@ -22,7 +22,6 @@ import com.restaurantsystem.api.data.Order.Status;
 import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.repos.TableRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
-import com.restaurantsystem.api.shared.ListOfItems;
 import com.restaurantsystem.api.shared.TestSharedItem;
 import com.restaurantsystem.api.shared.waiter.PostOrderWaiter;
 
@@ -126,11 +125,5 @@ public class WaiterControllerTests extends ControllerParentTests {
         postMockMvcResult("/cancelOrder", "1");
         assertEquals(orderRepository.findById(1).get().getStatus(), Status.Canceled);
         assertFalse(tableRepository.findById(2).get().isOccupied());
-    }
-
-    @Test
-    void getItems() throws Exception {
-        var items = getMockMvcResultType("/items", ListOfItems.class);
-        assertTrue(items.items().size() > 0);
     }
 }

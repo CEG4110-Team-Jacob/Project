@@ -13,7 +13,6 @@ import com.restaurantsystem.api.data.Item.ItemType;
 import com.restaurantsystem.api.data.Worker.Job;
 import com.restaurantsystem.api.repos.ItemRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
-import com.restaurantsystem.api.shared.ListOfItems;
 import com.restaurantsystem.api.shared.manager.AddItem;
 import com.restaurantsystem.api.shared.manager.PostCreateAccount;
 import com.restaurantsystem.api.shared.manager.ManagerViewWorker.ListWorkers;
@@ -30,12 +29,6 @@ public class ManagerControllerTests extends ControllerParentTests {
     public ManagerControllerTests() {
         this.login = DatabasePopulate.Manager1;
         this.path = "/manager";
-    }
-
-    @Test
-    void getItems() throws Exception {
-        var items = getMockMvcResultType("/items", ListOfItems.class);
-        assertTrue(items.items().size() > 0);
     }
 
     @Test

@@ -3,30 +3,24 @@ package com.restaurantsystem.api;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import com.restaurantsystem.api.controller.ControllerParentTests;
 import com.restaurantsystem.api.data.Worker.Job;
-import com.restaurantsystem.api.service.AuthenticationService;
+import com.restaurantsystem.api.shared.ListOfItems;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-public class MainControllerTests extends BaseTests {
+import jakarta.transaction.Transactional;
 
-    @Autowired
-    AuthenticationService authenticationService;
+@Transactional
+@Rollback(true)
+public class MainControllerTests extends ControllerParentTests {
 
-    String token;
-
-    @BeforeEach
-    void start() throws Exception {
-        token = authenticationService.login(DatabasePopulate.Waiter1.username(), DatabasePopulate.Waiter1.password())
-                .get();
+    public MainControllerTests() {
+        path = "";
+        login = DatabasePopulate.Waiter1;
     }
 
     @Test
@@ -52,5 +46,11 @@ public class MainControllerTests extends BaseTests {
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
         var details = objectMapper.readValue(response.getResponse().getContentAsString(), WorkerDetails.class);
         assertEquals(details.job, Job.Waiter);
+    }
+
+    @Test
+    void getItems() throws Exception {
+        var items = getMockMvcResultType("/items", ListOfItems.class);
+        assertTrue(items.items().size() > 0);
     }
 }

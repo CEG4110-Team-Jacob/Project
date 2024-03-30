@@ -19,7 +19,7 @@ public class General {
     public static GetMethods<WorkerDetails> details = new GetMethods<>("/getDetails", WorkerDetails.class);
     public static GetMethods<String> token = new GetMethods<>("/login", String.class);
     public static PostMethods<String, Void> logout = new PostMethods<>("/logout", Void.class);
-    private static GetMethods<Item.ListItems> items = new GetMethods<>("/cook/items", Item.ListItems.class);
+    private static GetMethods<Item.ListItems> items = new GetMethods<>("/items", Item.ListItems.class);
 
     static {
         try {

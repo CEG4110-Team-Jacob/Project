@@ -21,7 +21,6 @@ import com.restaurantsystem.api.data.Order;
 import com.restaurantsystem.api.data.Order.Status;
 import com.restaurantsystem.api.repos.ItemRepository;
 import com.restaurantsystem.api.repos.OrderRepository;
-import com.restaurantsystem.api.shared.ListOfItems;
 import com.restaurantsystem.api.shared.TestSharedItem;
 
 @Transactional
@@ -66,12 +65,6 @@ public class CookControllerTests extends ControllerParentTests {
         Optional<Order> order2 = orderRepository.findById(2);
         assertTrue(order2.isPresent());
         assertEquals(order2.get().getStatus(), Status.Cooked);
-    }
-
-    @Test
-    void getItems() throws Exception {
-        var items = getMockMvcResultType("/items", ListOfItems.class);
-        assertTrue(items.items().size() > 0);
     }
 
     @Test

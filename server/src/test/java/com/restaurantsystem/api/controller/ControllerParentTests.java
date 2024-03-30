@@ -23,7 +23,7 @@ public class ControllerParentTests extends BaseTests {
     protected Login login;
 
     @BeforeEach
-    void login() {
+    protected void beforeEach() {
         token = authenticationService.login(login.username(), login.password()).get();
     }
 
