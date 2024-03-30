@@ -32,8 +32,7 @@ public class MainControllerTests extends ControllerParentTests {
 
     @Test
     void logout() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/logout").param("t", token))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        postMockMvcResult("/logout", "");
         assertTrue(authenticationService.authenticate(token).isEmpty());
     }
 
@@ -42,9 +41,7 @@ public class MainControllerTests extends ControllerParentTests {
 
     @Test
     void getDetails() throws Exception {
-        var response = mockMvc.perform(MockMvcRequestBuilders.get("/getDetails").param("t", token))
-                .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
-        var details = objectMapper.readValue(response.getResponse().getContentAsString(), WorkerDetails.class);
+        var details = getMockMvcResultType("/getDetails", WorkerDetails.class);
         assertEquals(details.job, Job.Waiter);
     }
 
