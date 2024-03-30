@@ -1,11 +1,13 @@
 package org.example.Pages.Cooks;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import javax.swing.Timer;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -53,8 +55,9 @@ public class OrdersUI extends JPanel {
         /**
          * OrderUI
          */
-        public class OrderUI extends JButton {
+        public class OrderUI extends JPanel {
             public OrderUI(CookOrder order, Runnable update) {
+                setBorder(BorderFactory.createLineBorder(Color.black));
                 setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
                 add(new JLabel("Id: " + Integer.toString(order.id())));

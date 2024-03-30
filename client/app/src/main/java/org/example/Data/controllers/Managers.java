@@ -44,6 +44,12 @@ public class Managers {
     private static PostMethods<PostChangeItem, Boolean> changeItem = new PostMethods<>("/manager/changeItem",
             Boolean.class);
 
+    private static PostMethods<Integer, Boolean> deleteItem = new PostMethods<>("/manager/deleteItem", Boolean.class);
+
+    public static Optional<Boolean> deleteItem(Integer body) {
+        return deleteItem.post(body);
+    }
+
     public static Optional<Boolean> changeItem(PostChangeItem body) {
         return changeItem.post(body);
     }

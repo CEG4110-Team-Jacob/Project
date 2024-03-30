@@ -14,5 +14,7 @@ public interface ItemRepository extends CrudRepository<Item, Integer> {
 
     <T> List<T> findAllBy(Class<T> type);
 
+    <T> List<T> findAllByIsActive(boolean IsActive, Class<T> type);
+
     boolean existsByName(String name);
 }

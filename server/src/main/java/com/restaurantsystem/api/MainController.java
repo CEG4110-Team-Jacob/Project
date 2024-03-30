@@ -86,7 +86,7 @@ public class MainController {
         Optional<Worker> worker = authenticationService.authenticate(t);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        List<SharedItem> items = itemRepository.findAllBy(SharedItem.class);
+        List<SharedItem> items = itemRepository.findAllByIsActive(true, SharedItem.class);
         return new ResponseEntity<ListOfItems>(new ListOfItems(items), HttpStatus.OK);
     }
 

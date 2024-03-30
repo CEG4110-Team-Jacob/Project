@@ -89,6 +89,21 @@ public class ManagerController {
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
+    @PostMapping("/deleteItem")
+    @Transactional
+    public ResponseEntity<Boolean> deleteItem(@RequestParam String t, @RequestBody int id) {
+        Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Manager);
+        if (worker.isEmpty())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        var itemOptional = itemRepository.findById(id);
+        if (itemOptional.isEmpty())
+            return ResponseEntity.badRequest().body(false);
+        var item = itemOptional.get();
+        item.setActive(false);
+        itemRepository.save(item);
+        return ResponseEntity.ok().body(true);
+    }
+
     public record ChangeItem(int id, AddItem details) {
     }
 
@@ -107,6 +122,7 @@ public class ManagerController {
         item.setName(details.details().name());
         item.setPrice(details.details().price());
         item.setType(details.details().type());
+        itemRepository.save(item);
         return ResponseEntity.ok().body(true);
     }
 

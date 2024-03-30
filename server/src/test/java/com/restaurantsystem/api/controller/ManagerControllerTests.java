@@ -75,4 +75,10 @@ public class ManagerControllerTests extends ControllerParentTests {
         assertFalse(newItem.isInStock());
         assertEquals(newItem.getType(), ItemType.Food);
     }
+
+    @Test
+    void deleteItem() throws Exception {
+        postMockMvcResult("/deleteItem", "1");
+        assertFalse(itemRepository.findById(1).get().isActive());
+    }
 }

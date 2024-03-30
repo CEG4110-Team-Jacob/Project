@@ -31,12 +31,21 @@ public class Item {
     private int price; // Price in cents
 
     private boolean inStock;
+    private boolean isActive = true;
 
     /**
      * The orders the item is in
      */
     @ManyToMany(mappedBy = "items")
     private Set<Order> orders;
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
+    }
 
     public String getName() {
         return name;

@@ -2,7 +2,6 @@ package org.example.Pages.Managers;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
@@ -96,6 +95,15 @@ public class ManagerItemsUI extends ItemsUI {
                 }
             });
 
+            var deleteButton = new JButton("Delete");
+            deleteButton.addActionListener(e -> {
+                if (JOptionPane.showConfirmDialog(null, "Do you want to delete this item", "Delete Item",
+                        JOptionPane.YES_NO_OPTION) == 0) {
+                    Managers.deleteItem(item.id());
+                    update.run();
+                }
+            });
+
             // Add components to the panel
             panel.add(namePanel);
             panel.add(descriptionScrollPane);
@@ -103,7 +111,7 @@ public class ManagerItemsUI extends ItemsUI {
             panel.add(pricePanel);
             panel.add(inStockPanel);
             panel.add(applyButton);
-            panel.setPreferredSize(new Dimension(100, 100));
+            panel.add(deleteButton);
             return panel;
         };
         return creator;
