@@ -18,15 +18,17 @@ public class ItemsUI extends JPanel {
 
     JPanel grid;
     ElementCreator creator;
+    protected JPanel topBar;
+    protected JButton exitButton;
 
     public ItemsUI(Runnable exit, ElementCreator eCreator) {
         setLayout(new BorderLayout());
         creator = eCreator;
 
         grid = new JPanel(new GridLayout(0, 5, 10, 10));
-        JPanel topBar = new JPanel(new BorderLayout());
+        topBar = new JPanel(new BorderLayout());
         topBar.add(new JLabel("Items"), BorderLayout.CENTER);
-        JButton exitButton = new JButton("Exit");
+        exitButton = new JButton("Exit");
         exitButton.addActionListener(e -> exit.run());
         topBar.add(exitButton, BorderLayout.EAST);
         add(topBar, BorderLayout.NORTH);
