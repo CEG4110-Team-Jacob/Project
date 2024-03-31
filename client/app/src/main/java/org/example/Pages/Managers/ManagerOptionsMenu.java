@@ -24,7 +24,7 @@ public class ManagerOptionsMenu extends OptionsUI {
         };
         Runnable createTable = () -> {
             try {
-                setContent(new TableManagement(() -> setContent(optionsMenu)));
+                // setContent(new TablesUI(() -> setContent(optionsMenu)));
             } catch (Exception e) {
                 e.printStackTrace();
                 setContent(optionsMenu);

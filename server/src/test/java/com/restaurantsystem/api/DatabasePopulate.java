@@ -47,28 +47,33 @@ public class DatabasePopulate implements CommandLineRunner {
 
     public void populateTables() {
         BiFunction<Integer, Integer, Table> tableCreator = (x, y) -> {
-            Table table = new Table();
+            Table table = new Table(x, y);
             table.setNumSeats(3);
             table.setOccupied(false);
             table.setActive(true);
             return table;
         };
         Table table1 = tableCreator.apply(0, 0);
+        table1.setNumber(1);
         tableRepository.save(table1);
 
         Table table2 = tableCreator.apply(0, 1);
+        table2.setNumber(2);
         table2.setOccupied(true);
         tableRepository.save(table2);
 
         Table table3 = tableCreator.apply(0, 2);
+        table3.setNumber(3);
         table3.setOccupied(true);
         tableRepository.save(table3);
 
         Table table4 = tableCreator.apply(0, 3);
+        table4.setNumber(4);
         table4.setOccupied(true);
         tableRepository.save(table4);
 
         Table table5 = tableCreator.apply(0, 4);
+        table5.setNumber(5);
         tableRepository.save(table5);
     }
 

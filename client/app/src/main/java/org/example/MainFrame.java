@@ -7,10 +7,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.example.Data.controllers.General;
+import org.example.Pages.HostUI;
 import org.example.Pages.Login;
 import org.example.Pages.Cooks.CookOptions;
 import org.example.Pages.Managers.ManagerOptionsMenu;
-import org.example.Pages.Managers.TableManagement;
 
 public class MainFrame extends JFrame {
 
@@ -39,7 +39,7 @@ public class MainFrame extends JFrame {
                     setMainContentPane(cookUI);
                     break;
                 case Host:
-                    var tableUI = new TableManagement(() -> setMainContentPane(login));
+                    var tableUI = new HostUI(() -> setMainContentPane(login));
                     setMainContentPane(tableUI);
                     break;
                 case Manager:

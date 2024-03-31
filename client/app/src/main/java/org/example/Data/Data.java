@@ -2,6 +2,7 @@ package org.example.Data;
 
 import org.example.Data.controllers.Cooks;
 import org.example.Data.controllers.General;
+import org.example.Data.controllers.Hosts;
 import org.example.Data.controllers.Managers;
 import org.example.Data.controllers.Waiters;
 
@@ -12,5 +13,6 @@ public class Data {
         General.reset();
         Managers.reset();
         Cooks.reset();
+        Hosts.reset();
     }
 }
