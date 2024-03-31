@@ -10,6 +10,7 @@ public class Waiters extends JPanel {
     Menu menu;
     Order order;
     List<Integer> selectedPrices; // List to store the prices of selected items
+    List<String> selectedItems; // List to store the names of selected items
 
     public Waiters() {
         setLayout(new BorderLayout());
@@ -17,6 +18,7 @@ public class Waiters extends JPanel {
         menu = new Menu();
         order = new Order();
         selectedPrices = new ArrayList<>();
+        selectedItems = new ArrayList<>();
         add(details, BorderLayout.NORTH);
         add(menu, BorderLayout.CENTER);
         add(order, BorderLayout.SOUTH);
@@ -49,6 +51,7 @@ public class Waiters extends JPanel {
         JPanel total;
         JPanel items;
         JLabel totalPriceLabel;
+        JTextArea selectedItemsArea; // TextArea to display selected items
 
         public Order() {
             setLayout(new BorderLayout());
@@ -69,8 +72,13 @@ public class Waiters extends JPanel {
             add(total, BorderLayout.WEST);
 
             items = new JPanel();
-            items.setLayout(new BoxLayout(items, BoxLayout.Y_AXIS));
+            items.setLayout(new BorderLayout());
             items.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+            selectedItemsArea = new JTextArea();
+            selectedItemsArea.setEditable(false);
+            JScrollPane scrollPane = new JScrollPane(selectedItemsArea);
+            items.add(scrollPane, BorderLayout.CENTER);
             add(items, BorderLayout.CENTER);
         }
 
@@ -82,6 +90,25 @@ public class Waiters extends JPanel {
             }
             totalPriceLabel.setText("$" + String.format("%.2f", totalPrice / 100.0)); // Display total price in dollars
         }
+
+        // Update selected items list
+        public void updateSelectedItems(String itemName, int itemPrice) {
+            selectedItems.add(itemName);
+            selectedPrices.add(itemPrice);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < selectedItems.size(); i++) {
+                String item = selectedItems.get(i);
+                int price = selectedPrices.get(i);
+                sb.append(item);
+                // Add spaces to align prices to the right
+                for (int j = 0; j < 30 - item.length(); j++) {
+                    sb.append(" ");
+                }
+                sb.append("$").append(String.format("%.2f", price / 100.0)).append("\n");
+            }
+            selectedItemsArea.setText(sb.toString());
+        }
+        
     }
 
     class Menu extends JPanel {
@@ -122,10 +149,11 @@ public class Waiters extends JPanel {
             itemPanel.add(label, BorderLayout.SOUTH);
             panel.add(itemPanel);
 
-            // Add price to selectedPrices list when button is clicked
+            // Add price and item name to selectedPrices and selectedItems lists when button is clicked
             button.addActionListener(e -> {
                 selectedPrices.add(price);
                 order.updateTotalPrice(); // Update total price label
+                order.updateSelectedItems(itemName, price); // Update selected items list with price
             });
         }
     }
