@@ -1,14 +1,13 @@
 package org.example.Pages.Managers;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.util.HashMap;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
@@ -71,6 +70,7 @@ public class ManagerTables extends JPanel {
             waitersData.forEach((waiter) -> {
                 waitersMap.put(waiter.firstName() + " " + waiter.lastName(), waiter.id());
             });
+            // Add UI to all valid tables
             for (var tableData : tablesData.tables()) {
                 // System.out.println(tableData.number());
                 if (tableData.x() >= TablesUI.X || tableData.y() >= TablesUI.Y) {
@@ -85,42 +85,28 @@ public class ManagerTables extends JPanel {
                     return w.id() == waiterTableData.id();
                 }).findAny();
 
-                table.setLayout(new BoxLayout(table, BoxLayout.Y_AXIS));
-                JPanel waiterPanel = new JPanel();
-                waiterPanel.add(new JLabel("Waiter: "));
+                table.setLayout(new BorderLayout());
+                CreateTable tablePanel = new CreateTable(waitersMap);
+                table.add(tablePanel, BorderLayout.CENTER);
 
-                var waiterCombo = new JComboBox<String>(waitersMap.keySet().toArray(new String[] {}));
                 if (waiter.isEmpty())
-                    waiterCombo.setSelectedItem("");
+                    tablePanel.waiterCombo.setSelectedItem("");
                 else
-                    waiterCombo.setSelectedItem(waiter.get().firstName() + " " + waiter.get().lastName());
-                waiterPanel.add(waiterCombo);
+                    tablePanel.waiterCombo.setSelectedItem(waiter.get().firstName() + " " + waiter.get().lastName());
 
-                JPanel numberPanel = new JPanel();
-                numberPanel.add(new JLabel("Number: "));
-                JTextField numberField = new JTextField(Integer.toString(tableData.number()));
-                numberPanel.add(numberField);
-
-                JPanel seatsPanel = new JPanel();
-                seatsPanel.add(new JLabel("Seats: "));
-                JTextField seatsField = new JTextField(Integer.toString(tableData.numSeats()));
-                seatsPanel.add(seatsField);
-
-                JPanel occupyPanel = new JPanel();
-                occupyPanel.add(new JLabel("Occupied: "));
-                var occupiedCombo = new JComboBox<>(new Boolean[] { true, false });
-                occupiedCombo.setSelectedItem(tableData.isOccupied());
-                occupyPanel.add(occupiedCombo);
+                tablePanel.numberField.setText(Integer.toString(tableData.number()));
+                tablePanel.seatsField.setText(Integer.toString(tableData.numSeats()));
+                tablePanel.occupiedCombo.setSelectedItem(tableData.isOccupied());
 
                 var buttons = new JPanel();
                 var applyButton = new JButton("Apply");
                 var deleteButton = new JButton("Delete");
                 applyButton.addActionListener(e -> {
-                    var waiterName = (String) waiterCombo.getSelectedItem();
+                    var waiterName = (String) tablePanel.waiterCombo.getSelectedItem();
                     var waiterId = waitersMap.get(waiterName);
-                    var number = Integer.parseInt(numberField.getText());
-                    var numSeats = Integer.parseInt(seatsField.getText());
-                    var isOccupied = (Boolean) occupiedCombo.getSelectedItem();
+                    var number = Integer.parseInt(tablePanel.numberField.getText());
+                    var numSeats = Integer.parseInt(tablePanel.seatsField.getText());
+                    var isOccupied = (Boolean) tablePanel.occupiedCombo.getSelectedItem();
                     var post = new PostSetTable(tableData.x(), tableData.y(), waiterId, number, numSeats, isOccupied,
                             true);
                     Managers.setTable(post);
@@ -142,11 +128,46 @@ public class ManagerTables extends JPanel {
                 buttons.add(applyButton);
                 buttons.add(deleteButton);
 
-                table.add(waiterPanel);
-                table.add(numberPanel);
-                table.add(occupyPanel);
-                table.add(seatsPanel);
-                table.add(buttons);
+                tablePanel.add(buttons);
+            }
+            // Add create button for every table not already taken
+            for (int i = 0; i < TablesUI.X; i++) {
+                for (int j = 0; j < TablesUI.Y; j++) {
+                    int x = i;
+                    int y = j;
+                    var table = tablesUI.tables[i][j];
+                    if (table.getComponentCount() != 0)
+                        continue;
+                    table.setLayout(new FlowLayout());
+                    JButton createButton = new JButton("Create");
+                    createButton.addActionListener(e -> {
+                        JFrame frame = new JFrame("Create Table");
+                        var panel = new CreateTable(waitersMap);
+                        JButton create = new JButton("Create");
+                        create.addActionListener(event -> {
+                            var waiterName = (String) panel.waiterCombo.getSelectedItem();
+                            var waiterId = waitersMap.get(waiterName);
+                            var number = Integer.parseInt(panel.numberField.getText());
+                            var numSeats = Integer.parseInt(panel.seatsField.getText());
+                            var isOccupied = (Boolean) panel.occupiedCombo.getSelectedItem();
+                            var post = new PostSetTable(x, y, waiterId, number, numSeats,
+                                    isOccupied,
+                                    true);
+                            Managers.setTable(post);
+                            frame.dispose();
+                            try {
+                                this.update();
+                            } catch (Exception ex) {
+                            }
+                        });
+                        panel.add(create);
+
+                        frame.setContentPane(panel);
+                        frame.setVisible(true);
+                        frame.setSize(400, 400);
+                    });
+                    table.add(createButton);
+                }
             }
         };
         tablesUI.update(run);
