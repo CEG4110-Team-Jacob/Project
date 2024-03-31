@@ -20,8 +20,8 @@ public class HostUI extends JPanel {
 
     public HostUI(Runnable exit) {
         Runnable fullExit = () -> {
-            exit.run();
             timer.stop();
+            exit.run();
         };
         setLayout(new BorderLayout());
 
@@ -85,8 +85,6 @@ public class HostUI extends JPanel {
                     System.err.println("Invalid Table Positions");
                     continue;
                 }
-                System.out.println(tableData.x());
-                System.out.println(tableData.y());
                 var table = tablesUI.tables[tableData.x()][tableData.y()];
                 createTable(tableData, table);
             }

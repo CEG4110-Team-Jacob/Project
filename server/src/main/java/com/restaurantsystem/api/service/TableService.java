@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.restaurantsystem.api.data.Table;
 import com.restaurantsystem.api.repos.TableRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
-import com.restaurantsystem.api.shared.manager.PostTables;
+import com.restaurantsystem.api.shared.manager.PostTable;
 
 @Service
 public class TableService {
@@ -29,6 +29,8 @@ public class TableService {
             tableOld.setNumSeats(table.getNumSeats());
             tableOld.setNumber(table.getNumber());
             tableOld.setWaiter(table.getWaiter());
+            tableOld.setOccupied(table.isOccupied());
+            tableOld.setActive(table.isActive());
             tableRepository.save(tableOld);
         } else {
             tableRepository.save(table);
@@ -36,23 +38,18 @@ public class TableService {
     }
 
     @Transactional
-    public void setTables(PostTables tables) {
+    public void setTable(PostTable postTable) {
         // Set all tables as inactive
-        for (var table : tableRepository.findAll()) {
-            table.setActive(false);
-            tableRepository.save(table);
-        }
-        for (var postTable : tables.tables()) {
-            var newTable = new Table(postTable.x(), postTable.y());
-            newTable.setActive(true);
-            newTable.setNumber(postTable.number());
-            newTable.setNumSeats(postTable.numSeats());
-            var waiter = workerRepository.findById(postTable.waiter());
-            if (waiter.isEmpty())
-                newTable.setWaiter(null);
-            else
-                newTable.setWaiter(waiter.get());
-            addTable(newTable);
-        }
+        var newTable = new Table(postTable.x(), postTable.y());
+        newTable.setActive(postTable.isActive());
+        newTable.setNumber(postTable.number());
+        newTable.setNumSeats(postTable.numSeats());
+        newTable.setOccupied(postTable.isOccupied());
+        var waiter = workerRepository.findById(postTable.waiter());
+        if (waiter.isEmpty())
+            newTable.setWaiter(null);
+        else
+            newTable.setWaiter(waiter.get());
+        addTable(newTable);
     }
 }

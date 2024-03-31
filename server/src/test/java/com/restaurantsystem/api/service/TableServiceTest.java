@@ -3,9 +3,6 @@ package com.restaurantsystem.api.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
-import java.util.HashSet;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -14,8 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.restaurantsystem.api.BaseTests;
 import com.restaurantsystem.api.data.Table;
 import com.restaurantsystem.api.repos.TableRepository;
-import com.restaurantsystem.api.shared.manager.PostTables;
-import com.restaurantsystem.api.shared.manager.PostTables.PostTable;
+import com.restaurantsystem.api.shared.manager.PostTable;
 
 @Rollback(true)
 @Transactional
@@ -41,8 +37,9 @@ public class TableServiceTest extends BaseTests {
 
     @Test
     void setTables() {
-        var table = new PostTable(10, 10, 0, 10, 5);
-        tableService.setTables(new PostTables(new HashSet<>(Arrays.asList(table))));
-        assertTrue(tableRepository.findAllByIsActive(true, Table.class).size() == 1);
+        var prev = tableRepository.findAllByIsActive(true, Table.class).size();
+        var table = new PostTable(10, 10, 0, 10, 5, false, true);
+        tableService.setTable(table);
+        assertTrue(tableRepository.findAllByIsActive(true, Table.class).size() - prev == 1);
     }
 }

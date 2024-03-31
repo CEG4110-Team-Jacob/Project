@@ -22,8 +22,8 @@ public class Waiters {
 
     public record WaiterTable(
             int id,
-            int number, WaiterDetails waiter, boolean isOccupied, int numSeats) {
-        public record WaiterDetails(String firstName, String lastName) {
+            int number, WaiterDetails waiter, boolean isOccupied, int numSeats, int x, int y) {
+        public record WaiterDetails(String firstName, String lastName, int id) {
         }
 
         public record ListTables(List<WaiterTable> tables) {
@@ -65,12 +65,8 @@ public class Waiters {
         return cancelOrder.post(body);
     }
 
-    public static Optional<ListTables> setTables() {
-        return tables.set();
-    }
-
     public static Optional<ListTables> getTables() {
-        return tables.get();
+        return tables.set();
     }
 
 }

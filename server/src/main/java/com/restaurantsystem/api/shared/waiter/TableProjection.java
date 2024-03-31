@@ -5,6 +5,8 @@ public interface TableProjection {
         String getFirstName();
 
         String getLastName();
+
+        int getId();
     }
 
     int getId();
