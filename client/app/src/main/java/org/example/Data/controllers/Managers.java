@@ -30,6 +30,10 @@ public class Managers {
         };
     }
 
+    public record PostSetTable(int x, int y, int waiter, int number, int numSeats, boolean isOccupied,
+            boolean isActive) {
+    }
+
     private static PostMethods<PostCreateWorker, Boolean> createWorker = new PostMethods<>("/manager/createWorker",
             Boolean.class);
 
@@ -45,6 +49,12 @@ public class Managers {
             Boolean.class);
 
     private static PostMethods<Integer, Boolean> deleteItem = new PostMethods<>("/manager/deleteItem", Boolean.class);
+
+    private static PostMethods<PostSetTable, Boolean> setTable = new PostMethods<>("/manager/setTable", Boolean.class);
+
+    public static Optional<Boolean> setTable(PostSetTable body) {
+        return setTable.post(body);
+    }
 
     public static Optional<Boolean> deleteItem(Integer body) {
         return deleteItem.post(body);
@@ -75,7 +85,7 @@ public class Managers {
     }
 
     public static Optional<ListWorkers> getWorkers() {
-        return getWorkers.get();
+        return getWorkers.set();
     }
 
 }

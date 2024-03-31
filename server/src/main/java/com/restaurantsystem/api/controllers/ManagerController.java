@@ -12,7 +12,7 @@ import com.restaurantsystem.api.service.TableService;
 import com.restaurantsystem.api.shared.manager.AddItem;
 import com.restaurantsystem.api.shared.manager.ManagerViewWorker;
 import com.restaurantsystem.api.shared.manager.PostCreateAccount;
-import com.restaurantsystem.api.shared.manager.PostTables;
+import com.restaurantsystem.api.shared.manager.PostTable;
 
 import java.util.List;
 import java.util.Optional;
@@ -61,12 +61,12 @@ public class ManagerController {
         return ResponseEntity.ok(true);
     }
 
-    @PostMapping("/setTables")
-    public ResponseEntity<Boolean> setTables(@RequestBody PostTables tables, @RequestParam String t) {
+    @PostMapping("/setTable")
+    public ResponseEntity<Boolean> setTable(@RequestBody PostTable tables, @RequestParam String t) {
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Manager);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        tableService.setTables(tables);
+        tableService.setTable(tables);
         return ResponseEntity.ok().body(true);
     }
 

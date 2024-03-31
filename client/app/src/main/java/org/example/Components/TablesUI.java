@@ -41,7 +41,11 @@ public class TablesUI extends JPanel {
                 table.removeAll();
             }
         }
-        run.run();
+        try {
+            run.run();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         revalidate();
         repaint();
     }
