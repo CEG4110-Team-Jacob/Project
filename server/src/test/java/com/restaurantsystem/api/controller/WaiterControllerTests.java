@@ -125,7 +125,7 @@ public class WaiterControllerTests extends ControllerParentTests {
         var deliveredOrderId = 4;
         postMockMvcResult("/orderDone", Integer.toString(deliveredOrderId));
         var order = orderRepository.findById(deliveredOrderId);
-        assertEquals(order.get().getStatus(), Status.Complete);
+        assertEquals(order.get().getStatus(), Status.Completed);
         assertTrue(!tableRepository.findById(1).get().isOccupied());
     }
 

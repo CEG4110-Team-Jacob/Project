@@ -8,9 +8,11 @@ import com.restaurantsystem.api.data.Worker.Job;
 import com.restaurantsystem.api.repos.ItemRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.service.AuthenticationService;
+import com.restaurantsystem.api.service.TableService;
 import com.restaurantsystem.api.shared.manager.AddItem;
 import com.restaurantsystem.api.shared.manager.ManagerViewWorker;
 import com.restaurantsystem.api.shared.manager.PostCreateAccount;
+import com.restaurantsystem.api.shared.manager.PostTables;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +37,8 @@ public class ManagerController {
     @Autowired
     AuthenticationService authenticationService;
     @Autowired
+    TableService tableService;
+    @Autowired
     ItemRepository itemRepository;
     @Autowired
     WorkerRepository workerRepository;
@@ -55,6 +59,15 @@ public class ManagerController {
         if (newWorker.isEmpty())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         return ResponseEntity.ok(true);
+    }
+
+    @PostMapping("/setTables")
+    public ResponseEntity<Boolean> setTables(@RequestBody PostTables tables, @RequestParam String t) {
+        Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Manager);
+        if (worker.isEmpty())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        tableService.setTables(tables);
+        return ResponseEntity.ok().body(true);
     }
 
     @PostMapping("/deleteWorker")

@@ -144,7 +144,7 @@ public class WaiterController {
         Optional<Order> order = orderRepository.findById(orderId);
         if (order.isEmpty() || order.get().getStatus() != Status.Delivered)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        order.get().setStatus(Status.Complete);
+        order.get().setStatus(Status.Completed);
         order = Optional.of(orderRepository.save(order.get()));
         Table table = order.get().getTable();
         table.setOccupied(false);

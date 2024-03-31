@@ -55,7 +55,7 @@ public class Order {
      * Status of the order
      */
     public enum Status {
-        Cooked, Ordered, InProgress, Delivered, Complete, Canceled;
+        Cooked, Ordered, InProgress, Delivered, Completed, Canceled;
 
         public static boolean cook(Status in) {
             return in == Cooked || in == InProgress || in == Ordered;

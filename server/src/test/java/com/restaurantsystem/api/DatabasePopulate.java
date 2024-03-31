@@ -204,7 +204,7 @@ public class DatabasePopulate implements CommandLineRunner {
         Order o6 = new Order();
         o6.setItems(new ArrayList<>());
         itemRepository.findAllById(Arrays.asList(2, 3)).forEach(o6.getItems()::add);
-        o6.setStatus(Status.Complete);
+        o6.setStatus(Status.Completed);
         o6.setTimeOrdered(new Date());
         o6.setTimeCompleted(null);
         o6.setTotalPrice();
