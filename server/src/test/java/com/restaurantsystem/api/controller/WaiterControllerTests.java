@@ -108,7 +108,7 @@ public class WaiterControllerTests extends ControllerParentTests {
         assertEquals(orderRepository.findById(cookedOrderId).get().getStatus(), Status.Delivered);
         Optional<Table> table = tableRepository.findById(4);
         assertTrue(table.isPresent());
-        assertFalse(table.get().isOccupied());
+        assertFalse(!table.get().isOccupied());
         int orderedOrderId = 1;
         postMockMvcBuilder("/completeOrder", Integer.toString(orderedOrderId))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
@@ -118,6 +118,15 @@ public class WaiterControllerTests extends ControllerParentTests {
         int deliveredOrderId = 4;
         postMockMvcBuilder("/completeOrder", Integer.toString(deliveredOrderId))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @Test
+    void orderDone() throws Exception {
+        var deliveredOrderId = 4;
+        postMockMvcResult("/orderDone", Integer.toString(deliveredOrderId));
+        var order = orderRepository.findById(deliveredOrderId);
+        assertEquals(order.get().getStatus(), Status.Complete);
+        assertTrue(!tableRepository.findById(1).get().isOccupied());
     }
 
     @Test

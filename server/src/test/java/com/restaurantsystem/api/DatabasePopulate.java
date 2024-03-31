@@ -201,18 +201,16 @@ public class DatabasePopulate implements CommandLineRunner {
         o5.setWaiter(workerRepository.findByUsername(Waiter1.username).get());
         orderRepository.save(o5);
 
-        for (int i = 0; i < 30; i++) {
-            Order o182 = new Order();
-            o182.setItems(new ArrayList<>());
-            itemRepository.findAllById(Arrays.asList(1, 2, 3)).forEach(o182.getItems()::add);
-            o182.setStatus(Status.Ordered);
-            o182.setTimeOrdered(new Date());
-            o182.setTimeCompleted(null);
-            o182.setTotalPrice();
-            o182.setTable(new Table(2));
-            o182.setWaiter(workerRepository.findByUsername(Waiter1.username).get());
-            orderRepository.save(o182);
-        }
+        Order o6 = new Order();
+        o6.setItems(new ArrayList<>());
+        itemRepository.findAllById(Arrays.asList(2, 3)).forEach(o6.getItems()::add);
+        o6.setStatus(Status.Complete);
+        o6.setTimeOrdered(new Date());
+        o6.setTimeCompleted(null);
+        o6.setTotalPrice();
+        o6.setTable(new Table(1));
+        o6.setWaiter(workerRepository.findByUsername(Waiter1.username).get());
+        orderRepository.save(o6);
     }
 
     @Override

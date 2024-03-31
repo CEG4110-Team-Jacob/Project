@@ -73,7 +73,7 @@ public class WaiterController {
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         List<GetOrderWaiter> order = orderRepository.findAllByStatusInAndWaiter(
-                Arrays.asList(Status.InProgress, Status.Ordered, Status.Cooked), worker.get(),
+                Arrays.asList(Status.InProgress, Status.Ordered, Status.Cooked, Status.Delivered), worker.get(),
                 GetOrderWaiter.class);
         ResponseEntity<Orders> orders = new ResponseEntity<Orders>(new Orders(order),
                 HttpStatus.OK);
@@ -130,6 +130,21 @@ public class WaiterController {
         if (order.isEmpty() || order.get().getStatus() != Status.Cooked)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         order.get().setStatus(Status.Delivered);
+        orderRepository.save(order.get());
+        return new ResponseEntity<>(true, HttpStatus.OK);
+    }
+
+    @PostMapping("/orderDone")
+    @Transactional
+    public ResponseEntity<Boolean> orderDone(@RequestBody Integer orderId,
+            @RequestParam(value = "t") String token) {
+        Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(token, Job.Waiter);
+        if (worker.isEmpty())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        Optional<Order> order = orderRepository.findById(orderId);
+        if (order.isEmpty() || order.get().getStatus() != Status.Delivered)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        order.get().setStatus(Status.Complete);
         order = Optional.of(orderRepository.save(order.get()));
         Table table = order.get().getTable();
         table.setOccupied(false);

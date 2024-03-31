@@ -55,7 +55,7 @@ public class CookControllerTests extends ControllerParentTests {
 
     @Test
     void setStatus() throws Exception {
-        postMockMvcBuilder("/setStatus", toJson(new PostSetStatus(Status.Delivered, 1)))
+        postMockMvcBuilder("/setStatus", toJson(new PostSetStatus(Status.Complete, 1)))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
         postMockMvcResult("/setStatus", toJson(new PostSetStatus(Status.InProgress, 1)));
         Optional<Order> order = orderRepository.findById(1);
