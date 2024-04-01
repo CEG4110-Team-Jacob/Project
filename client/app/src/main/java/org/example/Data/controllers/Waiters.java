@@ -20,7 +20,7 @@ public class Waiters {
         }
     }
 
-    public record WaiterPostOrder(List<Integer> items, int table) {
+    public record WaiterPostOrder(List<Integer> items, int tableId) {
     }
 
     public record WaiterTable(
