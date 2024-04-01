@@ -51,6 +51,7 @@ public class DatabasePopulate implements CommandLineRunner {
             table.setNumSeats(3);
             table.setOccupied(false);
             table.setActive(true);
+            table.setWaiter(new Worker(1));
             return table;
         };
         Table table1 = tableCreator.apply(0, 0);

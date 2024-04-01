@@ -2,13 +2,15 @@ package org.example.Pages.Cooks;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import javax.swing.Timer;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,6 +23,7 @@ import org.example.Data.controllers.Cooks;
 import org.example.Data.controllers.Cooks.CookOrder;
 import org.example.Data.controllers.Cooks.PostSetStatus;
 import org.example.Data.enums.Status;
+import org.example.Data.records.Item;
 
 public class OrdersUI extends JPanel {
     OrdersStuff gridPanel;
@@ -35,7 +38,7 @@ public class OrdersUI extends JPanel {
         public OrdersStuff() throws Exception {
             setLayout(new BorderLayout());
 
-            grid = new JPanel(new GridLayout(0, 5, 10, 10));
+            grid = new JPanel(new GridLayout(0, 3, 10, 10));
 
             JScrollPane scrollPane = new JScrollPane(grid);
             add(scrollPane, BorderLayout.CENTER);
@@ -53,31 +56,45 @@ public class OrdersUI extends JPanel {
         }
 
         /**
-         * OrderUI
+         * OrderUI Improved By ChatGPT
          */
         public class OrderUI extends JPanel {
             public OrderUI(CookOrder order, Runnable update) {
                 setBorder(BorderFactory.createLineBorder(Color.black));
                 setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-                add(new JLabel("Id: " + Integer.toString(order.id())));
-                var status = new JPanel(new BorderLayout());
-                var statusBox = new JComboBox<>(Status.cooks);
-                statusBox.setSelectedItem(order.status());
-                statusBox.addActionListener(e -> {
-                    var stat = (Status) statusBox.getSelectedItem();
-                    Cooks.setStatus(new PostSetStatus(order.id(), stat));
+                // Id
+                add(createInfoLabel("Id: " + order.id()));
+
+                // Time ordered
+                add(createInfoLabel("Time ordered: " + new SimpleDateFormat("HH:mm").format(order.timeOrdered())));
+
+                // Status
+                JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                JComboBox<Status> statusComboBox = new JComboBox<>(Status.cooks);
+                statusComboBox.setSelectedItem(order.status());
+                statusComboBox.setPreferredSize(new Dimension(120, statusComboBox.getPreferredSize().height));
+                statusComboBox.addActionListener(e -> {
+                    Status selectedStatus = (Status) statusComboBox.getSelectedItem();
+                    Cooks.setStatus(new PostSetStatus(order.id(), selectedStatus));
                     update.run();
                 });
-                status.add(statusBox, BorderLayout.CENTER);
-                status.add(new JLabel("Status: "), BorderLayout.WEST);
-                add(status);
-                add(new JLabel("Time ordered: " + new SimpleDateFormat("HH:mm").format(order.timeOrdered())));
-                add(Box.createVerticalStrut(10));
-                add(new JLabel("Items: "));
-                for (var item : order.items()) {
-                    add(new JLabel(item.name()));
+                statusPanel.add(new JLabel("Status: "));
+                statusPanel.add(statusComboBox);
+                add(statusPanel);
+
+                // Items
+                // add(Box.createVerticalStrut(10));
+                add(createInfoLabel("Items:"));
+                for (Item item : order.items()) {
+                    add(createInfoLabel("- " + item.name()));
                 }
+            }
+
+            private JLabel createInfoLabel(String text) {
+                JLabel label = new JLabel(text);
+                label.setAlignmentX(Component.LEFT_ALIGNMENT);
+                return label;
             }
         }
     }

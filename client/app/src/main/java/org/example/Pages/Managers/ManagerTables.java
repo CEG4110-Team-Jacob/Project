@@ -7,6 +7,7 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
@@ -98,7 +99,6 @@ public class ManagerTables extends JPanel {
                 tablePanel.seatsField.setText(Integer.toString(tableData.numSeats()));
                 tablePanel.occupiedCombo.setSelectedItem(tableData.isOccupied());
 
-                var buttons = new JPanel();
                 var applyButton = new JButton("Apply");
                 var deleteButton = new JButton("Delete");
                 applyButton.addActionListener(e -> {
@@ -125,10 +125,8 @@ public class ManagerTables extends JPanel {
                     }
                 });
 
-                buttons.add(applyButton);
-                buttons.add(deleteButton);
-
-                tablePanel.add(buttons);
+                tablePanel.add(applyButton);
+                tablePanel.add(deleteButton);
             }
             // Add create button for every table not already taken
             for (int i = 0; i < TablesUI.X; i++) {
@@ -153,14 +151,18 @@ public class ManagerTables extends JPanel {
                             var post = new PostSetTable(x, y, waiterId, number, numSeats,
                                     isOccupied,
                                     true);
-                            Managers.setTable(post);
-                            frame.dispose();
                             try {
+                                Managers.setTable(post).get();
+                                frame.dispose();
                                 this.update();
                             } catch (Exception ex) {
+                                JOptionPane.showMessageDialog(null, "Could Not Create Table");
                             }
                         });
                         panel.add(create);
+                        JButton exitButton = new JButton("Exit");
+                        exitButton.addActionListener(event -> frame.dispose());
+                        panel.add(exitButton);
 
                         frame.setContentPane(panel);
                         frame.setVisible(true);

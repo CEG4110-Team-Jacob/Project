@@ -11,6 +11,7 @@ import org.example.Pages.HostUI;
 import org.example.Pages.Login;
 import org.example.Pages.Cooks.CookOptions;
 import org.example.Pages.Managers.ManagerOptionsMenu;
+import org.example.Pages.Waiters.WaiterUI;
 
 public class MainFrame extends JFrame {
 
@@ -47,6 +48,8 @@ public class MainFrame extends JFrame {
                     setMainContentPane(options);
                     break;
                 case Waiter:
+                    var waitersUI = new WaiterUI(() -> setMainContentPane(login));
+                    setMainContentPane(waitersUI);
                     break;
             }
         });

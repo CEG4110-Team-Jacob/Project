@@ -61,6 +61,8 @@ public class Login extends JPanel {
                 Optional<String> token = General.login(username, password);
                 if (token.isPresent()) {
                     login.login();
+                    usernameField.setText("");
+                    passwordField.setText("");
                 } else {
                     JOptionPane.showMessageDialog(Login.this, "Invalid username or password. Please try again.");
                     // Clear the password field

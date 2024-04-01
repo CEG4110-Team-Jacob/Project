@@ -49,7 +49,10 @@ public class WaiterControllerTests extends ControllerParentTests {
 
     record ListOfOrders(List<OrderRecord> orders) {
         record OrderRecord(int id, List<TestSharedItem> items, Date timeOrdered, Status status,
-                int totalPrice) {
+                int totalPrice, Table table) {
+        }
+
+        public record Table(int id) {
         }
     }
 
