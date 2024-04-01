@@ -25,11 +25,12 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
+
     private String name;
+
     private String description;
     private ItemType type;
     private int price; // Price in cents
-
     private boolean inStock;
     private boolean isActive = true;
 
@@ -38,6 +39,13 @@ public class Item {
      */
     @ManyToMany(mappedBy = "items")
     private Set<Order> orders;
+
+    public Item(int id) {
+        this.id = id;
+    }
+
+    public Item() {
+    }
 
     public boolean isActive() {
         return isActive;
