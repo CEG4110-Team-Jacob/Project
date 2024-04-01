@@ -2,7 +2,8 @@ package org.example.Pages.Managers;
 
 import java.util.HashMap;
 
-import javax.swing.BoxLayout;
+import java.awt.GridLayout;
+
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,33 +18,25 @@ public class CreateTable extends JPanel {
 
     public CreateTable(HashMap<String, Integer> waitersMap) {
         this.waitersMap = waitersMap;
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        JPanel waiterPanel = new JPanel();
-        waiterPanel.add(new JLabel("Waiter: "));
+        setLayout(new GridLayout(0, 2, 5, 5));
+        add(new JLabel("Waiter: "));
 
         waiterCombo = new JComboBox<String>(waitersMap.keySet().toArray(new String[] {}));
         waiterCombo.setSelectedItem("");
-        waiterPanel.add(waiterCombo);
+        add(waiterCombo);
 
-        JPanel numberPanel = new JPanel();
-        numberPanel.add(new JLabel("Number: "));
+        add(new JLabel("Number: "));
         numberField = new JTextField(0);
-        numberPanel.add(numberField);
+        add(numberField);
 
-        JPanel seatsPanel = new JPanel();
-        seatsPanel.add(new JLabel("Seats: "));
+        add(new JLabel("Seats: "));
         seatsField = new JTextField(0);
-        seatsPanel.add(seatsField);
+        add(seatsField);
 
-        JPanel occupyPanel = new JPanel();
-        occupyPanel.add(new JLabel("Occupied: "));
+        add(new JLabel("Occupied: "));
         occupiedCombo.setSelectedItem(false);
-        occupyPanel.add(occupiedCombo);
+        add(occupiedCombo);
 
-        add(waiterPanel);
-        add(numberPanel);
-        add(occupyPanel);
-        add(seatsPanel);
     }
 
 }
