@@ -24,7 +24,9 @@ public class Worker {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
+
     private String firstName;
+
     private String lastName;
     private String username;
     private String passwordHash;
@@ -40,12 +42,18 @@ public class Worker {
      * The orders a waiter has taken
      */
     private Set<Order> orders;
-
     @OneToMany(mappedBy = "waiter")
     /**
      * The tables a waiter serves
      */
     private Set<Table> tables;
+
+    public Worker(int id) {
+        this.id = id;
+    }
+
+    public Worker() {
+    }
 
     public String getFirstName() {
         return firstName;

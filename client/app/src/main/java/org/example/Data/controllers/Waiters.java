@@ -12,9 +12,12 @@ import org.example.Data.enums.Status;
 import org.example.Data.records.Item;
 
 public class Waiters {
-    public record WaiterOrder(int id, List<Item> items, Date timeOrdered, Status status, int totalPrice) {
+    public record WaiterOrder(int id, List<Item> items, Date timeOrdered, Status status, int totalPrice, Table table) {
         public record ListOrders(List<WaiterOrder> orders) {
         };
+
+        public record Table(int id) {
+        }
     }
 
     public record WaiterPostOrder(List<Integer> items, int table) {
@@ -49,12 +52,8 @@ public class Waiters {
         orders.reset();
     }
 
-    public static Optional<ListOrders> setOrders() {
-        return orders.set();
-    }
-
     public static Optional<ListOrders> getOrders() {
-        return orders.get();
+        return orders.set();
     }
 
     public static Optional<Boolean> completeOrder(Integer body) {
