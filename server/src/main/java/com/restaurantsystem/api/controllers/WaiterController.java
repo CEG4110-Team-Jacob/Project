@@ -96,7 +96,7 @@ public class WaiterController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         Order o = new Order();
         List<Item> items = new ArrayList<>();
-        itemRepository.findAllById(order.items()).forEach(items::add);
+        order.items().stream().forEach(item -> items.add(new Item(item)));
         o.setItems(items);
         o.setTimeOrdered(new Date());
         o.setTimeCompleted(null);

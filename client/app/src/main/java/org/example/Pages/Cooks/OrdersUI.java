@@ -83,12 +83,15 @@ public class OrdersUI extends JPanel {
                 statusPanel.add(statusComboBox);
                 add(statusPanel);
 
+                var itemsPanel = new JPanel();
+                itemsPanel.setLayout(new BoxLayout(itemsPanel, BoxLayout.Y_AXIS));
+
                 // Items
-                // add(Box.createVerticalStrut(10));
                 add(createInfoLabel("Items:"));
                 for (Item item : order.items()) {
-                    add(createInfoLabel("- " + item.name()));
+                    itemsPanel.add(createInfoLabel("- " + item.name()));
                 }
+                add(new JScrollPane(itemsPanel));
             }
 
             private JLabel createInfoLabel(String text) {

@@ -55,4 +55,17 @@ public class HostController {
         return ResponseEntity.ok().body(true);
     }
 
+    @PostMapping("/vacant")
+    @Transactional
+    public ResponseEntity<Boolean> vacant(@RequestParam String t, @RequestBody int id) {
+        var worker = authenticationService.hasJobAndAuthenticate(t, Job.Host);
+        if (worker.isEmpty())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        var table = tableRepository.findById(id);
+        if (table.isEmpty() || !table.get().isActive() || !table.get().isOccupied())
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        table.get().setOccupied(false);
+        tableRepository.save(table.get());
+        return ResponseEntity.ok().body(true);
+    }
 }

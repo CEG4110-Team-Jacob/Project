@@ -15,9 +15,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
+import org.example.Components.ItemsUI;
+import org.example.Components.ItemsUI.ElementCreator;
 import org.example.Data.controllers.Cooks;
-import org.example.Pages.ItemsUI;
-import org.example.Pages.ItemsUI.ElementCreator;
 import org.example.Pages.Utils.OptionsUI;
 
 public class CookOptions extends OptionsUI {

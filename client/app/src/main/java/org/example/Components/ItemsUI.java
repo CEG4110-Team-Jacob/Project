@@ -1,4 +1,4 @@
-package org.example.Pages;
+package org.example.Components;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;

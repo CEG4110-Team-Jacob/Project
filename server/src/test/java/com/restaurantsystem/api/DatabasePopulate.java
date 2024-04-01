@@ -75,7 +75,13 @@ public class DatabasePopulate implements CommandLineRunner {
 
         Table table5 = tableCreator.apply(0, 4);
         table5.setNumber(5);
+        table5.setOccupied(true);
         tableRepository.save(table5);
+
+        Table table6 = tableCreator.apply(0, 5);
+        table6.setNumber(6);
+        table6.setOccupied(true);
+        tableRepository.save(table6);
     }
 
     public void populateItems() {
