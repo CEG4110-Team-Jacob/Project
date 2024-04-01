@@ -1,27 +1,42 @@
 package org.example.Pages.Waiters;
 
 import javax.swing.*;
+
+import org.example.Components.ListUI;
+import org.example.Data.controllers.Waiters.WaiterTable;
+import org.example.Data.records.Item;
+
 import java.awt.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class Waiters extends JPanel {
+public class WaiterOrderUI extends JPanel {
     Details details;
     Menu menu;
     Order order;
-    List<Integer> selectedPrices; // List to store the prices of selected items
-    List<String> selectedItems; // List to store the names of selected items
+    List<Item> selectedItems; // List to store the prices of selected items
+    Runnable exit;
+    WaiterTable table;
 
-    public Waiters() {
+    public WaiterOrderUI(WaiterTable table, Runnable exit) {
+        this.exit = exit;
+        this.table = table;
+
         setLayout(new BorderLayout());
-        details = new Details();
-        menu = new Menu();
+        details = new Details(table);
+        try {
+            menu = new Menu();
+        } catch (Exception e) {
+            e.printStackTrace();
+            exit.run();
+        }
         order = new Order();
-        selectedPrices = new ArrayList<>();
         selectedItems = new ArrayList<>();
         add(details, BorderLayout.NORTH);
         add(menu, BorderLayout.CENTER);
-        add(order, BorderLayout.SOUTH);
+        add(order, BorderLayout.WEST);
     }
 
     class Details extends JPanel {
@@ -29,19 +44,19 @@ public class Waiters extends JPanel {
         JLabel table;
         JLabel time;
 
-        public Details() {
+        public Details(WaiterTable tableData) {
             setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
             setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-            waiter = new JLabel("Waiter: ____");
+            waiter = new JLabel("Waiter: " + tableData.waiter().firstName() + " " + tableData.waiter().lastName());
             waiter.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             add(waiter);
 
-            table = new JLabel("Table: ____");
+            table = new JLabel("Table: " + tableData.number());
             table.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             add(table);
 
-            time = new JLabel("Time: ____");
+            time = new JLabel("Time: " + new SimpleDateFormat("HH:MM").format(new Date()));
             time.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             add(time);
         }
@@ -51,7 +66,7 @@ public class Waiters extends JPanel {
         JPanel total;
         JPanel items;
         JLabel totalPriceLabel;
-        JTextArea selectedItemsArea; // TextArea to display selected items
+        ListUI selectedItemsArea; // TextArea to display selected items
 
         public Order() {
             setLayout(new BorderLayout());
@@ -69,53 +84,19 @@ public class Waiters extends JPanel {
             total.add(new JLabel());
             total.add(new JLabel("Status: "));
             total.add(new JLabel());
-            add(total, BorderLayout.WEST);
+            add(total, BorderLayout.SOUTH);
 
-            items = new JPanel();
-            items.setLayout(new BorderLayout());
-            items.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-            selectedItemsArea = new JTextArea();
-            selectedItemsArea.setEditable(false);
-            JScrollPane scrollPane = new JScrollPane(selectedItemsArea);
-            items.add(scrollPane, BorderLayout.CENTER);
-            add(items, BorderLayout.CENTER);
+            selectedItemsArea = new ListUI();
+            selectedItemsArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            add(selectedItemsArea, BorderLayout.CENTER);
         }
-
-        // Update total price label based on the selected items
-        public void updateTotalPrice() {
-            int totalPrice = 0;
-            for (Integer price : selectedPrices) {
-                totalPrice += price;
-            }
-            totalPriceLabel.setText("$" + String.format("%.2f", totalPrice / 100.0)); // Display total price in dollars
-        }
-
-        // Update selected items list
-        public void updateSelectedItems(String itemName, int itemPrice) {
-            selectedItems.add(itemName);
-            selectedPrices.add(itemPrice);
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < selectedItems.size(); i++) {
-                String item = selectedItems.get(i);
-                int price = selectedPrices.get(i);
-                sb.append(item);
-                // Add spaces to align prices to the right
-                for (int j = 0; j < 30 - item.length(); j++) {
-                    sb.append(" ");
-                }
-                sb.append("$").append(String.format("%.2f", price / 100.0)).append("\n");
-            }
-            selectedItemsArea.setText(sb.toString());
-        }
-        
     }
 
     class Menu extends JPanel {
         JPanel food;
         JPanel drinks;
 
-        public Menu() {
+        public Menu() throws Exception {
             setLayout(new GridLayout(1, 2, 10, 10));
             setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -149,11 +130,13 @@ public class Waiters extends JPanel {
             itemPanel.add(label, BorderLayout.SOUTH);
             panel.add(itemPanel);
 
-            // Add price and item name to selectedPrices and selectedItems lists when button is clicked
+            // Add price and item name to selectedPrices and selectedItems lists when button
+            // is clicked
             button.addActionListener(e -> {
-                selectedPrices.add(price);
-                order.updateTotalPrice(); // Update total price label
-                order.updateSelectedItems(itemName, price); // Update selected items list with price
+                // selectedItems.add(price);
+                // order.updateTotalPrice(); // Update total price label
+                // order.updateSelectedItems(itemName, price); // Update selected items list
+                // with price
             });
         }
     }

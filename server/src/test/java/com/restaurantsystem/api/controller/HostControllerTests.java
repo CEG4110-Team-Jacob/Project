@@ -36,7 +36,13 @@ public class HostControllerTests extends ControllerParentTests {
 
     @Test
     void occupy() throws Exception {
-        postMockMvcResult("/occupy", "5");
-        assertTrue(tableRepository.findById(5).get().isOccupied());
+        postMockMvcResult("/occupy", "1");
+        assertTrue(tableRepository.findById(1).get().isOccupied());
+    }
+
+    @Test
+    void vacant() throws Exception {
+        postMockMvcResult("/vacant", "6");
+        assertTrue(!tableRepository.findById(6).get().isOccupied());
     }
 }

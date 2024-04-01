@@ -3,8 +3,9 @@ package org.example.Pages.Managers;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import org.example.Components.ItemsUI;
 import org.example.Components.ManagerItemView;
-import org.example.Pages.ItemsUI;
 
 public class ManagerItemsUI extends ItemsUI {
     public ManagerItemsUI(Runnable exit, Runnable createItemF) {

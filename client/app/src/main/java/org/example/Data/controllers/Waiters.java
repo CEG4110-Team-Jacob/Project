@@ -39,10 +39,15 @@ public class Waiters {
             WaiterTable.ListTables.class);
     private static PostMethods<WaiterPostOrder, Integer> addOrder = new PostMethods<>("/waiter/addOrder",
             Integer.class);
-    private static PostMethods<Integer, Boolean> completeOrder = new PostMethods<>("/water/completeOrder",
+    private static PostMethods<Integer, Boolean> completeOrder = new PostMethods<>("/waiter/completeOrder",
             Boolean.class);
-    private static PostMethods<Integer, Boolean> cancelOrder = new PostMethods<>("/water/cancelOrder",
+    private static PostMethods<Integer, Boolean> cancelOrder = new PostMethods<>("/waiter/cancelOrder",
             Boolean.class);
+    private static PostMethods<Integer, Boolean> orderDone = new PostMethods<>("/waiter/orderDone", Boolean.class);
+
+    public static Optional<Boolean> orderDone(Integer body) {
+        return orderDone.post(body);
+    }
 
     public static Optional<Integer> addOrder(WaiterPostOrder body) {
         return addOrder.post(body);

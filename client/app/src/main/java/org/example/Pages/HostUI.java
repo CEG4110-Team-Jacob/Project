@@ -59,7 +59,15 @@ public class HostUI extends JPanel {
         tableUI.add(new JLabel("Number: " + table.number()));
         tableUI.add(new JLabel("Seats: " + table.numSeats()));
         if (table.isOccupied()) {
-            tableUI.add(new JButton("Occupied"));
+            JButton occupyButton = new JButton("Occupied");
+            occupyButton.addActionListener(e -> {
+                Hosts.vacant(table.id());
+                try {
+                    this.update();
+                } catch (Exception ex) {
+                }
+            });
+            tableUI.add(occupyButton);
             tableUI.setBackground(Color.YELLOW);
         } else {
             JButton occupy = new JButton("Occupy");
