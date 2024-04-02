@@ -31,10 +31,10 @@ public class DatabasePopulate implements CommandLineRunner {
 
     static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public static final Login Waiter1 = new Login("jd", "janedoe");
-    public static final Login Host1 = new Login("jin", "jindigo");
-    public static final Login Cook1 = new Login("TimCook", "Apple");
-    public static final Login Manager1 = new Login("OrangeGuy", "Wall");
+    public static final Login Waiter1 = new Login("waiter", "waiter");
+    public static final Login Host1 = new Login("host", "host");
+    public static final Login Cook1 = new Login("cook", "cook");
+    public static final Login Manager1 = new Login("manager", "manager");
 
     @Autowired
     ItemRepository itemRepository;
@@ -118,7 +118,7 @@ public class DatabasePopulate implements CommandLineRunner {
     public void populateWorkers() {
         Worker waiter1 = new Worker();
         waiter1.setAge(18);
-        waiter1.setFirstName("Jane");
+        waiter1.setFirstName("Waiter");
         waiter1.setLastName("Doe");
         waiter1.setJob(Job.Waiter);
         waiter1.setUsername(Waiter1.username);
@@ -128,8 +128,8 @@ public class DatabasePopulate implements CommandLineRunner {
 
         Worker host = new Worker();
         host.setAge(16);
-        host.setFirstName("Jim");
-        host.setLastName("Indigo");
+        host.setFirstName("Host");
+        host.setLastName("Hostess");
         host.setJob(Job.Host);
         host.setUsername(Host1.username);
         host.setPasswordHash(passwordEncoder.encode(Host1.password));
@@ -138,8 +138,8 @@ public class DatabasePopulate implements CommandLineRunner {
 
         Worker cook = new Worker();
         cook.setAge(63);
-        cook.setFirstName("Tim");
-        cook.setLastName("Cook");
+        cook.setFirstName("Cook");
+        cook.setLastName("Tim");
         cook.setJob(Job.Cook);
         cook.setUsername(Cook1.username);
         cook.setPasswordHash(passwordEncoder.encode(Cook1.password));
@@ -148,8 +148,8 @@ public class DatabasePopulate implements CommandLineRunner {
 
         Worker manager = new Worker();
         manager.setAge(77);
-        manager.setFirstName("Donald");
-        manager.setLastName("NotTrump");
+        manager.setFirstName("Manager");
+        manager.setLastName("Trump");
         manager.setJob(Job.Manager);
         manager.setUsername(Manager1.username);
         manager.setPasswordHash(passwordEncoder.encode(Manager1.password));
