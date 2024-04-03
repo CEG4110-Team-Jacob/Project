@@ -25,19 +25,19 @@
 8. Documentation can be found [here](https://github.com/CEG4110-Team-Jacob/Project/wiki/Server)
 
 
-## User Interface
+## Function Requirements
 
-1. The software can be closed using the button labeled exit
-![CookChangeStatus](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/b01add98-1d36-4709-981c-1d70eda437c1)
+1. The software allows the users to manage orders. 
+![OrderToCook](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/53806115-6cbb-4e3d-9f4e-177f4af1c00b)
+![CookOrder](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/fc548ecf-d4b2-4d33-af18-885019ddd8ad)
 
-2. The tables can be selected individualy. ![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/347a94aa-c003-4b72-9791-97c13b979451)
-
-
-3. The software allows the user to manager to make changes to the menu.
-![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/bd4e5185-82f0-497e-a536-41020e78e69d)
+![CookChangeStatus](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/f4afbb61-0c88-403a-a2cb-4f61b8e1420d)
+![WaiterServe](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/d535d218-6ccf-4593-99ce-551f8ee6b7f5)
 
 
-4. The software allows the user to sign out and login.
-   ![Login](../gifs/Login.gif)
-   Curl
-   ![Curl GET](../img/CurlLogin.png)
+2. The software allows the manager to manage the staff accounts. 
+
+![Create Account](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/01372e29-efe0-4e1f-ab35-6f8d05f30e1d)
+
+4. The software allows for management of the menu. 
+![Menu Management](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/7ea95c6b-dc6d-4ae6-b96d-bcea7a26f1fd)
