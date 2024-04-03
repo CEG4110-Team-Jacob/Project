@@ -43,4 +43,4 @@
 ![Menu Management](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/7ea95c6b-dc6d-4ae6-b96d-bcea7a26f1fd)
 
 ## Database Requirements
-1. Database ER Diagram can be found [here](https://github.com/CEG4110-Team-Jacob/Project/blob/main/server/database/RestoModel.mwb)
+1. Database ER Diagram can be found ![here](https://github.com/CEG4110-Team-Jacob/Project/blob/main/server/database/RestoDiagram.pdf)
