@@ -52,7 +52,7 @@
 2. The manager's view of the tables. ![here](../img/TableView.png)
       1. The manager can assign waitstaff to tables.
       2. The manager can see which waitstaff belongs to which table.
-3. The manager can add and delete tables as necessary. ![here](../img/TableCreate.png)
+3. The manager can add and delete tables as necessary. ![here](../img/TableCreate.PNG)
 4. The manager can edit the menu as they wish. ![here](../img/Menu.png)
       1. The manager can add or delete items.
       2. The manager can edit the price of the items.
