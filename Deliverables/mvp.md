@@ -44,4 +44,4 @@
 
 ## Database Requirements
 1. Database ERR Diagram can be found [here](https://github.com/CEG4110-Team-Jacob/Project/blob/main/server/database/RestoDiagram.pdf)
-2. Database and Views Implementation can be found [here]()
+2. Database and Views Implementation can be found [here](https://github.com/CEG4110-Team-Jacob/Project/blob/main/server/database/RestoDatabase.sql)
