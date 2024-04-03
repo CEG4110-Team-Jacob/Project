@@ -46,3 +46,23 @@
 1. Database ERR Diagram can be found [here](https://github.com/CEG4110-Team-Jacob/Project/blob/main/server/database/RestoDiagram.pdf)
 2. Database and Views Implementation can be found [here](https://github.com/CEG4110-Team-Jacob/Project/blob/main/server/database/RestoDatabase.sql)
 3. Database Documentation is pending due to issues with creating the database.
+
+## UI Requirements
+1. The button exists. ![Exit](link to image)
+2. The manager view of the tables. ![here](link to image)
+      1. The manager can assign waitstaff to tables.
+      2. The manager can see which waitstaff belongs to which table.
+3. The manager can add and delete tables as necessary. ![here](link to image)
+4. The manager can edit the menu as they wish. ![here](link to image)
+      1. The manager can add or delete items.
+      2. The manager can edit the price of the items.
+5. The user can use the logout button ![logout](logout button here) to be redirected to the login page to change accounts. ![login](login button)
+      1. The pages viewable by a user is dependent on their role
+           1. Waiter: ![waiter](waiter_image)
+           2. Host: ![host](host image)
+           3. Cook: ![cook](cook image)
+           4. Manager: ![manager(manager image)
+      2. The manager has access to all the pages except for the cooks "orders" page.
+            1. The manager can view information on other staff members. ![manager view](manager view image)
+6. The manager can swap views at any time by clicking the exit button and then a different page to view.
+8. Documentation has not been written at this time.
