@@ -134,21 +134,21 @@ We will assume that the server that is hosting the software will be running Linu
 
 ## User Interface
 
-1. The software shall be able to be closed using a button labeled 'exit'.
-2. The software shall allow the selection of individual tables.
-   1. The user shall be able to assign groups of tables to certain waitstaff.
-   2. The user shall be able to view the tables that each waitstaff are responsible for.
-3. The software shall allow the user to reconfigure the table layout.
-   1. Managerial staff shall be able to move, add, and remove tables as necessary.
-4. The software shall allow the user to reconfigure the menu.
-   1. Managerial staff shall be able to add and remove items from the menu.
-   2. Managerial staff shall be able to edit the price of menu items.
-5. The software shall allow a user to swap to a different account.
-   1. The amount of features usable by a specific user shall be dependent on the specific type of user.
-   2. Managerial staff shall have access to all of the features that other staff members have access to.
-      1. Managerial staff shall be able to view the current status of other staff members.
-      2. Managerial staff shall be able to message all staff members.
-6. The user shall be able to change views between the restaurant layout and information about the menu and orders.
-7. The User Interface shall have proper documentation.
-   1. Documentation shall be included for how to use the User Interface as each different staff position.
-      1. This shall include managerial staff, waitstaff, host staff, and kitchen staff.
+1. The software shall be able to be closed using a button labeled 'exit'. `e. Existence`
+2. The software shall allow the selection of individual tables. `e. Checking`
+   1. The user shall be able to assign groups of tables to certain waitstaff. `e. Checking`
+   2. The user shall be able to view the tables that each waitstaff are responsible for. `e. Checking`
+3. The software shall allow the user to reconfigure the table layout. `e. Checking`
+   1. Managerial staff shall be able to move, add, and remove tables as necessary. `e. Checking`
+4. The software shall allow the user to reconfigure the menu. `e. Checking`
+   1. Managerial staff shall be able to add and remove items from the menu. `e. Checking`
+   2. Managerial staff shall be able to edit the price of menu items. `e. Checking`
+5. The software shall allow a user to swap to a different account. `e. Checking`
+   1. The amount of features usable by a specific user shall be dependent on the specific type of user. `e. Checking`
+   2. Managerial staff shall have access to all of the features that other staff members have access to. `e. Checking`
+      1. Managerial staff shall be able to view the current status of other staff members. `e. Checking`
+      2. Managerial staff shall be able to message all staff members. `e. Existence`
+6. The user shall be able to change views between the restaurant layout and information about the menu and orders. `e. Existence`
+7. The User Interface shall have proper documentation. `e. Existence`
+   1. Documentation shall be included for how to use the User Interface as each different staff position. `e. Existence`
+      1. This shall include managerial staff, waitstaff, host staff, and kitchen staff. `e. Existence`
