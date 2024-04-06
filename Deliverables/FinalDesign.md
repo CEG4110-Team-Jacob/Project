@@ -2,24 +2,30 @@
 
 ## Functional
 
-1. The waiters view of the table will feauture the name, table number, time of order, list of items on the menu. After selection of the orders for the table, the total price, tax and the list of items will be listed in the waiters tab. As soon as the order is taken, the list will be displayed on the cooks side.
-   ![waiterTable Order](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/a694c4ea-582d-48a7-afda-0c62638cae83)
+1. The waiters view of the table features the name, table number, time of order, list of items on the menu. After selection of the orders for the table, the total price, tax and the list of items are listed in the waiters tab. As soon as the order is taken, the list are displayed on the cooks side.
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/427d5640-45b3-4fac-a5d1-50a63638b820)
 
-(This is what the MENU looks like)
-![actual menu](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/e4a91526-194a-44d9-89ef-c49b6cccc016)
 
-2. The waiters table view will display the tables that the waiter has been assigned to by the manager. In the section of the tables, the list of items orders by each table will be displayed and the statues of each item will be displayed. The name of the waiter will be displayed on the top of this section of the waiters tab.
-3. In the cooks tab, there would be an overview section that displays the different orders that have been taken down by the waiter. The orders would be arranged in a list of time priority. The cooks tab will be go into one of the tables and select the status of each item ordered by the table. The status of each table will diplay done as soon as all items on the table are selected as ready.
-4. The managers tab will have different sections that can be selected by the manager.
 
-   1. In the section of menu, there will be a display of product just as the same way it shown on the menu. There will be an edit section on the page. If the button is clicked, there will be buttons that allow the manager to both add, click or edit items in the menu.
-   2. In the staff section, there will be a button that displays all the workers, the login time, and total work hours.
-   3. In the section of staff, there will be buttons representing the staff that will give the manager informations like login time, work hours, tables that workers are assigned to and the status of each table. There will also be a button that allows the manager to delete the account of the staff.
-   4. Another section of the staff section, there will be a button that displays the orders. In this section, the tab will display the list of waiters as button and upon clicking the bottons, there will be a list of tables represented as buttons. Clicking each of the tables, will automatically assign the selected tables to the staff initially clicked on.
-   5. Another section of the staff section will display the create account tab. In this tab, there are questions prompting the manager for the new staffs information in order to create an account.
-      ![Creating Account](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/4ba1fcb4-f8bf-4820-8ff0-c6a9696bcd2f)
+2. The waiters table view displays the tables that the waiter has been assigned to by the manager. In the section of the tables, the list of items orders by each table is displayed and the statues of each item will be displayed. 
+![WaiterServe](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/eca13d3a-d306-42eb-8741-06213f11b56e)
 
-5. In the table section, the tables will be displayed and the status of each table will also be displayed.
+
+3. In the cooks tab, there is an overview section that displays the different orders that have been taken down by the waiter. The orders are arranged in a list of time priority. The cooks tab goes into one of the tables and select the status of each item ordered by the table. The status of each table is then diplay done as soon as all items on the table are selected as ready.
+![CookOrder](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/4216787f-d24c-4139-8b3b-47e040ea1e78)
+
+
+4. The managers tab has different sections that can be selected by the manager.
+
+   1. In the section of menu, there is a display of product just as the same way it shown on the menu. There is an edit section on the page. when the button is clicked, there are buttons that allow the manager to both add, click or edit items in the menu.
+![Menu Management](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/3e0aa187-445f-4ca9-9cee-47326e09c127)
+
+   
+   2. Another section of the staff section displays the create account tab. In this tab, there are questions prompting the manager for the new staffs information in order to create an account.![Create Account](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/3e299c65-1f07-4405-b6bf-b633f5550a90)
+
+
+5. In the table section, the tables are displayed and the status of each table is also displayed.![TableAssignment](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/ef6fd5dc-b92d-4fce-ba67-402b5e0fe01f)
+
 
 ## Database
 
