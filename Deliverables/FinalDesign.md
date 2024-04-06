@@ -3,6 +3,9 @@
 ## Functional
 ![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/64d075f3-e01e-49b4-bc93-83616f4c4d9d)
 
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/d40fa14f-3b08-4aa0-9600-de2a4eebf165)
+
+
 
 1. The waiters view of the table features the name of the waiter and table number assigned to the waiter by the manager, current time, list of items on the menu as a result of their availability in stock. After selection of the orders for the table, the total price, tax and the list of items are listed in the waiters tab. As soon as the order is taken, the list are displayed on the cooks side.
 ![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/427d5640-45b3-4fac-a5d1-50a63638b820)
