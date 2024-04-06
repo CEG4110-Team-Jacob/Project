@@ -98,24 +98,24 @@ Tools: [Gradle](https://gradle.org/), [Java 21](https://www.oracle.com/java/tech
 
 ## User Interface
 
-1. The program will have a button located at the top right of the screen labeled "Exit".
-   1. Clicking this button will close out of the program.
-2. Managerial staff will be able to see information that other users cannot see.
-   1. Managerial staff will be able to see which waitstaff is assigned to which table.
-      1. This will be done by selecting either the table the manager wants to know more information about or by selecting the waitstaff they want to know more about.
-   2. Managerial staff will be able to select tables and assign waitstaff to groups of tables.
-      1. This will be done by selecting multiple tables and choosing which waitstaff the manager wants assigned to those tables.
-3. Managerial staff will be able to edit the layout of the restaurant.
-   1. This will be done by selecting a button labeled "Edit" while looking at the restaurant's layout.
-      1. Selecting this button will allow management to add, remove, and move around tables at will.
-4. Managerial staff will be able to edit the contents of the menu.
-   1. This will be done by selecting a button labeled "Edit" while looking at the restaurant's menu.
-      1. Selecting this button will allow management to add, remove, and otherwise edit menu items.
-5. The program will have a button labeled "Swap Account" at the rop right of the screen, next to the button labeled "Exit".
-   1. When this button is selected the current user is logged out and the user is prompted with a username and password field.
-   2. Depending on the type of account, different information/permissions will be available.
-6. The program will have various tabs that change the view from one thing to another, these tabs will be available on different account types.
-   1. Management will have access to every tab, and all of the information associated with each tab.
-   2. The program will check the permissions of the user before displaying any information as to not give the wrong staff member too much or too little information.
-7. The user interface will have documentation via Github Wiki on this Github repository under the section [User Interface](https://github.com/CEG4110-Team-Jacob/Project/wiki/User-Interface).
-8. The user interface will be programmed using [Java Swing](https://docs.oracle.com/javase/tutorial/uiswing/)
+1. The program will have a button located at the top right of the screen labeled "Exit". `e. It exists` ![Exit Button](../img/ExitButton.png)
+   1. Clicking this button will close out of the program. `e. Clicking the button logs out the user`
+2. Managerial staff will be able to see information that other users cannot see. `e. This is true`
+   1. Managerial staff will be able to see which waitstaff is assigned to which table. `e. Managers can see this information`
+      1. This will be done by selecting either the table the manager wants to know more information about or by selecting the waitstaff they want to know more about. `e. This works`
+   2. Managerial staff will be able to select tables and assign waitstaff to groups of tables. `e. This works`
+      1. This will be done by selecting multiple tables and choosing which waitstaff the manager wants assigned to those tables. `e. This works`
+3. Managerial staff will be able to edit the layout of the restaurant. `e. Managers can edit the table layout`
+   1. This will be done by selecting a button labeled "Edit" while looking at the restaurant's layout. `e. Managers delete and add tables from the same UI they view it from` ![table UI](../img/TableView.png)
+      1. Selecting this button will allow management to add, remove, and move around tables at will. `e. Managers edit tables a different way`
+4. Managerial staff will be able to edit the contents of the menu. `e. This works`
+   1. This will be done by selecting a button labeled "Edit" while looking at the restaurant's menu. `e. This works similar to tables` ![Menu UI](../img/Menu.png)
+      1. Selecting this button will allow management to add, remove, and otherwise edit menu items. `e. This works`
+5. The program will have a button labeled "Swap Account" at the rop right of the screen, next to the button labeled "Exit". `e. Instead, clicking the exit button with logout the user` ![Exit Button](../img/ExitButton.png)
+   1. When this button is selected the current user is logged out and the user is prompted with a username and password field. `e. 'Exit' has this functionality`
+   2. Depending on the type of account, different information/permissions will be available. `e. This is true`
+6. The program will have various tabs that change the view from one thing to another, these tabs will be available on different account types. `e. This exists`
+   1. Management will have access to every tab, and all of the information associated with each tab. `e. Managers have access to every tab except for the cook's tab` ![Manager UI](../img/ManagerUI.png)
+   2. The program will check the permissions of the user before displaying any information as to not give the wrong staff member too much or too little information. `e. This is done on log in`
+7. The user interface will have documentation via Github Wiki on this Github repository under the section [User Interface](https://github.com/CEG4110-Team-Jacob/Project/wiki/User-Interface). `e. This does not exist`
+8. The user interface will be programmed using [Java Swing](https://docs.oracle.com/javase/tutorial/uiswing/) `e. This is true`
