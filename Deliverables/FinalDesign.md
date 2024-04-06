@@ -96,7 +96,7 @@ Tools: [Gradle](https://gradle.org/), [Java 21](https://www.oracle.com/java/tech
    1. To allow for the switching of databases, the logic for the specific database will be separate from the server logic. `e. It is through interfaces for queries` [queries](../server/src/main/java/com/restaurantsystem/api/repos/)
 8. The server will have documentation via Github Wiki on this Github repository under the section [Server](https://github.com/CEG4110-Team-Jacob/Project/wiki/Server). `e. It exists`
 
-## User Interface!
+## User Interface
 
 1. The program will have a button located at the top right of the screen labeled "Exit".
    1. Clicking this button will close out of the program.
