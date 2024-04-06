@@ -93,7 +93,7 @@ public class AuthenticationService {
     @Transactional
     public Optional<String> login(String username, String password) {
         Optional<Worker> worker = workerRepository.findByUsername(username);
-        if (worker.isEmpty())
+        if (worker.isEmpty() || !worker.get().isActive())
             return Optional.empty();
         if (!passwordEncoder.matches(password, worker.get().getPasswordHash()))
             return Optional.empty();
@@ -109,6 +109,7 @@ public class AuthenticationService {
         if (worker.isEmpty())
             return;
         worker.get().setActive(false);
+        worker.get().setToken(null);
         workerRepository.save(worker.get());
     }
 

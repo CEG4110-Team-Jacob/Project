@@ -38,6 +38,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping(path = "/waiter")
 public class WaiterController {
+    private static final List<Status> TABLE_OCCUPIED = Arrays.asList(Status.InProgress, Status.Ordered, Status.Cooked,
+            Status.Delivered);
+
     /**
      * Record that waiters get for all the orders
      */
@@ -73,7 +76,7 @@ public class WaiterController {
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         List<GetOrderWaiter> order = orderRepository.findAllByStatusInAndWaiter(
-                Arrays.asList(Status.InProgress, Status.Ordered, Status.Cooked, Status.Delivered), worker.get(),
+                TABLE_OCCUPIED, worker.get(),
                 GetOrderWaiter.class);
         ResponseEntity<Orders> orders = new ResponseEntity<Orders>(new Orders(order),
                 HttpStatus.OK);
@@ -104,7 +107,7 @@ public class WaiterController {
         o.setStatus(Status.Ordered);
         o.setWaiter(worker.get());
         Optional<Table> table = tableRepository.findById(order.tableId());
-        if (table.isEmpty())
+        if (table.isEmpty() || table.get().isOccupied())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         o.setTable(table.get());
         o = orderRepository.save(o);

@@ -56,22 +56,31 @@ Framework: [Java Spring](https://spring.io/)
 Tools: [Gradle](https://gradle.org/), [Java 21](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
 
 1. The server will be tested via the test package within Spring.
-   1. The integration testing will be within its own separate package that tests many different practical API combinations.
-   2. The unit testing will be within a package called test. The unit tests for each file will be in a file in test with a similar path.
-2. The server will be configurable via a file called .config.json. Json files allow for easy configuration.
-3. The only initial dependencies needed are Gradle and Java 21. The rest of the dependencies can be installed via Gradle automatically. Gradle can also build and run the server with one command.
+   1. The integration testing will be within its own separate package that tests many different practical API combinations. `e. located` [here](../server/src/test/java/com/restaurantsystem/api/integrations/)
+   2. The unit testing will be within a package called test. The unit tests for each file will be in a file in test with a similar path. `e. located` [here](../server/src/test/java/com/restaurantsystem/api/)
+2. The server will be configurable via a file called application.properties in the standard Gradle application. `e. Example exists` [here](../server/src/main/resources/application.example.properties)
+3. The only initial dependencies needed are Java 21 and a database MySQL is used. The rest of the dependencies can be installed via Gradle automatically. Gradle can also build and run the server with one command. `e. less than five initial dependencies`
 4. The frontend will send the login information to the server via a POST request.
+
    1. The server will confirm the login information by accessing the database and checking if the username and password hash is correct. If it is incorrect, return an invalid credentials error.
    2. If it is correct, return a token that will allow the user to access information via GET requests.
+
+   `e. Demonstration` ![Login](../gifs/Login.gif)
+   ![Curl GET](../img/CurlLogin.png)
+
 5. The web plugin for Spring has the ability to open up APIs.
+
    1. When an API is accessed, the server will check if the token is valid, and the token can access the API.
    2. The server will consistently send back JSON formatted data.
-6. The server will allow for real time updating via websockets by the plugin Websockets in Spring.
-7. The server will connect to the database via the Spring plugin JDBC.
-   1. To allow for the switching of databases, the logic for the specific database will be separate from the server logic.
-8. The server will have documentation via Github Wiki on this Github repository under the section [Server](https://github.com/CEG4110-Team-Jacob/Project/wiki/Server).
 
-## User Interface
+   `e. Demonstration` ![](../img/APICurl.png)
+
+6. The server will allow for real time updating via polling (constantly sending GET Requests). `e. It exists`
+7. The server will connect to the database via the Spring plugin JPA. `e. it exists` [here](../server/src/main/java/com/restaurantsystem/api/data/)
+   1. To allow for the switching of databases, the logic for the specific database will be separate from the server logic. `e. It is through interfaces for queries` [queries](../server/src/main/java/com/restaurantsystem/api/repos/)
+8. The server will have documentation via Github Wiki on this Github repository under the section [Server](https://github.com/CEG4110-Team-Jacob/Project/wiki/Server). `e. It exists`
+
+## User Interface!
 
 1. The program will have a button located at the top right of the screen labeled "Exit".
    1. Clicking this button will close out of the program.
