@@ -73,6 +73,9 @@ Tools: [Gradle](https://gradle.org/), [Java 21](https://www.oracle.com/java/tech
    1. When an API is accessed, the server will check if the token is valid, and the token can access the API.
    2. The server will consistently send back JSON formatted data.
 
+   Diagram
+   ![](../img/Login%20Diagram.png)
+
    `e. Demonstration` ![](../img/APICurl.png)
 
 6. The server will allow for real time updating via polling (constantly sending GET Requests). `e. It exists`
