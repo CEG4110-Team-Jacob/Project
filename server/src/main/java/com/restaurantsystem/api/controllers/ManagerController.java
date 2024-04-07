@@ -20,6 +20,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,14 +35,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/manager")
 public class ManagerController {
 
+    public record ChangeItem(int id, AddItem details) {
+    }
+
+    public record PostMessageSend(String content, int id) {
+    }
+
     @Autowired
     AuthenticationService authenticationService;
     @Autowired
     TableService tableService;
+
     @Autowired
     ItemRepository itemRepository;
+
     @Autowired
     WorkerRepository workerRepository;
+
+    @Autowired
+    SimpMessagingTemplate messagingTemplate;
 
     /**
      * Creates a worker
@@ -117,9 +129,6 @@ public class ManagerController {
         return ResponseEntity.ok().body(true);
     }
 
-    public record ChangeItem(int id, AddItem details) {
-    }
-
     @PostMapping("/changeItem")
     @Transactional
     public ResponseEntity<Boolean> changeItem(@RequestBody ChangeItem details, @RequestParam String t) {
@@ -147,4 +156,15 @@ public class ManagerController {
         List<ManagerViewWorker> workers = workerRepository.findAllByIsActive(true, ManagerViewWorker.class);
         return new ResponseEntity<>(new ManagerViewWorker.ListWorkers(workers), HttpStatus.OK);
     }
+
+    @PostMapping("/message")
+    public ResponseEntity<Boolean> sendMessage(@RequestBody PostMessageSend message, @RequestParam String t) {
+        Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t,
+                Job.Manager);
+        if (worker.isEmpty())
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        messagingTemplate.convertAndSend("/message/" + message.id, message.content);
+        return ResponseEntity.ok().body(true);
+    }
+
 }
