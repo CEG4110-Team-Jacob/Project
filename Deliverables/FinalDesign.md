@@ -1,25 +1,38 @@
 # Restaurant Ordering System Design Specification
 
 ## Functional
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/64d075f3-e01e-49b4-bc93-83616f4c4d9d)
 
-1. The waiters view of the table will feauture the name, table number, time of order, list of items on the menu. After selection of the orders for the table, the total price, tax and the list of items will be listed in the waiters tab. As soon as the order is taken, the list will be displayed on the cooks side.
-   ![waiterTable Order](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/a694c4ea-582d-48a7-afda-0c62638cae83)
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/d40fa14f-3b08-4aa0-9600-de2a4eebf165)
 
-(This is what the MENU looks like)
-![actual menu](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/e4a91526-194a-44d9-89ef-c49b6cccc016)
 
-2. The waiters table view will display the tables that the waiter has been assigned to by the manager. In the section of the tables, the list of items orders by each table will be displayed and the statues of each item will be displayed. The name of the waiter will be displayed on the top of this section of the waiters tab.
-3. In the cooks tab, there would be an overview section that displays the different orders that have been taken down by the waiter. The orders would be arranged in a list of time priority. The cooks tab will be go into one of the tables and select the status of each item ordered by the table. The status of each table will diplay done as soon as all items on the table are selected as ready.
-4. The managers tab will have different sections that can be selected by the manager.
 
-   1. In the section of menu, there will be a display of product just as the same way it shown on the menu. There will be an edit section on the page. If the button is clicked, there will be buttons that allow the manager to both add, click or edit items in the menu.
-   2. In the staff section, there will be a button that displays all the workers, the login time, and total work hours.
-   3. In the section of staff, there will be buttons representing the staff that will give the manager informations like login time, work hours, tables that workers are assigned to and the status of each table. There will also be a button that allows the manager to delete the account of the staff.
-   4. Another section of the staff section, there will be a button that displays the orders. In this section, the tab will display the list of waiters as button and upon clicking the bottons, there will be a list of tables represented as buttons. Clicking each of the tables, will automatically assign the selected tables to the staff initially clicked on.
-   5. Another section of the staff section will display the create account tab. In this tab, there are questions prompting the manager for the new staffs information in order to create an account.
-      ![Creating Account](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/4ba1fcb4-f8bf-4820-8ff0-c6a9696bcd2f)
+1. The waiters view of the table features the name of the waiter and table number assigned to the waiter by the manager, current time, list of items on the menu as a result of their availability in stock. After selection of the orders for the table, the total price, tax and the list of items are listed in the waiters tab. As soon as the order is taken, the list are displayed on the cooks side.
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/427d5640-45b3-4fac-a5d1-50a63638b820)
 
-5. In the table section, the tables will be displayed and the status of each table will also be displayed.
+
+
+2. The waiters table view displays the tables that the waiter has been assigned to by the manager. 
+![WaiterServe](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/eca13d3a-d306-42eb-8741-06213f11b56e)
+
+
+3. In the cooks tab, there is an overview section that displays the different orders that have been taken down by the waiter. The orders are arranged in a list of time priority. The cooks tab goes into one of the tables and select the status of each item ordered by the table. The status of each table is then diplay done as soon as all items on the table are selected as ready.
+![CookOrder](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/4216787f-d24c-4139-8b3b-47e040ea1e78)
+
+
+4. The managers tab has different sections that can be selected by the manager.
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/4c238a61-9fdf-4cb6-8597-3e10165b03e4)
+
+
+   1. In the section of menu, there is a display of product just as the same way it shown on the menu. There is an edit section on the page. when the button is clicked, there are buttons that allow the manager to both add, click or edit items in the menu.
+![Menu Management](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/3e0aa187-445f-4ca9-9cee-47326e09c127)
+
+   
+   2. Another section of the staff section displays the create account tab. In this tab, there are questions prompting the manager for the new staffs information in order to create an account.![Create Account](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/3e299c65-1f07-4405-b6bf-b633f5550a90)
+
+
+5. In the table section, the tables are displayed and the status of each table is also displayed.![TableAssignment](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/ef6fd5dc-b92d-4fce-ba67-402b5e0fe01f)
+
 
 ## Database
 
@@ -60,7 +73,7 @@ Tools: [Gradle](https://gradle.org/), [Java 21](https://www.oracle.com/java/tech
    2. The unit testing will be within a package called test. The unit tests for each file will be in a file in test with a similar path. `e. located` [here](../server/src/test/java/com/restaurantsystem/api/)
 2. The server will be configurable via a file called application.properties in the standard Gradle application. `e. Example exists` [here](../server/src/main/resources/application.example.properties)
 3. The only initial dependencies needed are Java 21 and a database MySQL is used. The rest of the dependencies can be installed via Gradle automatically. Gradle can also build and run the server with one command. `e. less than five initial dependencies`
-4. The frontend will send the login information to the server via a POST request.
+4. The frontend will send the login information to the server via a GET request.
 
    1. The server will confirm the login information by accessing the database and checking if the username and password hash is correct. If it is incorrect, return an invalid credentials error.
    2. If it is correct, return a token that will allow the user to access information via GET requests.
@@ -83,26 +96,26 @@ Tools: [Gradle](https://gradle.org/), [Java 21](https://www.oracle.com/java/tech
    1. To allow for the switching of databases, the logic for the specific database will be separate from the server logic. `e. It is through interfaces for queries` [queries](../server/src/main/java/com/restaurantsystem/api/repos/)
 8. The server will have documentation via Github Wiki on this Github repository under the section [Server](https://github.com/CEG4110-Team-Jacob/Project/wiki/Server). `e. It exists`
 
-## User Interface!
+## User Interface
 
-1. The program will have a button located at the top right of the screen labeled "Exit".
-   1. Clicking this button will close out of the program.
-2. Managerial staff will be able to see information that other users cannot see.
-   1. Managerial staff will be able to see which waitstaff is assigned to which table.
-      1. This will be done by selecting either the table the manager wants to know more information about or by selecting the waitstaff they want to know more about.
-   2. Managerial staff will be able to select tables and assign waitstaff to groups of tables.
-      1. This will be done by selecting multiple tables and choosing which waitstaff the manager wants assigned to those tables.
-3. Managerial staff will be able to edit the layout of the restaurant.
-   1. This will be done by selecting a button labeled "Edit" while looking at the restaurant's layout.
-      1. Selecting this button will allow management to add, remove, and move around tables at will.
-4. Managerial staff will be able to edit the contents of the menu.
-   1. This will be done by selecting a button labeled "Edit" while looking at the restaurant's menu.
-      1. Selecting this button will allow management to add, remove, and otherwise edit menu items.
-5. The program will have a button labeled "Swap Account" at the rop right of the screen, next to the button labeled "Exit".
-   1. When this button is selected the current user is logged out and the user is prompted with a username and password field.
-   2. Depending on the type of account, different information/permissions will be available.
-6. The program will have various tabs that change the view from one thing to another, these tabs will be available on different account types.
-   1. Management will have access to every tab, and all of the information associated with each tab.
-   2. The program will check the permissions of the user before displaying any information as to not give the wrong staff member too much or too little information.
-7. The user interface will have documentation via Github Wiki on this Github repository under the section [User Interface](https://github.com/CEG4110-Team-Jacob/Project/wiki/User-Interface).
-8. The user interface will be programmed using [Java Swing](https://docs.oracle.com/javase/tutorial/uiswing/)
+1. The program will have a button located at the top right of the screen labeled "Exit". `e. It exists` ![Exit Button](../img/ExitButton.png)
+   1. Clicking this button will close out of the program. `e. Clicking the button logs out the user`
+2. Managerial staff will be able to see information that other users cannot see. `e. This is true`
+   1. Managerial staff will be able to see which waitstaff is assigned to which table. `e. Managers can see this information`
+      1. This will be done by selecting either the table the manager wants to know more information about or by selecting the waitstaff they want to know more about. `e. This works`
+   2. Managerial staff will be able to select tables and assign waitstaff to groups of tables. `e. This works`
+      1. This will be done by selecting multiple tables and choosing which waitstaff the manager wants assigned to those tables. `e. This works`
+3. Managerial staff will be able to edit the layout of the restaurant. `e. Managers can edit the table layout`
+   1. This will be done by selecting a button labeled "Edit" while looking at the restaurant's layout. `e. Managers delete and add tables from the same UI they view it from` ![table UI](../img/TableView.png)
+      1. Selecting this button will allow management to add, remove, and move around tables at will. `e. Managers edit tables a different way`
+4. Managerial staff will be able to edit the contents of the menu. `e. This works`
+   1. This will be done by selecting a button labeled "Edit" while looking at the restaurant's menu. `e. This works similar to tables` ![Menu UI](../img/Menu.png)
+      1. Selecting this button will allow management to add, remove, and otherwise edit menu items. `e. This works`
+5. The program will have a button labeled "Swap Account" at the rop right of the screen, next to the button labeled "Exit". `e. Instead, clicking the exit button with logout the user` ![Exit Button](../img/ExitButton.png)
+   1. When this button is selected the current user is logged out and the user is prompted with a username and password field. `e. 'Exit' has this functionality`
+   2. Depending on the type of account, different information/permissions will be available. `e. This is true`
+6. The program will have various tabs that change the view from one thing to another, these tabs will be available on different account types. `e. This exists`
+   1. Management will have access to every tab, and all of the information associated with each tab. `e. Managers have access to every tab except for the cook's tab` ![Manager UI](../img/ManagerUI.png)
+   2. The program will check the permissions of the user before displaying any information as to not give the wrong staff member too much or too little information. `e. This is done on log in`
+7. The user interface will have documentation via Github Wiki on this Github repository under the section [User Interface](https://github.com/CEG4110-Team-Jacob/Project/wiki/User-Interface). `e. This does not exist`
+8. The user interface will be programmed using [Java Swing](https://docs.oracle.com/javase/tutorial/uiswing/) `e. This is true`
