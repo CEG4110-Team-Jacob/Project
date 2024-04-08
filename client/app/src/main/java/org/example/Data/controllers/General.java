@@ -14,8 +14,15 @@ import org.example.Data.utils.Websocket;
 import org.example.Data.records.WorkerDetails;
 import org.springframework.web.client.RestClient;
 
+/**
+ * General APIs
+ * <a
+ * href=https://github.com/CEG4110-Team-Jacob/Project/wiki/Server#general>Documentation</a>
+ */
 public class General {
+    // Base Server URL
     private static final String URL_BASE = "localhost:8080";
+
     public static final String SERVER_URL = "http://" + URL_BASE;
     public static final String WEBSOCKET_URL = "ws://" + URL_BASE + "/websocket";
     public static URI URI;
@@ -31,6 +38,9 @@ public class General {
         JOptionPane.showMessageDialog(null, msg);
     }, String.class, "/topic/message/");
 
+    /**
+     * Create the URI to the server
+     */
     static {
         try {
             URI = new URI(SERVER_URL);

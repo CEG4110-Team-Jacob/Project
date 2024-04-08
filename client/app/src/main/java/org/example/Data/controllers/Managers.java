@@ -9,6 +9,11 @@ import org.example.Data.enums.Job;
 import org.example.Data.utils.GetMethods;
 import org.example.Data.utils.PostMethods;
 
+/**
+ * Manager APIs
+ * <a href=
+ * "https://github.com/CEG4110-Team-Jacob/Project/wiki/Server#manager">Documentation</a>
+ */
 public class Managers {
     public record PostCreateWorker(String firstName, String lastName, int age, Job job, String username,
             String password) {
@@ -93,9 +98,4 @@ public class Managers {
     public static Optional<ListWorkers> setWorkers() {
         return getWorkers.set();
     }
-
-    public static Optional<ListWorkers> getWorkers() {
-        return getWorkers.set();
-    }
-
 }
