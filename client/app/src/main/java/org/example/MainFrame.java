@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.example.Data.controllers.General;
+import org.example.Data.controllers.Waiters;
 import org.example.Pages.HostUI;
 import org.example.Pages.Login;
 import org.example.Pages.Cooks.CookOptions;
@@ -49,6 +50,7 @@ public class MainFrame extends JFrame {
                     setMainContentPane(options);
                     break;
                 case Waiter:
+                    Waiters.startOrderCooked();
                     var waitersUI = new WaiterUI(() -> setMainContentPane(login));
                     setMainContentPane(waitersUI);
                     break;

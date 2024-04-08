@@ -21,6 +21,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * A Controller for cooks
  */
+@Controller
 @RestController
 @RequestMapping(path = "/cook")
 public class CookController {
@@ -37,6 +40,12 @@ public class CookController {
      * A list of orders that Cooks get
      */
     public record Orders(List<GetOrderCook> orders) {
+    }
+
+    /**
+     * PostSetStatus
+     */
+    public record PostSetStatus(Status status, int orderId) {
     }
 
     @Autowired
@@ -50,6 +59,9 @@ public class CookController {
 
     @Autowired
     WorkerRepository workerRepository;
+
+    @Autowired
+    SimpMessagingTemplate messagingTemplate;
 
     /**
      * Gets all the orders with status InProgress or Ordered
@@ -68,12 +80,6 @@ public class CookController {
         return new ResponseEntity<>(new Orders(orders), HttpStatus.OK);
     }
 
-    /**
-     * PostSetStatus
-     */
-    public record PostSetStatus(Status status, int orderId) {
-    }
-
     @PostMapping("/setStatus")
     @Transactional
     public ResponseEntity<Boolean> setOrderStatus(@RequestParam String t, @RequestBody PostSetStatus body) {
@@ -84,7 +90,12 @@ public class CookController {
         if (order.isEmpty() || !Status.cook(body.status()))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         order.get().setStatus(body.status());
-        orderRepository.save(order.get());
+        order = Optional.of(orderRepository.save(order.get()));
+        if (Status.Cooked == body.status()) {
+            messagingTemplate.convertAndSend("/topic/order/" +
+                    order.get().getWaiter().getId(),
+                    Integer.toString(order.get().getId()) + " " + Integer.toString(order.get().getTable().getNumber()));
+        }
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
