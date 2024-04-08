@@ -60,9 +60,11 @@ public class MainController {
      */
     @GetMapping("/getDetails")
     public ResponseEntity<WorkerProjection> getDetails(@RequestParam String t) {
+        // Authenticate
         Optional<Worker> worker = authenticationService.authenticate(t);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        // Gets the worker's details
         WorkerProjection workerProjection = workerRepository.findById(worker.get().getId(), WorkerProjection.class)
                 .get();
         return new ResponseEntity<>(workerProjection, HttpStatus.OK);
@@ -81,11 +83,19 @@ public class MainController {
     @Autowired
     ItemRepository itemRepository;
 
+    /**
+     * Returns a list of items
+     * 
+     * @param t token
+     * @return list of items
+     */
     @GetMapping("/items")
     public ResponseEntity<ListOfItems> getItems(@RequestParam String t) {
+        // Authenticate
         Optional<Worker> worker = authenticationService.authenticate(t);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        // Get items
         List<SharedItem> items = itemRepository.findAllByIsActive(true, SharedItem.class);
         return new ResponseEntity<ListOfItems>(new ListOfItems(items), HttpStatus.OK);
     }
