@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * A Controller for cooks
  */
+@Controller
 @RestController
 @RequestMapping(path = "/cook")
 public class CookController {
@@ -89,10 +91,10 @@ public class CookController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         order.get().setStatus(body.status());
         order = Optional.of(orderRepository.save(order.get()));
-        // if (Status.Cooked == body.status()) {
-        // messagingTemplate.convertAndSend("/topic/order/" +
-        // order.get().getWaiter().getId());
-        // }
+        if (Status.Cooked == body.status()) {
+            messagingTemplate.convertAndSend("/topic/order/" +
+                    order.get().getWaiter().getId(), Integer.toString(order.get().getId()));
+        }
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 

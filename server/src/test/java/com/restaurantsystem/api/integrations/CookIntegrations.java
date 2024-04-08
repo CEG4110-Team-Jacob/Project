@@ -1,8 +1,19 @@
 package com.restaurantsystem.api.integrations;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.lang.reflect.Type;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.TimeUnit;
+
 import org.junit.jupiter.api.Test;
+import org.springframework.messaging.simp.stomp.StompFrameHandler;
+import org.springframework.messaging.simp.stomp.StompHeaders;
+import org.springframework.messaging.simp.stomp.StompSession;
+import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
+import org.springframework.scheduling.concurrent.SimpleAsyncTaskScheduler;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +34,30 @@ public class CookIntegrations extends BaseIntegrationTests {
         var waiterOrder = waiterOrders.getBody().orders().stream().filter(order -> order.getId() == 2).findAny();
         assertTrue(waiterOrder.isPresent());
         assertTrue(waiterOrder.get().getStatus() == Status.Cooked);
+    }
+
+    @Test
+    void setOrderStatusWS() throws Exception {
+        client.setTaskScheduler(new SimpleAsyncTaskScheduler());
+        StompSession stompSession = client.connectAsync(getWSUrl(), new StompSessionHandlerAdapter() {
+        }).get(5, TimeUnit.SECONDS);
+        BlockingQueue<Integer> blockingQueue = new LinkedBlockingDeque<>();
+
+        stompSession.subscribe("/topic/order/1", new StompFrameHandler() {
+            @Override
+            public Type getPayloadType(StompHeaders headers) {
+                return String.class;
+            }
+
+            @Override
+            public void handleFrame(StompHeaders headers, Object payload) {
+                blockingQueue.offer(Integer.parseInt((String) payload));
+            }
+        });
+        cookController.setOrderStatus(cookT, new PostSetStatus(Status.Cooked, 2));
+        var returnValue = blockingQueue.poll(10, TimeUnit.SECONDS);
+        System.out.println(returnValue);
+        assertEquals(returnValue, 2);
     }
 
     @Test
