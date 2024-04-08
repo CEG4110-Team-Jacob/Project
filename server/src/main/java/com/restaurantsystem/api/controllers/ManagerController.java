@@ -165,8 +165,8 @@ public class ManagerController {
                 Job.Manager);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        messagingTemplate.convertAndSend("/topic/message/" + message.id, message.content);
-        System.out.println("Hello");
+        var msg = worker.get().getFirstName() + " " + worker.get().getLastName() + " said\n" + message.content;
+        messagingTemplate.convertAndSend("/topic/message/" + message.id, msg);
         return ResponseEntity.ok().body(true);
     }
 }

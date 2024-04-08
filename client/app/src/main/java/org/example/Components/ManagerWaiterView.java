@@ -3,14 +3,16 @@ package org.example.Components;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.GridLayout;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
+import org.example.Data.controllers.Managers;
 import org.example.Data.controllers.Managers.ManagerViewWorker;
+import org.example.Data.controllers.Managers.PostSendMessage;
 
 // ChatGPT Modified Code
 public class ManagerWaiterView extends JPanel {
@@ -32,25 +34,32 @@ public class ManagerWaiterView extends JPanel {
             remove(inputPanel);
         id = worker.id();
 
-        inputPanel = new JPanel(new GridBagLayout());
+        inputPanel = new JPanel(new GridLayout(0, 2));
         inputPanel.setBackground(Color.WHITE);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = GridBagConstraints.RELATIVE;
-        gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.anchor = GridBagConstraints.WEST;
 
-        inputPanel.add(createFieldLabel("Name:"), gbc);
-        inputPanel.add(createFieldValue(worker.firstName() + " " + worker.lastName()), gbc);
+        inputPanel.add(createFieldLabel("Name:"));
+        inputPanel.add(createFieldValue(worker.firstName() + " " + worker.lastName()));
 
-        inputPanel.add(createFieldLabel("ID:"), gbc);
-        inputPanel.add(createFieldValue(Integer.toString(worker.id())), gbc);
+        inputPanel.add(createFieldLabel("ID:"));
+        inputPanel.add(createFieldValue(Integer.toString(worker.id())));
 
-        inputPanel.add(createFieldLabel("Age:"), gbc);
-        inputPanel.add(createFieldValue(Integer.toString(worker.age())), gbc);
+        inputPanel.add(createFieldLabel("Age:"));
+        inputPanel.add(createFieldValue(Integer.toString(worker.age())));
 
-        inputPanel.add(createFieldLabel("Job:"), gbc);
-        inputPanel.add(createFieldValue(worker.job().toString()), gbc);
+        inputPanel.add(createFieldLabel("Job:"));
+        inputPanel.add(createFieldValue(worker.job().toString()));
+        // Message area
+        JTextArea textArea = new JTextArea();
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        inputPanel.add(textArea);
+        // Send Message
+        JButton sendMsg = new JButton("Send Message");
+        sendMsg.addActionListener(e -> {
+            Managers.sendMessage(new PostSendMessage(textArea.getText(), worker.id()));
+        });
+        inputPanel.add(sendMsg);
 
         add(inputPanel, BorderLayout.CENTER);
         revalidate();

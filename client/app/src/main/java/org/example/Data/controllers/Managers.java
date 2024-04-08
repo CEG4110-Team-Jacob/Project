@@ -34,6 +34,9 @@ public class Managers {
             boolean isActive) {
     }
 
+    public record PostSendMessage(String content, int id) {
+    }
+
     private static PostMethods<PostCreateWorker, Boolean> createWorker = new PostMethods<>("/manager/createWorker",
             Boolean.class);
 
@@ -51,6 +54,13 @@ public class Managers {
     private static PostMethods<Integer, Boolean> deleteItem = new PostMethods<>("/manager/deleteItem", Boolean.class);
 
     private static PostMethods<PostSetTable, Boolean> setTable = new PostMethods<>("/manager/setTable", Boolean.class);
+
+    private static PostMethods<PostSendMessage, Boolean> sendMessage = new PostMethods<>("/manager/message",
+            boolean.class);
+
+    public static Optional<Boolean> sendMessage(PostSendMessage body) {
+        return sendMessage.post(body);
+    }
 
     public static Optional<Boolean> setTable(PostSetTable body) {
         return setTable.post(body);
