@@ -9,6 +9,9 @@ import com.restaurantsystem.api.repos.TableRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.shared.manager.PostTable;
 
+/**
+ * A service that handles tables
+ */
 @Service
 public class TableService {
     @Autowired
@@ -23,7 +26,9 @@ public class TableService {
      */
     @Transactional
     public void addTable(Table table) {
+        // Find the table located at position
         var tableOptional = tableRepository.findByXAndY(table.getX(), table.getY());
+        // If one exists, update
         if (tableOptional.isPresent()) {
             var tableOld = tableOptional.get();
             tableOld.setNumSeats(table.getNumSeats());
@@ -33,18 +38,25 @@ public class TableService {
             tableOld.setActive(table.isActive());
             tableRepository.save(tableOld);
         } else {
+            // Else create a new one
             tableRepository.save(table);
         }
     }
 
+    /**
+     * Updates or Creates a table
+     * 
+     * @param postTable Table Data
+     */
     @Transactional
     public void setTable(PostTable postTable) {
-        // Set all tables as inactive
+        // Create new table
         var newTable = new Table(postTable.x(), postTable.y());
         newTable.setActive(postTable.isActive());
         newTable.setNumber(postTable.number());
         newTable.setNumSeats(postTable.numSeats());
         newTable.setOccupied(postTable.isOccupied());
+        // Get the waiter for the table
         var waiter = workerRepository.findById(postTable.waiter());
         if (waiter.isEmpty())
             newTable.setWaiter(null);

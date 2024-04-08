@@ -22,7 +22,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
 /**
- * A service that handles authentication
+ * A service that handles authentication and authorization
  */
 @Service
 public class AuthenticationService {
@@ -64,6 +64,7 @@ public class AuthenticationService {
     private static boolean isValidToken(String token) {
         try {
             Claims claims = JWT_PARSER.parseSignedClaims(token).getPayload();
+            // If token expired, false
             if (!claims.getExpiration().after(new Date()))
                 return false;
             return true;
@@ -92,22 +93,32 @@ public class AuthenticationService {
      */
     @Transactional
     public Optional<String> login(String username, String password) {
+        // Finds the worker with the username
         Optional<Worker> worker = workerRepository.findByUsername(username);
         if (worker.isEmpty() || !worker.get().isActive())
             return Optional.empty();
+        // Checks the password
         if (!passwordEncoder.matches(password, worker.get().getPasswordHash()))
             return Optional.empty();
+        // Generate the token for the worker
         String token = generateToken(username);
         worker.get().setToken(token);
         workerRepository.save(worker.get());
         return Optional.of(token);
     }
 
+    /**
+     * Marks a worker as inactive
+     * 
+     * @param id worker id
+     */
     @Transactional
     public void deleteWorker(int id) {
+        // Find the worker
         Optional<Worker> worker = workerRepository.findById(id);
         if (worker.isEmpty())
             return;
+        // Update the worker
         worker.get().setActive(false);
         worker.get().setToken(null);
         workerRepository.save(worker.get());
@@ -139,6 +150,8 @@ public class AuthenticationService {
         Optional<Worker> worker = authenticate(token);
         if (worker.isEmpty())
             return Optional.empty();
+        // Check the job
+        // Manager has access to every API
         if (worker.get().getJob() != job && worker.get().getJob() != Job.Manager)
             return Optional.empty();
         return worker;
@@ -166,10 +179,13 @@ public class AuthenticationService {
      */
     @Transactional
     public Optional<Worker> addWorker(PostCreateAccount account) {
+        // If the username already exists, return
         if (workerRepository.existsByUsername(account.username()))
             return Optional.empty();
+        // If the worker is under 16, return
         if (account.age() < 16)
             return Optional.empty();
+        // Create worker
         Worker worker = new Worker();
         worker.setAge(account.age());
         worker.setFirstName(account.firstName());
