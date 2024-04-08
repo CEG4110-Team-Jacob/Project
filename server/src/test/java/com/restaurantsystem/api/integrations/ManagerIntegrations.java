@@ -1,10 +1,23 @@
 package com.restaurantsystem.api.integrations;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
+import java.lang.reflect.Type;
 import java.util.Optional;
+import java.util.Scanner;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.messaging.simp.stomp.StompFrameHandler;
+import org.springframework.messaging.simp.stomp.StompHeaders;
+import org.springframework.messaging.simp.stomp.StompSession;
+import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
+import org.springframework.scheduling.concurrent.SimpleAsyncTaskScheduler;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +28,7 @@ import com.restaurantsystem.api.shared.manager.AddItem;
 import com.restaurantsystem.api.shared.manager.PostCreateAccount;
 import com.restaurantsystem.api.shared.manager.PostTable;
 import com.restaurantsystem.api.controllers.ManagerController.ChangeItem;
+import com.restaurantsystem.api.controllers.ManagerController.PostMessageSend;
 
 @Rollback(true)
 @Transactional
@@ -74,5 +88,43 @@ public class ManagerIntegrations extends BaseIntegrationTests {
         var item = items.getBody().items().stream().filter(i -> i.getId() == 1).findAny();
         assertTrue(item.isPresent());
         assertTrue(item.get().getName().equals("grwe"));
+    }
+
+    @Test
+    void sendMessage() throws Exception {
+        var payload = new PostMessageSend("Hello Waiter", 1);
+
+        client.setTaskScheduler(new SimpleAsyncTaskScheduler());
+
+        BlockingQueue<String> blockingQueue = new LinkedBlockingDeque<>();
+        StompSession stompSession;
+        try {
+            stompSession = client
+                    .connectAsync(getWSUrl(), new StompSessionHandlerAdapter() {
+                    }).get(10, TimeUnit.SECONDS);
+        } catch (ExecutionException e) {
+            Throwable cause = e.getCause();
+            cause.printStackTrace();
+            fail();
+            return;
+        }
+        stompSession.subscribe("/topic/message/1", new StompFrameHandler() {
+            @Override
+            public Type getPayloadType(StompHeaders headers) {
+                return String.class;
+            }
+
+            @Override
+            public void handleFrame(StompHeaders headers, Object payload) {
+                blockingQueue.offer((String) payload);
+            }
+        });
+        managerController.sendMessage(payload, managerT);
+        String message = blockingQueue.poll(10, TimeUnit.SECONDS);
+        Scanner scanner = new Scanner(message);
+        scanner.nextLine();
+        String line = scanner.nextLine();
+        assertEquals(line, "Hello Waiter");
+        scanner.close();
     }
 }

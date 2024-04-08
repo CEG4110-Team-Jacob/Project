@@ -29,10 +29,6 @@ public class ControllerParentTests extends BaseTests {
 
     protected Login login;
 
-    protected String getWSUrl() {
-        return "ws://localhost:" + port + "/websocket";
-    }
-
     @BeforeEach
     protected void beforeEach() {
         token = authenticationService.login(login.username(), login.password()).get();
