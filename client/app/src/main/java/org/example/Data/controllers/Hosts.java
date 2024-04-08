@@ -6,6 +6,11 @@ import java.util.Set;
 import org.example.Data.utils.GetMethods;
 import org.example.Data.utils.PostMethods;
 
+/**
+ * Host APIs
+ * <a
+ * href=https://github.com/CEG4110-Team-Jacob/Project/wiki/Server#host>Documentation</a>
+ */
 public class Hosts {
     public record GetHostTables(Set<HostTable> tables) {
         public record HostTable(int id, int number, boolean isOccupied, int numSeats, int x, int y) {

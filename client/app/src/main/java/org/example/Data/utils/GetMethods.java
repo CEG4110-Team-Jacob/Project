@@ -6,6 +6,9 @@ import org.example.Data.controllers.General;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+/**
+ * A GET Request
+ */
 public class GetMethods<T> {
 
     private String path;
@@ -14,6 +17,11 @@ public class GetMethods<T> {
 
     private T value;
 
+    /**
+     * 
+     * @param path Path to the API
+     * @param type Return Type
+     */
     public GetMethods(String path, Class<T> type) {
         this.path = path;
         this.type = type;
@@ -23,6 +31,12 @@ public class GetMethods<T> {
         value = null;
     }
 
+    /**
+     * Update the value
+     * 
+     * @param query
+     * @return Value
+     */
     public Optional<T> set(String query) {
         try {
             ResponseEntity<T> response = General.restClient.get()
@@ -38,16 +52,32 @@ public class GetMethods<T> {
         return Optional.empty();
     }
 
+    /**
+     * Gets the value
+     * 
+     * @param query
+     * @return value
+     */
     public Optional<T> get(String query) {
         if (getValue() != null)
             return Optional.of(getValue());
         return set(query);
     }
 
+    /**
+     * Updates value using a token as the query
+     * 
+     * @return value
+     */
     public Optional<T> set() {
         return set(Utils.DEFAULT_QUERY());
     }
 
+    /**
+     * Gets the value using a token
+     * 
+     * @return value
+     */
     public Optional<T> get() {
         return get(Utils.DEFAULT_QUERY());
     }

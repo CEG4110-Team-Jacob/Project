@@ -65,7 +65,7 @@ public class ManagerTables extends JPanel {
     public void update() {
         Runnable run = () -> {
             var tablesData = Waiters.getTables().get();
-            var workersData = Managers.getWorkers().get();
+            var workersData = Managers.setWorkers().get();
             var waitersData = workersData.workers().stream().filter(w -> w.job().equals(Job.Waiter)).toList();
             var waitersMap = new HashMap<String, Integer>();
             waitersData.forEach((waiter) -> {

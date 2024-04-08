@@ -15,6 +15,11 @@ import org.example.Data.utils.GetMethods;
 import org.example.Data.utils.PostMethods;
 import org.example.Data.utils.Websocket;
 
+/**
+ * Waiter's APIs
+ * <a href=
+ * "https://github.com/CEG4110-Team-Jacob/Project/wiki/Server#waiter">Documentation</a>
+ */
 public class Waiters {
     public record WaiterOrder(int id, List<Item> items, Date timeOrdered, Status status, int totalPrice, Table table) {
         public record ListOrders(List<WaiterOrder> orders) {

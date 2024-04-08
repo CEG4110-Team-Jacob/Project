@@ -10,6 +10,12 @@ import org.example.Data.utils.PostMethods;
 import org.example.Data.controllers.Cooks.CookOrder.ListCookOrders;
 import org.example.Data.enums.Status;
 
+/**
+ * Cook API Getter
+ * Look at documentation at
+ * <a
+ * href=https://github.com/CEG4110-Team-Jacob/Project/wiki/Server#cook>Documentation</a>
+ */
 public class Cooks {
     public record CookOrder(List<Item> items, Date timeOrdered, Status status,
             int id) {
@@ -48,9 +54,4 @@ public class Cooks {
     public static Optional<ListCookOrders> setOrders() {
         return orders.set();
     }
-
-    public static Optional<ListCookOrders> getOrders() {
-        return orders.get();
-    }
-
 }
