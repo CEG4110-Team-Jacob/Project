@@ -29,8 +29,8 @@ public class ControllerParentTests extends BaseTests {
 
     protected Login login;
 
-    protected String getUrl() {
-        return "http://localhost:" + port + "/";
+    protected String getWSUrl() {
+        return "ws://localhost:" + port + "/websocket";
     }
 
     @BeforeEach

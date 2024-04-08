@@ -3,9 +3,9 @@ package com.restaurantsystem.api.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Type;
-import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -13,17 +13,17 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.converter.StringMessageConverter;
 import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
+import org.springframework.scheduling.concurrent.SimpleAsyncTaskScheduler;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.socket.client.WebSocketClient;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
-import org.springframework.web.socket.sockjs.client.SockJsClient;
-import org.springframework.web.socket.sockjs.client.WebSocketTransport;
-
 import com.restaurantsystem.api.DatabasePopulate;
 import com.restaurantsystem.api.controllers.ManagerController.PostMessageSend;
 import com.restaurantsystem.api.data.Item.ItemType;
@@ -118,22 +118,25 @@ public class ManagerControllerTests extends ControllerParentTests {
         var payload = new PostMessageSend("Hello Waiter", 1);
         postMockMvcResult("/message", toJson(payload));
 
-        WebSocketStompClient stompClient = new WebSocketStompClient(new SockJsClient(
-                List.of(new WebSocketTransport(new StandardWebSocketClient()))));
+        WebSocketClient webSocketClient = new StandardWebSocketClient();
+        WebSocketStompClient client = new WebSocketStompClient(webSocketClient);
+        client.setMessageConverter(new StringMessageConverter());
+        client.setTaskScheduler(new SimpleAsyncTaskScheduler());
+
         BlockingQueue<String> blockingQueue = new LinkedBlockingDeque<>();
         StompSession stompSession;
         try {
-            stompSession = stompClient
-                    .connectAsync(getUrl() + "websocket", new StompSessionHandlerAdapter() {
-                    }).get(100, TimeUnit.SECONDS);
-            // Continue with your test logic
+            stompSession = client
+                    .connectAsync(getWSUrl(), new StompSessionHandlerAdapter() {
+                    }).get(10, TimeUnit.SECONDS);
         } catch (ExecutionException e) {
             // Handle the execution exception
             Throwable cause = e.getCause();
             cause.printStackTrace(); // Print the cause of the exception for debugging
+            fail();
             return;
         }
-        stompSession.subscribe("/message/1", new StompFrameHandler() {
+        stompSession.subscribe("/topic/message/1", new StompFrameHandler() {
             @Override
             public Type getPayloadType(StompHeaders headers) {
                 return String.class;

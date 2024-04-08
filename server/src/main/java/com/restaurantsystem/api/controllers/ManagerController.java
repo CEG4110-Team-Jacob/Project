@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * Controller for managers
  */
 @RestController
+@Controller
 @RequestMapping("/manager")
 public class ManagerController {
 
@@ -163,8 +165,8 @@ public class ManagerController {
                 Job.Manager);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        messagingTemplate.convertAndSend("/message/" + message.id, message.content);
+        messagingTemplate.convertAndSend("/topic/message/" + message.id, message.content);
+        System.out.println("Hello");
         return ResponseEntity.ok().body(true);
     }
-
 }
