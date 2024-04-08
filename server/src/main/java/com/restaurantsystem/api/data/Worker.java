@@ -26,9 +26,11 @@ public class Worker {
     private int id;
 
     private String firstName;
-
     private String lastName;
     private String username;
+    /**
+     * Encrypted password
+     */
     private String passwordHash;
     private int age;
     private Job job;
@@ -37,15 +39,15 @@ public class Worker {
      * Token used to use APIs
      */
     private String token;
-    @OneToMany(mappedBy = "waiter")
     /**
      * The orders a waiter has taken
      */
-    private Set<Order> orders;
     @OneToMany(mappedBy = "waiter")
+    private Set<Order> orders;
     /**
      * The tables a waiter serves
      */
+    @OneToMany(mappedBy = "waiter")
     private Set<Table> tables;
 
     public Worker(int id) {

@@ -25,30 +25,36 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "orders_to_items", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "item_id"))
     /**
      * Items the order contains
      */
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "orders_to_items", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "item_id"))
     private List<Item> items;
+
     private Date timeOrdered;
+
     private Date timeCompleted;
+
     @Column(name = "order_status")
     private Status status;
+
     /**
      * Total price of all the items
      */
     private int totalPrice;
-    @ManyToOne
-    @JoinColumn(name = "worker_id")
+
     /**
      * The waiter who placed the order
      */
-    private Worker waiter;
     @ManyToOne
+    @JoinColumn(name = "worker_id")
+    private Worker waiter;
+
     /**
      * The table where the order was placed
      */
+    @ManyToOne
     private com.restaurantsystem.api.data.Table table;
 
     /**
@@ -57,6 +63,7 @@ public class Order {
     public enum Status {
         Cooked, Ordered, InProgress, Delivered, Completed, Canceled;
 
+        // The order's status that the cook can change from.
         public static boolean cook(Status in) {
             return in == Cooked || in == InProgress || in == Ordered;
         }

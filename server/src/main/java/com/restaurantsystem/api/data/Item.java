@@ -30,7 +30,8 @@ public class Item {
 
     private String description;
     private ItemType type;
-    private int price; // Price in cents
+    /** Price in cents */
+    private int price;
     private boolean inStock;
     private boolean isActive = true;
 
