@@ -13,16 +13,19 @@ import org.springframework.transaction.annotation.Transactional;
 import com.restaurantsystem.api.DatabasePopulate;
 import com.restaurantsystem.api.repos.TableRepository;
 
+/**
+ * Tests for Host APIs
+ */
 @Rollback(true)
 @Transactional
 public class HostControllerTests extends ControllerParentTests {
-    @Autowired
-    TableRepository tableRepository;
-
     public record HostTables(List<HostTable> tables) {
         public record HostTable(int id, int number, boolean isOccupied, int numSeats, int x, int y) {
         }
     }
+
+    @Autowired
+    TableRepository tableRepository;
 
     public HostControllerTests() {
         path = "/host";

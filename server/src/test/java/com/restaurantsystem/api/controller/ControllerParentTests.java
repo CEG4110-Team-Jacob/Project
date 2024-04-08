@@ -14,6 +14,9 @@ import com.restaurantsystem.api.BaseTests;
 import com.restaurantsystem.api.DatabasePopulate.Login;
 import com.restaurantsystem.api.service.AuthenticationService;
 
+/**
+ * Base Class for Controllers
+ */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class ControllerParentTests extends BaseTests {
 
@@ -23,12 +26,18 @@ public class ControllerParentTests extends BaseTests {
     @LocalServerPort
     protected int port;
 
+    // Token for the worker
     protected String token;
 
+    // The general path of the controller
     protected String path = "";
 
+    // Login information for the worker
     protected Login login;
 
+    /**
+     * Runs before each test and logs in
+     */
     @BeforeEach
     protected void beforeEach() {
         token = authenticationService.login(login.username(), login.password()).get();
@@ -57,19 +66,19 @@ public class ControllerParentTests extends BaseTests {
         return readValue(postMockMvcResult(path2, content), type);
     }
 
-    private MvcResult isOk(ResultActions result) throws Exception {
-        return result.andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
-    }
-
     protected MvcResult getMockMvcResult(String path2) throws Exception {
         return isOk(getMockMvcBuilder(path2));
     }
 
-    private <T> T readValue(MvcResult result, Class<T> type) throws Exception {
-        return objectMapper.readValue(result.getResponse().getContentAsString(), type);
-    }
-
     protected <T> T getMockMvcResultType(String path2, Class<T> type) throws Exception {
         return readValue(getMockMvcResult(path2), type);
+    }
+
+    private MvcResult isOk(ResultActions result) throws Exception {
+        return result.andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+    }
+
+    private <T> T readValue(MvcResult result, Class<T> type) throws Exception {
+        return objectMapper.readValue(result.getResponse().getContentAsString(), type);
     }
 }

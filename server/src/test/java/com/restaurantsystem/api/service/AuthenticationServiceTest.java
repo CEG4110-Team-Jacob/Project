@@ -20,6 +20,9 @@ import com.restaurantsystem.api.data.Worker.Job;
 import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.shared.manager.PostCreateAccount;
 
+/**
+ * Unit Tests for Authentication Service
+ */
 @SpringBootTest
 @Transactional
 @Rollback(true)
