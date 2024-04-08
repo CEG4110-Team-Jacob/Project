@@ -51,13 +51,18 @@ public class CookIntegrations extends BaseIntegrationTests {
 
             @Override
             public void handleFrame(StompHeaders headers, Object payload) {
-                blockingQueue.offer(Integer.parseInt((String) payload));
+                String payloadString = (String) payload;
+                String[] values = payloadString.split(" ");
+                assertEquals(values.length, 2);
+                blockingQueue.offer(Integer.parseInt(values[0]));
+                blockingQueue.offer(Integer.parseInt(values[1]));
             }
         });
         cookController.setOrderStatus(cookT, new PostSetStatus(Status.Cooked, 2));
         var returnValue = blockingQueue.poll(10, TimeUnit.SECONDS);
-        System.out.println(returnValue);
         assertEquals(returnValue, 2);
+        returnValue = blockingQueue.poll(1000, TimeUnit.SECONDS);
+        assertEquals(returnValue, 3);
     }
 
     @Test

@@ -93,7 +93,8 @@ public class CookController {
         order = Optional.of(orderRepository.save(order.get()));
         if (Status.Cooked == body.status()) {
             messagingTemplate.convertAndSend("/topic/order/" +
-                    order.get().getWaiter().getId(), Integer.toString(order.get().getId()));
+                    order.get().getWaiter().getId(),
+                    Integer.toString(order.get().getId()) + " " + Integer.toString(order.get().getTable().getNumber()));
         }
         return new ResponseEntity<>(true, HttpStatus.OK);
     }

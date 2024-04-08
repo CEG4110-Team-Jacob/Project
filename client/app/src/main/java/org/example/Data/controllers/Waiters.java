@@ -3,6 +3,9 @@ package org.example.Data.controllers;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
+
+import javax.swing.JOptionPane;
 
 import org.example.Data.controllers.Waiters.WaiterOrder.ListOrders;
 import org.example.Data.controllers.Waiters.WaiterTable.ListTables;
@@ -10,6 +13,7 @@ import org.example.Data.enums.Status;
 import org.example.Data.records.Item;
 import org.example.Data.utils.GetMethods;
 import org.example.Data.utils.PostMethods;
+import org.example.Data.utils.Websocket;
 
 public class Waiters {
     public record WaiterOrder(int id, List<Item> items, Date timeOrdered, Status status, int totalPrice, Table table) {
@@ -44,6 +48,21 @@ public class Waiters {
     private static PostMethods<Integer, Boolean> cancelOrder = new PostMethods<>("/waiter/cancelOrder",
             Boolean.class);
     private static PostMethods<Integer, Boolean> orderDone = new PostMethods<>("/waiter/orderDone", Boolean.class);
+    private static Websocket<String> orderCooked = new Websocket<>(o -> {
+        try (
+                Scanner scanner = new Scanner(o);) {
+            var orderId = scanner.nextInt();
+            var tableNumber = scanner.nextInt();
+            JOptionPane.showMessageDialog(null, "Order " + orderId + " at table " + tableNumber + " Cooked.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }, String.class, "/topic/order/");
+
+    public static void startOrderCooked() {
+        System.out.println("Started");
+        orderCooked.start();
+    }
 
     public static Optional<Boolean> orderDone(Integer body) {
         return orderDone.post(body);
@@ -55,6 +74,8 @@ public class Waiters {
 
     public static void reset() {
         orders.reset();
+        tables.reset();
+        orderCooked.stop();
     }
 
     public static Optional<ListOrders> getOrders() {
