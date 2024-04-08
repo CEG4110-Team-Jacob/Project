@@ -149,7 +149,6 @@ public class ManagerControllerTests extends ControllerParentTests {
         });
         postMockMvcResult("/message", toJson(payload));
         String message = blockingQueue.poll(10, TimeUnit.SECONDS);
-        System.out.println(message);
         assertEquals(message, "Hello Waiter");
     }
 }
