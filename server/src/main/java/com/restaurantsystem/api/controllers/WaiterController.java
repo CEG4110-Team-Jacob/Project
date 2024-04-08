@@ -38,17 +38,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping(path = "/waiter")
 public class WaiterController {
+    // The statuses of current orders
     private static final List<Status> TABLE_OCCUPIED = Arrays.asList(Status.InProgress, Status.Ordered, Status.Cooked,
             Status.Delivered);
 
     /**
-     * Record that waiters get for all the orders
+     * All the orders the waiter has placed and are not completed
      */
     public record Orders(List<GetOrderWaiter> orders) {
     }
 
     /**
-     * TableList
+     * Table List
      */
     public record TableList(List<TableProjection> tables) {
     }
@@ -72,15 +73,16 @@ public class WaiterController {
      */
     @GetMapping("/order")
     public ResponseEntity<Orders> getOrder(@RequestParam(value = "t") String token) {
+        // Authenticate
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(token, Job.Waiter);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        // Get the orders
         List<GetOrderWaiter> order = orderRepository.findAllByStatusInAndWaiter(
                 TABLE_OCCUPIED, worker.get(),
                 GetOrderWaiter.class);
-        ResponseEntity<Orders> orders = new ResponseEntity<Orders>(new Orders(order),
+        return new ResponseEntity<Orders>(new Orders(order),
                 HttpStatus.OK);
-        return orders;
     }
 
     /**
@@ -94,9 +96,11 @@ public class WaiterController {
     @Transactional
     public ResponseEntity<Integer> addOrder(@RequestBody PostOrderWaiter order,
             @RequestParam(value = "t") String token) {
+        // Authenticate
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(token, Job.Waiter);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        // Create the order
         Order o = new Order();
         List<Item> items = new ArrayList<>();
         order.items().stream().forEach(item -> items.add(new Item(item)));
@@ -106,9 +110,12 @@ public class WaiterController {
         o.setTotalPrice();
         o.setStatus(Status.Ordered);
         o.setWaiter(worker.get());
+        // Get the table
         Optional<Table> table = tableRepository.findById(order.tableId());
+        // Check the table's occupation
         if (table.isEmpty() || table.get().isOccupied())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        // Update the table and add the order
         o.setTable(table.get());
         o = orderRepository.save(o);
         table.get().setOccupied(true);
@@ -117,38 +124,55 @@ public class WaiterController {
     }
 
     /**
-     * Marks an order as complete
+     * Marks an order as Delivered
      * 
      * @param orderId
      * @param token
+     * @return Response
      */
     @PostMapping("/completeOrder")
     @Transactional
     public ResponseEntity<Boolean> completeOrder(@RequestBody Integer orderId,
             @RequestParam(value = "t") String token) {
+        // Authenticate
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(token, Job.Waiter);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        // Get the order
         Optional<Order> order = orderRepository.findById(orderId);
+        // Check the status of the order
         if (order.isEmpty() || order.get().getStatus() != Status.Cooked)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        // Update the order
         order.get().setStatus(Status.Delivered);
         orderRepository.save(order.get());
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
+    /**
+     * Mark an order as completed
+     * 
+     * @param orderId
+     * @param token
+     * @return Response
+     */
     @PostMapping("/orderDone")
     @Transactional
     public ResponseEntity<Boolean> orderDone(@RequestBody Integer orderId,
             @RequestParam(value = "t") String token) {
+        // Authenticate
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(token, Job.Waiter);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        // Get the order
         Optional<Order> order = orderRepository.findById(orderId);
+        // Check the status of the order
         if (order.isEmpty() || order.get().getStatus() != Status.Delivered)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        // Update the order
         order.get().setStatus(Status.Completed);
         order = Optional.of(orderRepository.save(order.get()));
+        // Update the table
         Table table = order.get().getTable();
         table.setOccupied(false);
         tableRepository.save(table);
@@ -160,16 +184,21 @@ public class WaiterController {
      * 
      * @param orderId
      * @param token
+     * @return Response
      */
     @PostMapping("/cancelOrder")
     @Transactional
     public ResponseEntity<Boolean> cancelOrder(@RequestBody Integer orderId, @RequestParam(value = "t") String token) {
+        // Authenticate
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(token, Job.Waiter);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        // Get the order
         Optional<Order> order = orderRepository.findById(orderId);
+        // Update the order
         order.get().setStatus(Status.Canceled);
         order = Optional.of(orderRepository.save(order.get()));
+        // Update the table
         Table table = order.get().getTable();
         table.setOccupied(false);
         tableRepository.save(table);
@@ -184,9 +213,11 @@ public class WaiterController {
      */
     @GetMapping("/tables")
     public ResponseEntity<TableList> getTables(@RequestParam String t) {
+        // Authenticate
         Optional<Worker> worker = authenticationService.hasJobAndAuthenticate(t, Job.Waiter);
         if (worker.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        // Gets all the tables
         List<TableProjection> tables = tableRepository.findAllByIsActive(true, TableProjection.class);
         return new ResponseEntity<>(new TableList(tables), HttpStatus.OK);
     }

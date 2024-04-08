@@ -20,6 +20,9 @@ import com.restaurantsystem.api.controllers.ManagerController;
 import com.restaurantsystem.api.controllers.WaiterController;
 import com.restaurantsystem.api.service.AuthenticationService;
 
+/**
+ * Base Class for Integration Tests
+ */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class BaseIntegrationTests {
     @Autowired
@@ -50,10 +53,9 @@ public class BaseIntegrationTests {
     @Autowired
     protected ManagerController managerController;
 
-    private String login(Login login) {
-        return authenticationService.login(login.username(), login.password()).get();
-    }
-
+    /**
+     * Logs in to every worker type and setup websocket.
+     */
     @BeforeEach
     public void beforeEach() {
         waiterT = login(DatabasePopulate.Waiter1);
@@ -68,7 +70,12 @@ public class BaseIntegrationTests {
         client.setMessageConverter(new StringMessageConverter());
     }
 
+    /** Gets the Websocket Endpoint */
     protected String getWSUrl() {
         return "ws://localhost:" + port + "/websocket";
+    }
+
+    private String login(Login login) {
+        return authenticationService.login(login.username(), login.password()).get();
     }
 }

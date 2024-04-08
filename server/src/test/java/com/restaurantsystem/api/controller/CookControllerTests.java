@@ -23,6 +23,9 @@ import com.restaurantsystem.api.repos.ItemRepository;
 import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.shared.TestSharedItem;
 
+/**
+ * Tests for CookController's APIs
+ */
 @Transactional
 @Rollback(true)
 public class CookControllerTests extends ControllerParentTests {

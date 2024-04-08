@@ -13,6 +13,9 @@ import com.restaurantsystem.api.data.Table;
 import com.restaurantsystem.api.repos.TableRepository;
 import com.restaurantsystem.api.shared.manager.PostTable;
 
+/**
+ * Unit Tests for Table Service
+ */
 @Rollback(true)
 @Transactional
 public class TableServiceTest extends BaseTests {

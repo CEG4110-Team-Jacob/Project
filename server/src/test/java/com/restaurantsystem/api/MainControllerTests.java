@@ -14,6 +14,9 @@ import com.restaurantsystem.api.shared.ListOfItems;
 
 import jakarta.transaction.Transactional;
 
+/**
+ * Tests the APIs in MainController
+ */
 @Transactional
 @Rollback(true)
 public class MainControllerTests extends ControllerParentTests {

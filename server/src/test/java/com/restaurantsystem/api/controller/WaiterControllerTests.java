@@ -25,11 +25,34 @@ import com.restaurantsystem.api.repos.WorkerRepository;
 import com.restaurantsystem.api.shared.TestSharedItem;
 import com.restaurantsystem.api.shared.waiter.PostOrderWaiter;
 
+/**
+ * Tests for Waiter APIs
+ */
 @Transactional
 @Rollback(true)
 public class WaiterControllerTests extends ControllerParentTests {
+    public record WaiterTable(
+            int id,
+            int number, WaiterDetails waiter, boolean isOccupied, int numSeats, int x, int y) {
+        public record WaiterDetails(String firstName, String lastName, int id) {
+        }
+
+        public record ListTables(List<WaiterTable> tables) {
+        }
+    }
+
+    record ListOfOrders(List<OrderRecord> orders) {
+        record OrderRecord(int id, List<TestSharedItem> items, Date timeOrdered, Status status,
+                int totalPrice, Table table) {
+        }
+
+        public record Table(int id) {
+        }
+    }
+
     @Autowired
     private WorkerRepository workerRepository;
+
     @Autowired
     private TableRepository tableRepository;
 
@@ -47,15 +70,6 @@ public class WaiterControllerTests extends ControllerParentTests {
         assertNotNull(orderRepository);
     }
 
-    record ListOfOrders(List<OrderRecord> orders) {
-        record OrderRecord(int id, List<TestSharedItem> items, Date timeOrdered, Status status,
-                int totalPrice, Table table) {
-        }
-
-        public record Table(int id) {
-        }
-    }
-
     @Test
     void getOrder() throws Exception {
         var orders = getMockMvcResultType("/order", ListOfOrders.class);
@@ -65,16 +79,6 @@ public class WaiterControllerTests extends ControllerParentTests {
         assertTrue(hostToken.isPresent());
         getMockMvcBuilderWithToken("/order", hostToken.get())
                 .andExpect(MockMvcResultMatchers.status().isUnauthorized());
-    }
-
-    public record WaiterTable(
-            int id,
-            int number, WaiterDetails waiter, boolean isOccupied, int numSeats, int x, int y) {
-        public record WaiterDetails(String firstName, String lastName, int id) {
-        }
-
-        public record ListTables(List<WaiterTable> tables) {
-        }
     }
 
     @Test

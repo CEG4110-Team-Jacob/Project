@@ -22,6 +22,9 @@ import com.restaurantsystem.api.repos.OrderRepository;
 import com.restaurantsystem.api.repos.TableRepository;
 import com.restaurantsystem.api.repos.WorkerRepository;
 
+/**
+ * Populates the database in tests
+ */
 @Profile("test")
 @Component
 public class DatabasePopulate implements CommandLineRunner {

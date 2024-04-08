@@ -22,20 +22,32 @@ public class Table {
     // The table number staff will see
     private int number;
 
-    @ManyToOne
     /**
      * The waiter who is assigned to the table
      */
+    @ManyToOne
     private Worker waiter;
-    @OneToMany
     /**
      * All the orders placed on the table
      */
+    @OneToMany
     private Set<Order> orders;
+    /**
+     * If the table is occupied
+     */
     private boolean isOccupied;
+    /**
+     * The number of seats at the table
+     */
     private int numSeats;
 
+    /**
+     * The x position of the table
+     */
     private int x;
+    /**
+     * The y position of the table
+     */
     private int y;
 
     private boolean isActive = true;

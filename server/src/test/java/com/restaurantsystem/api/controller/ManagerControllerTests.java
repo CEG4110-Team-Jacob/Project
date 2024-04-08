@@ -20,6 +20,9 @@ import com.restaurantsystem.api.shared.manager.ManagerViewWorker.ListWorkers;
 import com.restaurantsystem.api.shared.manager.PostCreateAccount;
 import com.restaurantsystem.api.shared.manager.PostTable;
 
+/**
+ * Tests for Manager's APIs
+ */
 @Transactional
 @Rollback(true)
 public class ManagerControllerTests extends ControllerParentTests {
