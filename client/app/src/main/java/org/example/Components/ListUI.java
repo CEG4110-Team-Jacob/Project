@@ -4,6 +4,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+/**
+ * Makes a simple List
+ */
 public class ListUI extends JScrollPane {
     public JPanel list;
 
@@ -14,10 +17,16 @@ public class ListUI extends JScrollPane {
         setViewportView(list);
     }
 
+    /**
+     * Clears the list
+     */
     public void clear() {
         list.removeAll();
     }
 
+    /**
+     * Redraws the list
+     */
     public void update() {
         revalidate();
         repaint();

@@ -15,6 +15,9 @@ import org.example.Data.controllers.Managers.ManagerViewWorker;
 import org.example.Data.controllers.Managers.PostSendMessage;
 
 // ChatGPT Modified Code
+/**
+ * Manager's view of a worker
+ */
 public class ManagerWaiterView extends JPanel {
     JPanel inputPanel;
     private int id;
@@ -29,14 +32,21 @@ public class ManagerWaiterView extends JPanel {
         setBackground(Color.WHITE);
     }
 
+    /**
+     * Updates the view to worker
+     * 
+     * @param worker
+     * @throws Exception
+     */
     public void update(ManagerViewWorker worker) throws Exception {
         if (inputPanel != null)
             remove(inputPanel);
+
         id = worker.id();
 
         inputPanel = new JPanel(new GridLayout(0, 2));
         inputPanel.setBackground(Color.WHITE);
-
+        // Create the details of the worker
         inputPanel.add(createFieldLabel("Name:"));
         inputPanel.add(createFieldValue(worker.firstName() + " " + worker.lastName()));
 
