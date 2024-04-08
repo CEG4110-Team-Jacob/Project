@@ -3,11 +3,11 @@ package org.example.Data.controllers;
 import java.util.List;
 import java.util.Optional;
 
-import org.example.Data.Utils.GetMethods;
-import org.example.Data.Utils.PostMethods;
 import org.example.Data.controllers.Managers.ManagerViewWorker.ListWorkers;
 import org.example.Data.enums.ItemType;
 import org.example.Data.enums.Job;
+import org.example.Data.utils.GetMethods;
+import org.example.Data.utils.PostMethods;
 
 public class Managers {
     public record PostCreateWorker(String firstName, String lastName, int age, Job job, String username,

@@ -4,12 +4,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.example.Data.Utils.GetMethods;
-import org.example.Data.Utils.PostMethods;
 import org.example.Data.controllers.Waiters.WaiterOrder.ListOrders;
 import org.example.Data.controllers.Waiters.WaiterTable.ListTables;
 import org.example.Data.enums.Status;
 import org.example.Data.records.Item;
+import org.example.Data.utils.GetMethods;
+import org.example.Data.utils.PostMethods;
 
 public class Waiters {
     public record WaiterOrder(int id, List<Item> items, Date timeOrdered, Status status, int totalPrice, Table table) {

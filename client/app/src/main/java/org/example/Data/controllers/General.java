@@ -4,15 +4,17 @@ import java.net.URI;
 import java.util.Optional;
 
 import org.example.Data.Data;
-import org.example.Data.Utils.GetMethods;
-import org.example.Data.Utils.PostMethods;
 import org.example.Data.records.Item;
 import org.example.Data.records.Item.ListItems;
+import org.example.Data.utils.GetMethods;
+import org.example.Data.utils.PostMethods;
 import org.example.Data.records.WorkerDetails;
 import org.springframework.web.client.RestClient;
 
 public class General {
-    public static final String SERVER_URL = "http://localhost:8080";
+    private static final String URL_BASE = "localhost:8080";
+    public static final String SERVER_URL = "http://" + URL_BASE;
+    public static final String WEBSOCKET_URL = "ws://" + URL_BASE;
     public static URI URI;
     public static final RestClient restClient = RestClient.create();
 
