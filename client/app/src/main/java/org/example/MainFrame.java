@@ -34,6 +34,7 @@ public class MainFrame extends JFrame {
             var workerDetails = General.getDetails();
             if (workerDetails.isEmpty())
                 JOptionPane.showMessageDialog(login, "Something went wrong with getDetails");
+            General.messageStart();
             switch (workerDetails.get().job()) {
                 case Cook:
                     var cookUI = new CookOptions(() -> setMainContentPane(login));

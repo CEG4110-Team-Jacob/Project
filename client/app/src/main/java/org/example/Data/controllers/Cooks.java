@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.example.Data.records.Item;
-import org.example.Data.Utils.GetMethods;
-import org.example.Data.Utils.PostMethods;
+import org.example.Data.utils.GetMethods;
+import org.example.Data.utils.PostMethods;
 import org.example.Data.controllers.Cooks.CookOrder.ListCookOrders;
 import org.example.Data.enums.Status;
 

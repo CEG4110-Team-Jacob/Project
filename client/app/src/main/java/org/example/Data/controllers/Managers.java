@@ -3,11 +3,11 @@ package org.example.Data.controllers;
 import java.util.List;
 import java.util.Optional;
 
-import org.example.Data.Utils.GetMethods;
-import org.example.Data.Utils.PostMethods;
 import org.example.Data.controllers.Managers.ManagerViewWorker.ListWorkers;
 import org.example.Data.enums.ItemType;
 import org.example.Data.enums.Job;
+import org.example.Data.utils.GetMethods;
+import org.example.Data.utils.PostMethods;
 
 public class Managers {
     public record PostCreateWorker(String firstName, String lastName, int age, Job job, String username,
@@ -34,6 +34,9 @@ public class Managers {
             boolean isActive) {
     }
 
+    public record PostSendMessage(String content, int id) {
+    }
+
     private static PostMethods<PostCreateWorker, Boolean> createWorker = new PostMethods<>("/manager/createWorker",
             Boolean.class);
 
@@ -51,6 +54,13 @@ public class Managers {
     private static PostMethods<Integer, Boolean> deleteItem = new PostMethods<>("/manager/deleteItem", Boolean.class);
 
     private static PostMethods<PostSetTable, Boolean> setTable = new PostMethods<>("/manager/setTable", Boolean.class);
+
+    private static PostMethods<PostSendMessage, Boolean> sendMessage = new PostMethods<>("/manager/message",
+            boolean.class);
+
+    public static Optional<Boolean> sendMessage(PostSendMessage body) {
+        return sendMessage.post(body);
+    }
 
     public static Optional<Boolean> setTable(PostSetTable body) {
         return setTable.post(body);

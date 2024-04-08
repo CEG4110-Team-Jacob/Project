@@ -2,6 +2,9 @@ package com.restaurantsystem.api.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
@@ -11,16 +14,24 @@ import com.restaurantsystem.api.BaseTests;
 import com.restaurantsystem.api.DatabasePopulate.Login;
 import com.restaurantsystem.api.service.AuthenticationService;
 
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class ControllerParentTests extends BaseTests {
 
     @Autowired
     protected AuthenticationService authenticationService;
+
+    @LocalServerPort
+    protected int port;
 
     protected String token;
 
     protected String path = "";
 
     protected Login login;
+
+    protected String getWSUrl() {
+        return "ws://localhost:" + port + "/websocket";
+    }
 
     @BeforeEach
     protected void beforeEach() {

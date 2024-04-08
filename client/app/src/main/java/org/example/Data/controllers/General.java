@@ -3,16 +3,21 @@ package org.example.Data.controllers;
 import java.net.URI;
 import java.util.Optional;
 
+import javax.swing.JOptionPane;
+
 import org.example.Data.Data;
-import org.example.Data.Utils.GetMethods;
-import org.example.Data.Utils.PostMethods;
 import org.example.Data.records.Item;
 import org.example.Data.records.Item.ListItems;
+import org.example.Data.utils.GetMethods;
+import org.example.Data.utils.PostMethods;
+import org.example.Data.utils.Websocket;
 import org.example.Data.records.WorkerDetails;
 import org.springframework.web.client.RestClient;
 
 public class General {
-    public static final String SERVER_URL = "http://localhost:8080";
+    private static final String URL_BASE = "localhost:8080";
+    public static final String SERVER_URL = "http://" + URL_BASE;
+    public static final String WEBSOCKET_URL = "ws://" + URL_BASE + "/websocket";
     public static URI URI;
     public static final RestClient restClient = RestClient.create();
 
@@ -20,6 +25,11 @@ public class General {
     public static GetMethods<String> token = new GetMethods<>("/login", String.class);
     public static PostMethods<String, Void> logout = new PostMethods<>("/logout", Void.class);
     private static GetMethods<Item.ListItems> items = new GetMethods<>("/items", Item.ListItems.class);
+    private static Websocket<String> messageWS = new Websocket<>((msg) -> {
+        if (msg == null)
+            return;
+        JOptionPane.showMessageDialog(null, msg);
+    }, String.class, "/topic/message/");
 
     static {
         try {
@@ -37,6 +47,11 @@ public class General {
         details.reset();
         token.reset();
         items.reset();
+        messageWS.stop();
+    }
+
+    public static void messageStart() {
+        messageWS.start();
     }
 
     public static Optional<String> login(String uname, String password) {

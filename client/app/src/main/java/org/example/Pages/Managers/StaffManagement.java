@@ -123,7 +123,7 @@ public class StaffManagement extends JPanel {
 
             update();
 
-            add(centerPanel);
+            add(centerPanel, BorderLayout.CENTER);
 
             // Create a JScrollPane to accommodate the list of names
             JScrollPane scrollPane = new JScrollPane(leftPanel);
