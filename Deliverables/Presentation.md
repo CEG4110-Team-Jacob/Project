@@ -11,6 +11,11 @@ TITLE SLIDE
 ELEVATOR PITCH
 
 ------------------------------------------
+Created By Owen
+
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/ea262548-8386-44dc-958d-7567208bb858)
+
+-----------------------------------------
 
 USER STORIES
 
