@@ -58,6 +58,36 @@ LOCK TABLES `items` WRITE;
 UNLOCK TABLES;
 
 --
+-- Temporary view structure for view `manager view active worker`
+--
+
+DROP TABLE IF EXISTS `manager view active worker`;
+/*!50001 DROP VIEW IF EXISTS `manager view active worker`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `manager view active worker` AS SELECT 
+ 1 AS `LastName`,
+ 1 AS `FirstName`,
+ 1 AS `Job`,
+ 1 AS `Age`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `manager view inactive worker`
+--
+
+DROP TABLE IF EXISTS `manager view inactive worker`;
+/*!50001 DROP VIEW IF EXISTS `manager view inactive worker`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `manager view inactive worker` AS SELECT 
+ 1 AS `LastName`,
+ 1 AS `FirstName`,
+ 1 AS `Job`,
+ 1 AS `Age`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `orders`
 --
 
@@ -228,6 +258,42 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `manager view active worker`
+--
+
+/*!50001 DROP VIEW IF EXISTS `manager view active worker`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `manager view active worker` AS select `worker`.`LastName` AS `LastName`,`worker`.`FirstName` AS `FirstName`,`worker`.`Job` AS `Job`,`worker`.`Age` AS `Age` from `worker` where (`worker`.`IsActive` = 1) group by `worker`.`Job` order by `worker`.`LastName` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `manager view inactive worker`
+--
+
+/*!50001 DROP VIEW IF EXISTS `manager view inactive worker`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `manager view inactive worker` AS select `worker`.`LastName` AS `LastName`,`worker`.`FirstName` AS `FirstName`,`worker`.`Job` AS `Job`,`worker`.`Age` AS `Age` from `worker` where (`worker`.`IsActive` = 0) group by `worker`.`Job` order by `worker`.`LastName` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `totalcost`
 --
 
@@ -272,4 +338,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-31 19:19:23
+-- Dump completed on 2024-04-09 11:16:02
