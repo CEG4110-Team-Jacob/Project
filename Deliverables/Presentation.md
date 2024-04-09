@@ -26,7 +26,7 @@ ARCHITECTURE
 -------------------------------------
 Created By Owen
 
-![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/d2657a9a-f248-4e13-b751-9a4c55cdabb3)
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/99e9f01c-1845-434a-bcda-05a9f3300d3e)
 
 -------------------------------------
 
@@ -39,42 +39,42 @@ SERVER REQUIREMENTS
 --------------------------------------
 Created By Owen
 
-![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/ef0fcf1d-59d9-4304-8a5f-7456677aedfc)
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/f0d1b041-f757-4034-b604-e32e3bc95d0a)
 
 --------------------------------------
 Created By Owen
 
-![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/cf4b24b3-367a-4dfe-939a-b829f1587d73)
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/b8a89656-e67a-4d88-87c7-d2f87587063f)
 
 --------------------------------------
 Created By Owen
 
-![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/dce31bf7-f38d-44d5-809d-03ab74bf6112)
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/ca7c0d1e-3bf6-4f07-82ca-ed3f9444db82)
 
 --------------------------------------
 Created By Owen
 
-![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/2437c2b1-17ae-447a-99e1-55dc644e7f30)
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/939386f6-00a3-4545-9d39-b07361fcf708)
 
 --------------------------------------
 Created By Owen
 
-![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/3185daf0-c265-4a73-8248-d901818027a8)
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/4fe5ead8-bbc3-4b1d-9771-618bb5c573d3)
 
 --------------------------------------
 Created By Owen
 
-![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/4a92c461-fd76-4aa7-820b-3c5890fbcd62)
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/37370446-821d-42c8-8f8b-1dd910908860)
 
 --------------------------------------
 Created By Owen
 
-![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/f5f8d433-7cb4-4d51-bfbd-b86183e5263b)
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/469f561d-20e5-4420-bbe8-17c7b6fa6601)
 
 --------------------------------------
 Created By Owen
 
-![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/8b978bbd-1879-4557-b64a-dada35060657)
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/e0e4d251-2399-4cb6-b631-ae200578bf9f)
 
 --------------------------------------
 
