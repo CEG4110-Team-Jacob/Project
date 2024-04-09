@@ -20,6 +20,21 @@ Created By Owen
 USER STORIES
 
 ------------------------------------------
+Created By Jacob
+
+![image](../img/UISlide1.PNG)
+
+------------------------------------
+Created By Jacob
+
+![image](../img/UISlide2.PNG)
+
+------------------------------------
+Created By Jacob
+
+![image](../img/UISlide3.PNG)
+
+------------------------------------
 Created By Owen
 
 ![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/1ca0fa5c-2374-4251-ad83-e05843a5f487)
@@ -82,6 +97,50 @@ Created By Owen
 ![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/e0e4d251-2399-4cb6-b631-ae200578bf9f)
 
 --------------------------------------
+
+UI REQUIREMENTS
+
+------------------------------------
+Created By Jacob
+
+![image](../img/UISlide4.PNG)
+
+------------------------------------
+Created By Jacob
+
+![image](../img/UISlide5.PNG)
+
+------------------------------------
+Created By Jacob
+
+![image](../img/UISlide6.PNG)
+
+------------------------------------
+Created By Jacob
+
+![image](../img/UISlide7.PNG)
+
+------------------------------------
+Created By Jacob
+
+![image](../img/UISlide8.PNG)
+
+------------------------------------
+Created By Jacob
+
+![image](../img/UISlide9.PNG)
+
+------------------------------------
+Created By Jacob
+
+![image](../img/UISlide10.PNG)
+
+------------------------------------
+Created By Jacob
+
+![image](../img/UISlide11.PNG)
+
+------------------------------------
 
 DEMONSTRATION
 
