@@ -1,2 +1,7 @@
 // api call for order query
-GET https://localhost:8080/order_Id
+GET https://localhost:8080/OrderId
+
+// api call for employee information
+
+GET https://localhost:8000/[Waiter/Host/Cook]
+
