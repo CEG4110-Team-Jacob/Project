@@ -3,5 +3,5 @@ GET https://localhost:8080/getOrders
 
 // api call for employee information
 
-GET https://localhost:8000/[Waiter/Host/Cook]
+GET https://localhost:8000/getWorkers
 
