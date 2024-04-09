@@ -1,2 +1,2 @@
 // api call for order query
-GET https://localhost/restaurantsystem/{waiter_id}/orders
+GET https://localhost:8080/order_Id
