@@ -3,5 +3,28 @@ GET https://localhost:8080/getOrders
 
 // api call for employee information
 
-GET https://localhost:8000/getWorkers
+GET https://localhost:8000/manager/workers
+
+// api call for making new employee
+
+POST https://localhost:8000/manager/createWorker
+{
+
+}
+
+//api call for login
+
+GET https://localhost:8000/login
+
+//api call for logout
+
+GET https://localhost:8000/logout
+
+//api call for worker currently logged in
+
+GET https://localhost:800/getDetails
+
+//
+
+
 
