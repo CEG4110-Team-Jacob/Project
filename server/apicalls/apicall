@@ -4,14 +4,13 @@ GET https://localhost:8080/getOrders
 
 // api call for employee information
 
-GET https://localhost:8000/manager/workers
+GET https://localhost:8080/manager/workers
 
-// api call for making new employee
+// api call for sending out an announcement
 
-
-POST https://localhost:8000/manager/createWorker
+POST https://localhost:8080/manager/sendMessage
 {
-
+  "content": "INSERT CONTENT HERE"
 }
 
 //main controller api calls
