@@ -20,6 +20,11 @@ Created By Owen
 USER STORIES
 
 ------------------------------------------
+Created By Jehoshua
+
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/e8ff7060-4681-447e-b3f8-c7e343154eb6)
+
+------------------------------------
 Created By Jacob
 
 ![image](../img/UISlide1.PNG)
@@ -141,7 +146,44 @@ Created By Jacob
 ![image](../img/UISlide11.PNG)
 
 ------------------------------------
+FUNCTION UI REQUIREMENTS
+------------------------------------
+Created By Jehoshua
 
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/f605c43e-d24e-4c2d-a3e7-b11d182f4c7b)
+
+--------------------------------------
+
+Created By Jehoshua
+
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/7d7f3749-6c7e-49b0-8dd4-ea15c5826aa8)
+
+--------------------------------------
+Created By Jehoshua
+
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/8161ab28-4d78-4387-a8d8-62f043688073)
+
+--------------------------------------
+Created By Jehoshua
+
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/3f034b3b-50b4-4482-8813-b356c4d77486)
+
+--------------------------------------
+Created By Jehoshua
+
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/3493b0d3-7de6-4bc2-93f8-ba41a291b13c)
+
+--------------------------------------
+Created By Jehoshua
+
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/13e1ea46-7703-47ba-97d6-3331660e48fc)
+
+--------------------------------------
+Created By Jehoshua
+
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/678a7d71-2dee-469f-9030-20f700b19857)
+
+--------------------------------------
 DEMONSTRATION
 
 --------------------------------------
