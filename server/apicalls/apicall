@@ -1,3 +1,4 @@
+// manager controller api calls
 // api call for order query
 GET https://localhost:8080/getOrders
 
@@ -7,14 +8,16 @@ GET https://localhost:8000/manager/workers
 
 // api call for making new employee
 
+
 POST https://localhost:8000/manager/createWorker
 {
 
 }
 
+//main controller api calls
 //api call for login
 
-GET https://localhost:8000/login
+GET https://localhost:8080/login
 
 //api call for logout
 
@@ -22,9 +25,11 @@ GET https://localhost:8000/logout
 
 //api call for worker currently logged in
 
-GET https://localhost:800/getDetails
+GET https://localhost:8080/getDetails
 
-//
+//api call to return list of items
+
+GET https://localhost:8080/getItems
 
 
 
