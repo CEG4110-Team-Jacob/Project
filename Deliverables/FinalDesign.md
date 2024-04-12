@@ -1,10 +1,7 @@
 # Restaurant Ordering System Design Specification
 
 ## Functional
-![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/64d075f3-e01e-49b4-bc93-83616f4c4d9d)
-
-![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/d40fa14f-3b08-4aa0-9600-de2a4eebf165)
-
+![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/f3febf4a-71bf-44c6-a9b2-bb5394efd9ea)
 
 
 1. The waiters view of the table features the name of the waiter and table number assigned to the waiter by the manager, current time, list of items on the menu as a result of their availability in stock. After selection of the orders for the table, the total price, tax and the list of items are listed in the waiters tab. As soon as the order is taken, the list are displayed on the cooks side.
@@ -21,7 +18,6 @@
 
 
 4. The managers tab has different sections that can be selected by the manager.
-![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/4c238a61-9fdf-4cb6-8597-3e10165b03e4)
 
 
    1. In the section of menu, there is a display of product just as the same way it shown on the menu. There is an edit section on the page. when the button is clicked, there are buttons that allow the manager to both add, click or edit items in the menu.

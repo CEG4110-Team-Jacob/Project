@@ -1,2 +1,34 @@
+// manager controller api calls
 // api call for order query
-GET https://localhost/restaurantsystem/{waiter_id}/orders
+GET https://localhost:8080/getOrders
+
+// api call for employee information
+
+GET https://localhost:8080/manager/workers
+
+// api call for sending out an announcement
+
+POST https://localhost:8080/manager/sendMessage
+{
+  "content": "INSERT CONTENT HERE"
+}
+
+//main controller api calls
+//api call for login
+
+GET https://localhost:8080/login
+
+//api call for logout
+
+GET https://localhost:8000/logout
+
+//api call for worker currently logged in
+
+GET https://localhost:8080/getDetails
+
+//api call to return list of items
+
+GET https://localhost:8080/getItems
+
+
+

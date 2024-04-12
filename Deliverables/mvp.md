@@ -65,6 +65,6 @@
       4. Manager: ![manager](../img/ManagerUI.png)
    2. The manager has access to all the pages except for the cooks "orders" page.
       1. The manager can view information on other staff members. ![manager view](../img/StaffInformation.png)
-      2. The manager cannot message staff members at this time.
+      2. The manager can message staff memebers. ![Messaging](../img/Message.gif)
 6. The manager can swap views at any time by clicking the exit button and then a different page to view.
-7. Documentation has not been written at this time.
+7. Documentation can be found [here](https://github.com/CEG4110-Team-Jacob/Project/wiki/User-Interface)

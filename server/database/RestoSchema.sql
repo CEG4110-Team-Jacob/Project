@@ -49,13 +49,34 @@ CREATE TABLE `items` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `items`
+-- Temporary view structure for view `manager view active worker`
 --
 
-LOCK TABLES `items` WRITE;
-/*!40000 ALTER TABLE `items` DISABLE KEYS */;
-/*!40000 ALTER TABLE `items` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `manager view active worker`;
+/*!50001 DROP VIEW IF EXISTS `manager view active worker`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `manager view active worker` AS SELECT 
+ 1 AS `LastName`,
+ 1 AS `FirstName`,
+ 1 AS `Job`,
+ 1 AS `Age`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `manager view inactive worker`
+--
+
+DROP TABLE IF EXISTS `manager view inactive worker`;
+/*!50001 DROP VIEW IF EXISTS `manager view inactive worker`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `manager view inactive worker` AS SELECT 
+ 1 AS `LastName`,
+ 1 AS `FirstName`,
+ 1 AS `Job`,
+ 1 AS `Age`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `orders`
@@ -80,15 +101,6 @@ CREATE TABLE `orders` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `orders`
---
-
-LOCK TABLES `orders` WRITE;
-/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `orders_has_items`
 --
 
@@ -108,15 +120,6 @@ CREATE TABLE `orders_has_items` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `orders_has_items`
---
-
-LOCK TABLES `orders_has_items` WRITE;
-/*!40000 ALTER TABLE `orders_has_items` DISABLE KEYS */;
-/*!40000 ALTER TABLE `orders_has_items` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tables_table`
 --
 
@@ -129,38 +132,27 @@ CREATE TABLE `tables_table` (
   `TableOccupancy` int NOT NULL,
   `IsOccupied` tinyint NOT NULL,
   `IsActive` varchar(45) NOT NULL,
-  `Worker_WorkerID` int NOT NULL,
+  `Worker_WorkerID` int(10) unsigned zerofill NOT NULL,
   PRIMARY KEY (`TableId`),
   UNIQUE KEY `TableId_UNIQUE` (`TableId`),
-  KEY `fk_Tables_Table_Worker1_idx` (`Worker_WorkerID`),
-  CONSTRAINT `fk_Tables_Table_Worker1` FOREIGN KEY (`Worker_WorkerID`) REFERENCES `worker` (`WorkerID`)
+  KEY `fk_Tables_Table_Worker1_idx` (`Worker_WorkerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tables_table`
+-- Temporary view structure for view `total cost`
 --
 
-LOCK TABLES `tables_table` WRITE;
-/*!40000 ALTER TABLE `tables_table` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tables_table` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Temporary view structure for view `totalcost`
---
-
-DROP TABLE IF EXISTS `totalcost`;
-/*!50001 DROP VIEW IF EXISTS `totalcost`*/;
+DROP TABLE IF EXISTS `total cost`;
+/*!50001 DROP VIEW IF EXISTS `total cost`*/;
 SET @saved_cs_client     = @@character_set_client;
 /*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `totalcost` AS SELECT 
+/*!50001 CREATE VIEW `total cost` AS SELECT 
  1 AS `OrderID`,
- 1 AS `Time_Ordered`,
  1 AS `ItemName`,
  1 AS `Price`,
  1 AS `Quantity`,
- 1 AS `Total_Cost`*/;
+ 1 AS `Price Sum`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -201,15 +193,6 @@ CREATE TABLE `worker` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `worker`
---
-
-LOCK TABLES `worker` WRITE;
-/*!40000 ALTER TABLE `worker` DISABLE KEYS */;
-/*!40000 ALTER TABLE `worker` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Final view structure for view `host view`
 --
 
@@ -228,10 +211,10 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
--- Final view structure for view `totalcost`
+-- Final view structure for view `manager view active worker`
 --
 
-/*!50001 DROP VIEW IF EXISTS `totalcost`*/;
+/*!50001 DROP VIEW IF EXISTS `manager view active worker`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
@@ -240,7 +223,43 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `totalcost` AS select `orders`.`OrderID` AS `OrderID`,`orders`.`Time_Ordered` AS `Time_Ordered`,`items`.`ItemName` AS `ItemName`,`items`.`Price` AS `Price`,`orders_has_items`.`Quantity` AS `Quantity`,sum((`items`.`Price` * `orders_has_items`.`Quantity`)) AS `Total_Cost` from ((`items` join `orders`) join `orders_has_items`) group by `orders`.`OrderID` order by `orders`.`Time_Ordered` desc */;
+/*!50001 VIEW `manager view active worker` AS select `worker`.`LastName` AS `LastName`,`worker`.`FirstName` AS `FirstName`,`worker`.`Job` AS `Job`,`worker`.`Age` AS `Age` from `worker` where (`worker`.`IsActive` = 1) order by `worker`.`Job`,`worker`.`LastName` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `manager view inactive worker`
+--
+
+/*!50001 DROP VIEW IF EXISTS `manager view inactive worker`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `manager view inactive worker` AS select `worker`.`LastName` AS `LastName`,`worker`.`FirstName` AS `FirstName`,`worker`.`Job` AS `Job`,`worker`.`Age` AS `Age` from `worker` where (`worker`.`IsActive` = 0) order by `worker`.`Job`,`worker`.`LastName` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `total cost`
+--
+
+/*!50001 DROP VIEW IF EXISTS `total cost`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `total cost` AS select `orders_has_items`.`Orders_OrderID` AS `OrderID`,`items`.`ItemName` AS `ItemName`,`items`.`Price` AS `Price`,`orders_has_items`.`Quantity` AS `Quantity`,sum((`items`.`Price` * `orders_has_items`.`Quantity`)) AS `Price Sum` from (`items` join `orders_has_items`) where (`orders_has_items`.`Items_ItemID` = `items`.`ItemID`) group by `orders_has_items`.`Orders_OrderID`,`items`.`ItemName`,`items`.`Price`,`orders_has_items`.`Quantity` with rollup */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -258,7 +277,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `waiter view` AS select `worker`.`WorkerID` AS `WorkerID`,`worker`.`FirstName` AS `FirstName`,`worker`.`LastName` AS `LastName`,`tables_table`.`TableNumber` AS `TableNumber` from (`tables_table` join `worker`) where (`worker`.`Job` = 'Waiter') order by `tables_table`.`TableNumber` desc */;
+/*!50001 VIEW `waiter view` AS select `worker`.`WorkerID` AS `WorkerID`,`worker`.`FirstName` AS `FirstName`,`worker`.`LastName` AS `LastName`,`tables_table`.`TableNumber` AS `TableNumber` from (`tables_table` join `worker`) where ((`worker`.`Job` = 'Waiter') and (`tables_table`.`Worker_WorkerID` = `worker`.`WorkerID`)) order by `tables_table`.`TableNumber` desc */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -272,4 +291,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-31 19:19:23
+-- Dump completed on 2024-04-11 17:55:47
