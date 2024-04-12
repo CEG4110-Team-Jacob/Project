@@ -112,8 +112,11 @@ public class WaiterController {
         o.setWaiter(worker.get());
         // Get the table
         Optional<Table> table = tableRepository.findById(order.tableId());
-        // Check the table's occupation
-        if (table.isEmpty() || table.get().isOccupied())
+        if (table.isEmpty())
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        var orders = orderRepository.findAllByStatusIn(TABLE_OCCUPIED, Order.class);
+        var tableOrder = orders.stream().filter(or -> or.getTable().getId() == table.get().getId()).findAny();
+        if (tableOrder.isPresent())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         // Update the table and add the order
         o.setTable(table.get());
