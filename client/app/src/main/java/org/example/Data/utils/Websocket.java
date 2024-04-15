@@ -76,7 +76,7 @@ public class Websocket<T> {
     public void stop() {
         if (client == null)
             return;
-        client.stop();
+        stompSession.disconnect();
         client = null;
     }
 }
