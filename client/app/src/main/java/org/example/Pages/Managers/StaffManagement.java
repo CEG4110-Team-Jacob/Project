@@ -115,7 +115,7 @@ public class StaffManagement extends JPanel {
             rightPanel.add(delButton);
             rightPanel.add(exitButton);
 
-            add(rightPanel, BorderLayout.EAST);
+            add(rightPanel, BorderLayout.NORTH);
             // Creating a center panel for worker information
             JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
             workerInfo = new ManagerWaiterView();
