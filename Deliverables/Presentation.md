@@ -15,6 +15,11 @@ Created By Owen
 
 ![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/ea262548-8386-44dc-958d-7567208bb858)
 
+------------------------------------------
+Created By Chris
+
+![image](https://github.com/CEG4110-Team-Jacob/Project/blob/main/img/Pitch_Slide.jpg)
+
 -----------------------------------------
 
 USER STORIES
@@ -43,6 +48,11 @@ Created By Jacob
 Created By Owen
 
 ![image](https://github.com/CEG4110-Team-Jacob/Project/assets/112273919/1ca0fa5c-2374-4251-ad83-e05843a5f487)
+
+------------------------------------
+Created By Chris
+
+![image](https://github.com/CEG4110-Team-Jacob/Project/blob/main/img/User_Story_DBA.jpg)
 
 ------------------------------------
 
@@ -184,6 +194,23 @@ Created By Jehoshua
 ![image](https://github.com/CEG4110-Team-Jacob/Project/assets/102489053/678a7d71-2dee-469f-9030-20f700b19857)
 
 --------------------------------------
+DATABASE REQUIREMENTS
+--------------------------------------
+Created By Chris
+
+![image](https://github.com/CEG4110-Team-Jacob/Project/blob/main/img/DB_Architecture.jpg)
+
+------------------------------------
+Created By Chris
+
+![image](https://github.com/CEG4110-Team-Jacob/Project/blob/main/img/DB_Documentation.png)
+
+------------------------------------
+Created By Chris
+
+![image](https://github.com/CEG4110-Team-Jacob/Project/blob/main/img/View_Config.jpg)
+
+------------------------------------
 DEMONSTRATION
 
 --------------------------------------
